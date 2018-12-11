@@ -21,7 +21,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	
 	//Filter Course Details by course ID, course Name, credit, startDate
 	@Query("SELECT s from Student s where s.StudentId = :studentId")
-	ArrayList<Student> findStudentByStudentID(@Param("studentId") Integer studentId);
+	Student findStudentByStudentID(@Param("studentId") Integer studentId);
 	//Display All Details Upon Selection | DualFunction
 	@Query("SELECT s from Student s where s.lastName LIKE %:lastName%")
 	ArrayList<Student> findStudentByLastName(@Param("lastName") String lastName);
@@ -30,7 +30,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	ArrayList<Student> findStudentByFirstMidName(@Param("firstMidName") String firstMidName);
 	
 	@Query("SELECT s from Student s where s.username LIKE %:username%")
-	ArrayList<Student> findStudentByUserName(@Param("username") String username);
+	Student findStudentByUserName(@Param("username") String username);
 	
 	
 

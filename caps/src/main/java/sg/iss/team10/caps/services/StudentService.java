@@ -8,13 +8,13 @@ public interface StudentService {
 
 	ArrayList<Student> findAllStudents();
 
-	ArrayList<Student> findStudentByStudentID(Integer studentId);
+	Student findStudentByStudentID(Integer studentId);
 	
 	ArrayList<Student> findStudentByLastName(String lastName);
 	
 	ArrayList<Student> findStudentByFirstMidName(String FirstMidName);
 	
-	ArrayList<Student> findStudentByUserName(String userName);
+	Student findStudentByUserName(String userName);
 
 	Student createStudent(Student s);
 

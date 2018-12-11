@@ -26,11 +26,10 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	@Transactional
-	public  ArrayList<Student> findStudentByStudentID(Integer studentId) {
+	public  Student findStudentByStudentID(Integer studentId) {
 		System.out.println("StudentID"+studentId);	
-		ArrayList<Student> slist = srepo.findStudentByStudentID(studentId); 
-		for (Student current:slist)
-		System.out.println(current.toString());
+		Student slist = srepo.findStudentByStudentID(studentId); 
+		System.out.println(slist.toString());
 		return slist;
 	}
 	
@@ -56,11 +55,10 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Override
 	@Transactional
-	public  ArrayList<Student> findStudentByUserName(String userName) {
+	public  Student findStudentByUserName(String userName) {
 		System.out.println("UserName"+userName);	
-		ArrayList<Student> slist = srepo.findStudentByLastName(userName); 
-		for (Student current:slist)
-		System.out.println(current.toString());
+		Student slist = srepo.findStudentByUserName(userName); 
+		System.out.println(slist.toString());
 		return slist;
 	}
 	
