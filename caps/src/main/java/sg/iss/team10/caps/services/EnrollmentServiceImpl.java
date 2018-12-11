@@ -67,12 +67,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		srepo.delete(e);
 	}
 	
-	@Override
-	@Transactional
-	public Enrollment searchEnrollmentByEnrollmentId(Integer eid) {
-		Enrollment slist = srepo.findById(eid);
-		return slist;
-	}
+//	@Override
+//	@Transactional
+//	public Enrollment searchEnrollmentByEnrollmentId(Integer eid) {
+//		Enrollment slist = srepo.findById(eid);
+//		return slist;
+//	}
 	
 	@Override
 	@Transactional

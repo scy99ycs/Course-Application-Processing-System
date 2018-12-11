@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import sg.iss.team10.caps.model.Admin;
 import sg.iss.team10.caps.model.Course;
 import sg.iss.team10.caps.model.Lecturer;
 import sg.iss.team10.caps.repo.LecturerRepository;
@@ -49,6 +51,12 @@ public class LectureServiceImpl implements LecturerService {
 	@Override
 	public void removeLecturer(Lecturer lecturer) {
 		lrepos.delete(lecturer);
+	}
+	
+	@Override
+	@Transactional
+	public Lecturer authenticate(String username, String password) {
+		return lrepos.authenticate(username, password);
 	}
 
 }

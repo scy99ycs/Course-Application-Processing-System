@@ -21,5 +21,7 @@ public interface StudentService {
 	Student updateStudent(Student s);
 
 	void removeStudent(Student s);
+	
+	Student authenticate(String username, String password);
 
 }

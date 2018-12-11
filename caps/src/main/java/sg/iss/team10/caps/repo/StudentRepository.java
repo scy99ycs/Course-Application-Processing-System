@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import sg.iss.team10.caps.model.Lecturer;
 import sg.iss.team10.caps.model.Student;
 
 
@@ -32,7 +33,8 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	@Query("SELECT s from Student s where s.username LIKE %:username%")
 	Student findStudentByUserName(@Param("username") String username);
 	
-	
+	@Query("SELECT s FROM Student s WHERE s.username=:un AND s.password=:pwd")
+	Student authenticate(@Param("un") String username, @Param("pwd") String password);
 
 	
 	
