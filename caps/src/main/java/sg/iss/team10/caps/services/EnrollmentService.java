@@ -19,7 +19,9 @@ public interface EnrollmentService {
 	Enrollment createEnrollment(Enrollment e);
 
 	Enrollment updateEnrollment(Enrollment e);
-
+	
+	Enrollment searchEnrollmentByEnrollmentId(Integer e);
+	
 	void removeEnrollment(Enrollment e);
 
 }
