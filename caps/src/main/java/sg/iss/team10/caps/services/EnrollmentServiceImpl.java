@@ -66,7 +66,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	public void removeEnrollment(Enrollment e) {
 		srepo.delete(e);
 	}
-
+	
 	@Override
 	@Transactional
 	public Enrollment searchEnrollmentByEnrollmentId(Integer eid) {

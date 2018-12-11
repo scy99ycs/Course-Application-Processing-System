@@ -1,6 +1,5 @@
 package sg.iss.team10.caps.repo;
 
-
 import java.util.ArrayList;
 
 import org.springframework.data.jpa.repository.JpaRepository;
