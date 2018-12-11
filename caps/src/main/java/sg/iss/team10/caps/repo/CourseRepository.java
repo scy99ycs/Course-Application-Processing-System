@@ -1,6 +1,10 @@
 package sg.iss.team10.caps.repo;
 
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import sg.iss.team10.caps.model.Course;
 
