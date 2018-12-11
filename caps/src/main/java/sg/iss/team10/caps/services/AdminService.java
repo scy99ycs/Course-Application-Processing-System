@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface AdminService {
 	
-	Admin removeAdmin(Admin admin);
+	void removeAdmin(Admin admin);
 	Admin changeAdmin(Admin admin);
 	Admin createAdmin(Admin admin);
 	ArrayList<Admin> findAllAdmin();

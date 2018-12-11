@@ -38,21 +38,21 @@ public ArrayList<Admin> findAllAdmin()
 @Transactional
 public Admin createAdmin(Admin admin)
 {
-	return AdminRepository.saveAndFlush(admin);
+	return adminRepository.saveAndFlush(admin);
 }
 
 @Override
 @Transactional
 public Admin changeAdmin(Admin admin)
 {
-	return AdminRepository.saveAndFlush(admin);
+	return adminRepository.saveAndFlush(admin);
 }
 
 @Override
 @Transactional
 public void removeAdmin(Admin admin)
 {
-	AdminRepository.delete(admin);
+	adminRepository.delete(admin);
 }
 
 
