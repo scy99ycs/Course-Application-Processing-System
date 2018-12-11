@@ -22,6 +22,8 @@ public interface EnrollmentService {
 	
 	Enrollment searchEnrollmentByEnrollmentId(Integer e);
 	
+	ArrayList<Integer> findAllEnrollmentID();
+	
 	void removeEnrollment(Enrollment e);
 
 }

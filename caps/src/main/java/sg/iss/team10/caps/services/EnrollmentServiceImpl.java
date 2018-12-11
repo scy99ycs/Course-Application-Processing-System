@@ -74,6 +74,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		return slist;
 	}
 	
+	@Override
+	@Transactional
+	public ArrayList<Integer> findAllEnrollmentID() {
+	ArrayList<Integer> slist = srepo.findAllEnrollmentID();
+		return slist;
+	
+
 	
 	
 	//Display all Enrollment 
@@ -86,4 +93,5 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 //			@Query("SELECT e from Enrollment e where e.CourseId = :CourseId")
 //			ArrayList<Enrollment> findEnrollmentByCourseID(@Param("CourseId") Integer CourseId);
 	
+	}
 }

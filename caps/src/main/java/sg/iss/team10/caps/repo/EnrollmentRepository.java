@@ -22,6 +22,9 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 		
 		@Query("SELECT e from Enrollment e where e.EnrollmentId = :EnrollmentId")
 		Enrollment findEnrollmentByEnrollmentID(@Param("EnrollmentId") Integer EnrollmentId);
+
+		@Query("SELECT DISTINCT e.enrollmentId FROM Enrollment e")
+		ArrayList<Integer> findAllEnrollmentID();
 		
 		
 }
