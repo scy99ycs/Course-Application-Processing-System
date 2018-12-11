@@ -20,7 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	ArrayList<Student> findAllStudent();
 	
 	//Filter Course Details by course ID, course Name, credit, startDate
-	@Query("SELECT s from Student s where s.StudentId = :studentId")
+	@Query("SELECT s from Student s where s.studentId = :studentId")
 	Student findStudentByStudentID(@Param("studentId") Integer studentId);
 	//Display All Details Upon Selection | DualFunction
 	@Query("SELECT s from Student s where s.lastName LIKE %:lastName%")

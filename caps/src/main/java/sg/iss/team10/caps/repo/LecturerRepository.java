@@ -8,10 +8,10 @@ import sg.iss.team10.caps.model.Lecturer;
 
 public interface LecturerRepository extends JpaRepository<Lecturer, Integer>	 {
 	
-	@Query("SELECT l FROM Lecture l where l.staffId= :id")
+	@Query("SELECT l FROM Lecturer l where l.staffId= :id")
 	Lecturer findLecturerById(@Param("id") int staffId);
 	
-	@Query("SELECT l FROM Lecture l where l.staffName LIKE :staffName")
+	@Query("SELECT l FROM Lecturer l where l.staffName LIKE :staffName")
 	Lecturer findLecturerByName(@Param("staffName") String staffName);
 
 }

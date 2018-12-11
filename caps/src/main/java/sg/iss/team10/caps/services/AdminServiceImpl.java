@@ -55,6 +55,12 @@ public void removeAdmin(Admin admin)
 	adminRepository.delete(admin);
 }
 
+@Override
+@Transactional
+public Admin authenticate(String username, String password) {
+	return adminRepository.authenticate(username, password);
+}
+
 
 
 }

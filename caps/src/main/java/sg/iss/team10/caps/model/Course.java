@@ -8,18 +8,17 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
-
 /**
  * The persistent class for the course database table.
  * 
  */
 @Entity
-@NamedQuery(name="Course.findAll", query="SELECT c FROM Course c")
+@NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
 public class Course implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int courseId;
 
 	private int capacity;
@@ -42,18 +41,17 @@ public class Course implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
-	
-	@OneToMany(mappedBy="course")
+
+	@OneToMany(mappedBy = "course")
 	private Collection<Enrollment> enrollment;
-	
+
 	@ManyToOne
-	@JoinColumn(name= "staffId")
+	@JoinColumn(name = "staffId", insertable = false, updatable = false)
 	private Lecturer lecturer;
 
 	public Course() {
-		enrollment= new ArrayList<Enrollment>();
+		enrollment = new ArrayList<Enrollment>();
 	}
-	
 
 	public int getCourseId() {
 		return this.courseId;

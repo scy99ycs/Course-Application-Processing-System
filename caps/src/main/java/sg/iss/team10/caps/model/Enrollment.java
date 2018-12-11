@@ -24,11 +24,11 @@ public class Enrollment implements Serializable {
 
 	private int studentId;
 	@ManyToOne
-	@JoinColumn(name= "courseId")
+	@JoinColumn(name= "courseId", insertable=false, updatable=false)
 	private Course course;
 		
 	@ManyToOne
-	@JoinColumn(name= "studentId")
+	@JoinColumn(name= "studentId", insertable=false, updatable=false)
 	private Student student;
 	public Enrollment() {
 	}
