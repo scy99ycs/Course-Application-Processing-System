@@ -31,6 +31,5 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 		characterEncodingFilter.setEncoding("UTF-8");
 		return new Filter[] { characterEncodingFilter, new SiteMeshFilter() };
 	}
-	
-	
+
 }
