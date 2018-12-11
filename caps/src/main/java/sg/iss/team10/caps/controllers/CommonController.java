@@ -13,17 +13,30 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sg.iss.team10.caps.model.Admin;
 import sg.iss.team10.caps.services.AdminService;
+import sg.iss.team10.caps.services.LecturerService;
+import sg.iss.team10.caps.services.StudentService;
 
 @Controller
-//@RequestMapping(value = "/home")
 public class CommonController {
 
 	@Autowired
 	private AdminService aService;
+	
+	@Autowired
+	private LecturerService lService;
+	
+	@Autowired
+	private StudentService sService;
+	
 
+//	@RequestMapping(value = "/home", method = RequestMethod.GET)
+//	public ModelAndView home() {
+//		return new ModelAndView("Home");
+//	}
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView home() {
-		return new ModelAndView("Home");
+	public String home() {
+		return "Home";
 	}
 
 	// need to think how to link from home page to relevant login page

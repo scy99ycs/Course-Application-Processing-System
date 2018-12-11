@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Administrator Login</title>
+<title>Student Login</title>
 </head>
 <body>
-	<h3>admin login</h3>
+	<h3>Student login</h3>
 </body>
 </html>
