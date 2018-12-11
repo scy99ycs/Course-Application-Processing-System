@@ -6,6 +6,8 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
+import org.hibernate.loader.collection.PaddedBatchingCollectionInitializerBuilder;
+
 
 /**
  * The persistent class for the lecturer database table.
@@ -17,16 +19,20 @@ public class Lecturer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+	@SequenceGenerator(name="id_generator", sequenceName = "staffid_seq", allocationSize=1)
 	private int staffId;
+	
+	private String staffName;
 
 	private String designation;
 
-	private String password;
-
-	private String staffName;
-
 	private String username;
+	
+	private String password;
+	
+	@OneToMany(mappedBy="lecturer")
+	private Collection<Course> course;
 
 	public Collection<Course> getCourse() {
 		return course;
@@ -35,11 +41,23 @@ public class Lecturer implements Serializable {
 	public void setCourse(Collection<Course> course) {
 		this.course = course;
 	}
-
-	@OneToMany(mappedBy="lecturer")
-	private Collection<Course> course;
 	
+	public Course addCourse(Course newCourse) {
+		course.add(newCourse);
+		return newCourse;
+	}
+
 	public Lecturer() {
+		course = new ArrayList<Course>();
+	}
+	
+	public Lecturer(int staffId, String staffName, String designation, String username, String password) {
+		super();
+		this.staffId = staffId;
+		this.staffName = staffName;
+		this.designation = designation;
+		this.username = username;
+		this.password = password;
 		course = new ArrayList<Course>();
 	}
 
