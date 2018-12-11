@@ -13,7 +13,7 @@ public interface AdminRepository extends JpaRepository<Admin, Integer>
 	@Query("SELECT a from Admin a where a.adminId =:id")
 	Admin findAdminById(@Param("id") int id);
 	
-	@Query("SELECT a FROM a.Admin WHERE a.adminName=:name")
+	@Query("SELECT a FROM Admin a WHERE a.adminName=:name")
 	Admin findAdminByName(@Param("name") String name);
 
 
