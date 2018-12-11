@@ -70,7 +70,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	@Override
 	@Transactional
 	public Enrollment searchEnrollmentByEnrollmentId(Integer eid) {
-		Enrollment slist = srepo.findEnrollmentByEnrollmentID(eid);
+		Enrollment slist = srepo.findById(eid);
 		return slist;
 	}
 	

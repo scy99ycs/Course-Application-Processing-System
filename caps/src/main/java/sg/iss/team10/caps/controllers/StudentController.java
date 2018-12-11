@@ -66,7 +66,8 @@ public class StudentController {
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
-	// 1st Page
+/*	Sorry this block can't run
+ * 	// 1st Page
 	@RequestMapping(value = "/StudentLandingPage", method = RequestMethod.GET)
 	public ModelAndView StudentLandingPage(Integer studentId) {
 		ModelAndView mav = new ModelAndView("CourseGrade-list");
@@ -111,7 +112,7 @@ public class StudentController {
 		mav.addObject("courseList", courseList);
 		return mav;
 		
-	}
+	}*/
 	
 	
 	
