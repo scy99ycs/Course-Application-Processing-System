@@ -20,7 +20,7 @@ public interface EnrollmentService {
 
 	Enrollment updateEnrollment(Enrollment e);
 	
-	//Enrollment searchEnrollmentByEnrollmentId(Integer e);
+	Enrollment searchEnrollmentByEnrollmentId(Integer e);
 	
 	ArrayList<Integer> findAllEnrollmentID();
 	
