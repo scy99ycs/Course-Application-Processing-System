@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,9 @@ import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.AdminService;
 import sg.iss.team10.caps.services.LecturerService;
 import sg.iss.team10.caps.services.StudentService;
+import sg.iss.team10.caps.validator.AdminLoginValidator;
+import sg.iss.team10.caps.validator.LecturerLoginValidator;
+import sg.iss.team10.caps.validator.StudentLoginValidator;
 
 @Controller
 public class CommonController {
@@ -29,6 +34,30 @@ public class CommonController {
 
 	@Autowired
 	private StudentService sService;
+
+	@Autowired
+	private AdminLoginValidator aValidator;
+	
+	@InitBinder("admin")
+	private void initAdminBinder(WebDataBinder binder) {
+		binder.addValidators(aValidator);
+	}
+	
+	@Autowired
+	private LecturerLoginValidator lValidator;
+	
+	@InitBinder("lecturer")
+	private void initLecturerBinder(WebDataBinder binder) {
+		binder.addValidators(lValidator);
+	}
+	
+	@Autowired
+	private StudentLoginValidator sValidator;
+	
+	@InitBinder("student")
+	private void initStudentBinder(WebDataBinder binder) {
+		binder.addValidators(sValidator);
+	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home() {
@@ -44,8 +73,9 @@ public class CommonController {
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
 	public ModelAndView adminAuthenticate(@ModelAttribute Admin admin, HttpSession session, BindingResult result) {
 		ModelAndView mav = new ModelAndView("AdminLogin");
-		if (result.hasErrors())
+		if (result.hasErrors()) {
 			return mav;
+		}
 		UserSession us = new UserSession();
 		if (admin.getUsername() != null && admin.getPassword() != null) {
 			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
@@ -85,7 +115,7 @@ public class CommonController {
 				us.setSessionId(session.getId());
 				us.setLecturer(lc);
 				// to change after check with the relevant team
-				mav = new ModelAndView("redirect:/home");
+				mav = new ModelAndView("redirect:/testadmin");
 			}
 		} else {
 			return mav;
@@ -115,7 +145,7 @@ public class CommonController {
 				us.setSessionId(session.getId());
 				us.setStudent(st);
 				// to change after check with the relevant team
-				mav = new ModelAndView("redirect:/home");
+				mav = new ModelAndView("redirect:/testadmin");
 			}
 		} else {
 			return mav;
@@ -124,8 +154,13 @@ public class CommonController {
 		return mav;
 	}
 
-	// For testing after login, must delete after communicate with team
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/home";
+	}
 
+	// For testing after login, must delete after communicate with team
 	@RequestMapping(value = "/testadmin", method = RequestMethod.GET)
 	public String adminTest() {
 		return "TestingAfterLoginAdmin";
