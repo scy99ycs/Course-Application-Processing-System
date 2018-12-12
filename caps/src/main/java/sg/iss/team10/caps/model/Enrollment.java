@@ -49,11 +49,11 @@ public class Enrollment implements Serializable {
 		this.courseId = courseId;
 	}
 
-	public float getScore() {
+	public Float getScore() {
 		return this.score;
 	}
 
-	public void setScore(float score) {
+	public void setScore(Float score) {
 		this.score = score;
 	}
 
