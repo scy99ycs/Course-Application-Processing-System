@@ -85,4 +85,11 @@ public class StudentServiceImpl implements StudentService {
 	public Student authenticate(String username, String password) {
 		return srepo.authenticate(username, password);
 	}
+
+	@Override
+	public ArrayList<Integer> findAllStudentsId() {
+		// TODO Auto-generated method stub
+		return srepo.findAllIds();
+		
+	}
 }

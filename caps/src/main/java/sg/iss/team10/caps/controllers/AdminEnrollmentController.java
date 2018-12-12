@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Enrollment;
-import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.EnrollmentService;
 import sg.iss.team10.caps.services.StudentService;
 
@@ -26,12 +25,15 @@ public class AdminEnrollmentController {
 	
 	@Autowired
 	private EnrollmentService eService;
+	private StudentService sService;
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public ModelAndView newAddEnrollmentPage()
 	{
-		ModelAndView mav= new ModelAndView("enrollment-new","enrollment",new Enrollment());
-		mav.addObject("eidlist", eService.findAllEnrollment());
+		ModelAndView mav= new ModelAndView("AdminAddEnrollment","enrollment",new Enrollment());
+		int length =eService.findAllEnrollment().size() + 1;
+		mav.addObject("eid",length );
+		//mav.addObject("sidList", sService.findAllStudents());
 		return mav;
 	}
 	
@@ -40,7 +42,7 @@ public class AdminEnrollmentController {
 			final RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors())
-			return new ModelAndView("enrollment-new");
+			return new ModelAndView("AdminAddEnrollment");
 
 		ModelAndView mav = new ModelAndView();
 		String message = "New Enrollment " + enrollment.getEnrollmentId() + " was successfully created.";
@@ -54,7 +56,7 @@ public class AdminEnrollmentController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView enrollmentListPage() {
-		ModelAndView mav = new ModelAndView("enrollment-list");
+		ModelAndView mav = new ModelAndView("AdminEnrollmentList");
 		List<Enrollment> enrollmentList = eService.findAllEnrollment();
 		mav.addObject("enrollmentList", enrollmentList);
 		return mav;
@@ -99,3 +101,4 @@ public class AdminEnrollmentController {
 	}
 }
 
+/*<td><form:select path="studentId" items="${sidList}"/></td>*/

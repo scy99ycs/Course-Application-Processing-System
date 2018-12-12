@@ -1,11 +1,17 @@
 package sg.iss.team10.caps.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,17 +29,28 @@ public class AdminCourseController
 @Autowired
 private CourseService courseService;
 
+@InitBinder
+public void initBinder(WebDataBinder binder) {
+	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	dateFormat.setLenient(false);
+	binder.registerCustomEditor(Date.class, new CustomDateEditor(
+			dateFormat, false));
+}
+
+
 @RequestMapping(value="/add" ,method=RequestMethod.GET)
 public ModelAndView newAddCoursePage()
 {
-	ModelAndView mav=new ModelAndView("course-new","course", new Course());
+	ModelAndView mav=new ModelAndView("AdminAddCourse","course", new Course());
+	int length =courseService.findAllCourse().size() + 1;
+	mav.addObject("cid",length );
 	return mav;
 }
 @RequestMapping(value = "/add", method = RequestMethod.POST)
 public ModelAndView addNewCourse(@ModelAttribute @Valid Course course, BindingResult result,
 		final RedirectAttributes redirectAttributes){
 				if (result.hasErrors()) 
-					return new ModelAndView("course-new");
+					return new ModelAndView("AdminAddCourse");
 					
 			ModelAndView mav = new ModelAndView();
 			String message = "New course " + course.getCourseName() + " was successfully created.";
