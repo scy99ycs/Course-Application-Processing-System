@@ -20,7 +20,7 @@ public class Enrollment implements Serializable {
 
 	private int courseId;
 
-	private float score;
+	private Float score;
 
 	private int studentId;
 	@ManyToOne
