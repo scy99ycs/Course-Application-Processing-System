@@ -25,17 +25,17 @@ import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.EnrollmentService;
 import sg.iss.team10.caps.services.StudentService;
 
-
 @Controller
-@RequestMapping(value="/student")
+@RequestMapping(value = "/student")
 public class StudentController {
-	
+
 	@Autowired
 	private EnrollmentService eService;
 	@Autowired
 	private CourseService cService;
- 	@Autowired
- 	private StudentService sService;
+	@Autowired
+	private StudentService sService;
+
 // 	@InitBinder("department")
 //	private void initDepartmentBinder(WebDataBinder binder) {
 //		binder.addValidators(dValidator);
@@ -45,41 +45,41 @@ public class StudentController {
 	 * 
 	 * @return
 	 */
- 	
- 	
 
-	//Creation after Confirmation
+	// Creation after Confirmation
 	@RequestMapping(value = "/create/{courseId}", method = RequestMethod.GET)
 	public ModelAndView newEnrollmentPage(@PathVariable("courseId") Integer courseId) {
 		ModelAndView mav = new ModelAndView("enrollmentnew", "enrollment", new Enrollment());
 		Course course = cService.findCourseById(courseId);
 		mav.addObject("course", course);
-		//mav.addObject("eidlist", eService.findAllEnrollmentID());
+		// mav.addObject("eidlist", eService.findAllEnrollmentID());
 		return mav;
-		
+
 	}
 
-	
 	@RequestMapping(value = "/create/{CourseID}", method = RequestMethod.POST)
-	public ModelAndView createNewEnrollment(@ModelAttribute @Valid Enrollment enrollment, BindingResult result, final RedirectAttributes redirectAttributes, @PathVariable("courseId") Integer courseId) /*throw*/ {
+	public ModelAndView createNewEnrollment(@ModelAttribute @Valid Enrollment enrollment, BindingResult result,
+			final RedirectAttributes redirectAttributes, @PathVariable("courseId") Integer courseId) /* throw */ {
 
 		if (result.hasErrors())
 			return new ModelAndView("enrollmentnew");
 
 		ModelAndView mav = new ModelAndView();
-		//HttpSession session
-		//BindingResult result,
-		//String message = "New enrollment " + enrollment.getEnrollmentId() + " was successfully created.";
-		//Student s= (Student)session.getAttribute("USERSESSION");
-		//enrollment.setStudentId(s.getStudentId());
+		// HttpSession session
+		// BindingResult result,
+		// String message = "New enrollment " + enrollment.getEnrollmentId() + " was
+		// successfully created.";
+		// Student s= (Student)session.getAttribute("USERSESSION");
+		// enrollment.setStudentId(s.getStudentId());
 		enrollment.setStudentId(5);
 		enrollment.setCourseId(courseId);
 		enrollment.setEnrollmentId(16);
 		eService.createEnrollment(enrollment);
 		mav.setViewName("redirect:/student/search");
-		//redirectAttributes.addFlashAttribute("message", message);
+		// redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
+
 	// 1st Page to be displayed when Student log in through ID
 	@RequestMapping(value = "/landing", method = RequestMethod.GET)
 	public ModelAndView StudentLandingPage(Integer studentId) {
@@ -88,55 +88,45 @@ public class StudentController {
 		mav.addObject("GradeList", GradeList);
 		return mav;
 	}
-	//2.1 Page : findAllCourse 
+
+	// 2.1 Page : findAllCourse
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView StudentSearchCoursePage() {
 		ModelAndView mav = new ModelAndView("StudentSearchList");
 		ArrayList<Course> courseList = cService.findAllCourse();
 		mav.addObject("courseList", courseList);
-		return mav;		
+		return mav;
 	}
-	
-	//2.2 Page : findCourseById
+
+	// 2.2 Page : findCourseById
 	@RequestMapping(value = "/SearchById", method = RequestMethod.GET)
 	public ModelAndView StudentSearchCoursePageById(Integer courseId) {
 		ModelAndView mav = new ModelAndView("courseId");
 		Course course = cService.findCourseById(courseId);
 		mav.addObject("courseId", course);
 		return mav;
-		
+
 	}
-	//2.3 Page : FindCourseByName
+
+	// 2.3 Page : FindCourseByName
 	@RequestMapping(value = "/SearchByName", method = RequestMethod.GET)
 	public ModelAndView StudentSearchCourseByName(String name) {
 		ModelAndView mav = new ModelAndView("courseName");
 		Course course = cService.findCourseByName(name);
 		mav.addObject("courseName", course);
 		return mav;
-		
+
 	}
-	
-	//2.4 Page: findCourseByStaffId
+
+	// 2.4 Page: findCourseByStaffId
 	@RequestMapping(value = "/SearchByStaff", method = RequestMethod.GET)
 	public ModelAndView findCourseByStaffId(Integer sid) {
 		ModelAndView mav = new ModelAndView("courseStaff");
 		ArrayList<Course> courseList = cService.findCourseByStaffId(sid);
 		mav.addObject("courseStaffList", courseList);
 		return mav;
-		
+
 	}
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-
-
 
 //	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 //	public ModelAndView editDepartmentPage(@PathVariable String id) {

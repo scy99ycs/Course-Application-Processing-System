@@ -84,8 +84,7 @@ public class CommonController {
 			} else {
 				us.setSessionId(session.getId());
 				us.setAdmin(ad);
-				// to change the uri after check with the relevant team
-				mav = new ModelAndView("redirect:/testadmin");
+				mav = new ModelAndView("redirect:/admin/student/list");
 			}
 		} else {
 			return mav;
@@ -115,7 +114,7 @@ public class CommonController {
 				us.setSessionId(session.getId());
 				us.setLecturer(lc);
 				// to change after check with the relevant team
-				mav = new ModelAndView("redirect:/testadmin");
+				mav = new ModelAndView("redirect:/lecturer/courselist");
 			}
 		} else {
 			return mav;
@@ -145,7 +144,7 @@ public class CommonController {
 				us.setSessionId(session.getId());
 				us.setStudent(st);
 				// to change after check with the relevant team
-				mav = new ModelAndView("redirect:/testadmin");
+				mav = new ModelAndView("redirect:/student/landing");
 			}
 		} else {
 			return mav;
