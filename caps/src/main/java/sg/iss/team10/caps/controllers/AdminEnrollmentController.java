@@ -35,8 +35,8 @@ public class AdminEnrollmentController {
 	public ModelAndView newAddEnrollmentPage()
 	{
 		ModelAndView mav= new ModelAndView("AdminAddEnrollment","enrollment",new Enrollment());
-		int length =eService.findAllEnrollment().size() + 1;
-		mav.addObject("eid",length );
+		//int length =eService.findAllEnrollment().size() + 1;
+		//mav.addObject("eid",length );
 		//mav.addObject("sidList", sService.findAllStudents());
 		return mav;
 	}
