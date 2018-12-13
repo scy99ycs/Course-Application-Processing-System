@@ -13,7 +13,7 @@
 <body>
 	<h2>Student Performance</h2>
 
-	<table>
+	<table class="table table-hover">
 		<tr>
 			<td>Student Name</td>
 			<td>${student.firstMidName}${student.lastName}</td>
@@ -24,8 +24,13 @@
 		</tr>
 	</table>
 
+<<<<<<< HEAD
 	<h2>Courses Attending</h2>
 	<table>
+=======
+	<h3>Courses Attending</h3>
+	<table class="table table-hover">
+>>>>>>> branch 'master' of https://github.com/SaphiraNgocThuy/NUS-CAPS.git
 		<tr>
 			<th>#</th>
 			<th>Course ID</th>
@@ -35,7 +40,8 @@
 			<th>Grade</th>
 		</tr>
 
-		<c:forEach items="${performanceList}" var="performance" varStatus="index">
+		<c:forEach items="${performanceList}" var="performance"
+			varStatus="index">
 			<tr>
 				<td>${index.index+1}</td>
 				<td>${performance.courseId}</td>

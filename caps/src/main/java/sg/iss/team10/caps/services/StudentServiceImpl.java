@@ -1,6 +1,5 @@
 package sg.iss.team10.caps.services;
 
-
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -92,5 +91,11 @@ public class StudentServiceImpl implements StudentService {
 		// TODO Auto-generated method stub
 		return srepo.findAllIds();
 		
+	}
+
+	@Override
+	public Integer findMaxStudentId() {
+		// TODO Auto-generated method stub
+		return srepo.findMaxStudentId();
 	}
 }

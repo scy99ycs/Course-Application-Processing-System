@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.StudentService;
+import sg.iss.team10.caps.validator.AdminStudentValidator;
 
 @RequestMapping(value="/admin/student")
 @Controller
@@ -29,54 +30,60 @@ public class AdminStudentController {
 	
 	@Autowired
 	private StudentService sService;
+	@Autowired
+	private AdminStudentValidator aValidator;
 	
+	@InitBinder("student")
+	private void initStudentBinder(WebDataBinder binder)
+	{
+		binder.addValidators(aValidator);
+	}
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, false));
+		
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public ModelAndView newAddStudentPage()
 	{
 		ModelAndView mav= new ModelAndView("AdminAddStudent","student",new Student());
-		//int length =sService.findAllStudents().size() + 1;
-		//mav.addObject("sid",length );
 		return mav;
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView createNewStudent(@ModelAttribute @Valid Student student, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
+		String message="";
+		CharSequence nums =  "0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
 
 		if (result.hasErrors())
 			return new ModelAndView("AdminAddStudent");
 
 		ModelAndView mav = new ModelAndView();
-		String message = "New Student " + student.getStudentId() + " was successfully created.";
-		
-		String username ="S"+value(student.getStudentId())+student.getFirstMidName();
-		
-		student.setUsername(username);
-		
-		String password ="S"+value(student.getStudentId())+student.getFirstMidName();
-		student.setPassword(password);
-		
-		
-		
-		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//give format in which you are receiving the `String date_updated`
-	    //Date date = sdf.parse(student.getEnrollmentDate());
-	    //java.sql.Date sqlDate_updated = new java.sql.Date(date.getTime());
-		
-		
-		
-		sService.createStudent(student);
-		mav.setViewName("redirect:/admin/student/list");
-
-		redirectAttributes.addFlashAttribute("message", message);
-		return mav;
+		if(!(student.getFirstMidName().contains(nums)&&student.getLastName().contains(nums)))
+		{
+			
+			message = "New Student " + (sService.findMaxStudentId()+1) + " was successfully created.";
+			String username ="S"+value(sService.findMaxStudentId()+1)+student.getFirstMidName();			
+			student.setUsername(username);
+			
+			String password ="S"+value(sService.findMaxStudentId()+1)+student.getFirstMidName();
+			student.setPassword(password);
+			
+			sService.createStudent(student);
+			mav.setViewName("redirect:/admin/student/list");
+	
+			redirectAttributes.addFlashAttribute("message", message);
+			 return mav;
+		}
+		else {
+			message = "Please enter Valid Name (A-Z , a-z) .";
+			return mav;
+		}
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -98,23 +105,36 @@ public class AdminStudentController {
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView editStudent(@ModelAttribute @Valid Student student, BindingResult result,
 			@PathVariable String id, final RedirectAttributes redirectAttributes) /*throws DepartmentNotFound*/ {
+		
+		String message="";
+		CharSequence nums =  "0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
 
 		if (result.hasErrors())
 			return new ModelAndView("AdminEditStudent");
-
-		ModelAndView mav = new ModelAndView("redirect:/admin/student/list");
-		String username ="S"+value(student.getStudentId())+student.getFirstMidName();
 		
-		student.setUsername(username);
+		if(!(student.getFirstMidName().contains(nums)&&student.getLastName().contains(nums)))
+		{
+
+			ModelAndView mav = new ModelAndView("redirect:/admin/student/list");
+			String username ="S"+value(student.getStudentId())+student.getFirstMidName();
+			
+			student.setUsername(username);
+			
+			String password ="S"+value(student.getStudentId())+student.getFirstMidName();
+			student.setPassword(password);
+			 message = "Student was successfully updated.";
+	
+			sService.updateStudent(student);
+	
+			redirectAttributes.addFlashAttribute("message", message);
+			return mav;
 		
-		String password ="S"+value(student.getStudentId())+student.getFirstMidName();
-		student.setPassword(password);
-		String message = "Student was successfully updated.";
-
-		sService.updateStudent(student);
-
-		redirectAttributes.addFlashAttribute("message", message);
-		return mav;
+		}
+		
+		else {
+			message="Please enter Valid Name (A-Z , a-z) .";
+			return new ModelAndView();
+		}
 	}
 		
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
@@ -135,8 +155,3 @@ public class AdminStudentController {
 		return String.format("%03d", id);
 	}
 }
-
-/*<tr>
-<td><spring:message	code="Student Id"/></td>
-<td><form:input path="studentId" value="${sid}" readonly="true"/></td>
-</tr>*/

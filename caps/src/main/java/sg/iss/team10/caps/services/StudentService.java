@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import sg.iss.team10.caps.model.Student;
 
 public interface StudentService {
+	
 
 	ArrayList<Student> findAllStudents();
 
@@ -22,6 +23,8 @@ public interface StudentService {
 
 	void removeStudent(Student s);
 	ArrayList<Integer> findAllStudentsId();
+	
+	Integer findMaxStudentId();
 	
 	Student authenticate(String username, String password);
 

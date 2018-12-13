@@ -11,8 +11,8 @@
 <title>All Students</title>
 </head>
 <body>
-<h2>Student List!</h2>
-	<table>
+	<h2>All Students</h2>
+	<table class="table table-hover">
 		<!-- Table - Header -->
 		<tr>
 			<td>Student ID</td>
@@ -28,11 +28,11 @@
 				<td>${Student.lastName}</td>
 				<td><fmt:formatDate value="${Student.enrollmentDate}"
 						pattern="EEEE, d MMMM yyyy" /></td>
-				<td><a href="${pageContext.request.contextPath}/lecturer/performance/${Student.studentId}">View performance</a></td>
+				<td><a
+					href="${pageContext.request.contextPath}/lecturer/performance/${Student.studentId}">View
+						performance</a></td>
 			</tr>
 		</c:forEach>
 	</table>
-
-
 </body>
 </html>

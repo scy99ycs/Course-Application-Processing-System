@@ -21,13 +21,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Course;
 import sg.iss.team10.caps.services.CourseService;
+import sg.iss.team10.caps.validator.AdminCourseValidator;
 
 @RequestMapping(value="/admin/course")
 @Controller
 public class AdminCourseController 
 {
+
 @Autowired
 private CourseService courseService;
+
+
+
+@Autowired
+private AdminCourseValidator courseValidator;
+
+@InitBinder("course")
+private void initCourseBinder(WebDataBinder binder)
+{
+	binder.addValidators(courseValidator);
+}
 
 @InitBinder
 public void initBinder(WebDataBinder binder) {
@@ -38,26 +51,34 @@ public void initBinder(WebDataBinder binder) {
 }
 
 
+
+
 @RequestMapping(value="/add" ,method=RequestMethod.GET)
 public ModelAndView newAddCoursePage()
 {
 	ModelAndView mav=new ModelAndView("AdminAddCourse","course", new Course());
-	//int length =courseService.findAllCourse().size() + 1;
-	//mav.addObject("cid",length );
 	return mav;
 }
 @RequestMapping(value = "/add", method = RequestMethod.POST)
 public ModelAndView addNewCourse(@ModelAttribute @Valid Course course, BindingResult result,
 		final RedirectAttributes redirectAttributes){
+			String message="";
+			CharSequence nums =  "0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
+			CharSequence alpha="a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
 				if (result.hasErrors()) 
 					return new ModelAndView("AdminAddCourse");
-					
-			ModelAndView mav = new ModelAndView();
-			String message = "New course " + course.getCourseName() + " was successfully created.";
-			courseService.createCourse(course);
-			mav.setViewName("redirect:/admin/course/list");
-			redirectAttributes.addFlashAttribute("message", message);
-			return mav;
+				if(!(course.getCourseName().contains(nums)&&course.getDuration().contains(alpha))) {
+						ModelAndView mav = new ModelAndView();
+						message = "New course " + course.getCourseName() + " was successfully created.";
+						courseService.createCourse(course);
+						mav.setViewName("redirect:/admin/course/list");
+						redirectAttributes.addFlashAttribute("message", message);
+						return mav;
+				}
+				else {
+					message = "Please enter Valid Data .";
+					return new ModelAndView();
+				}
 }
 
 @RequestMapping(value="/list",method=RequestMethod.GET)
@@ -81,17 +102,25 @@ public ModelAndView editCoursePage(@PathVariable Integer id) {
 public ModelAndView editCourse(@ModelAttribute @Valid Course course, BindingResult result,
 		@PathVariable String id, final RedirectAttributes redirectAttributes) 
 {
-
+	String message="";
+	CharSequence nums =  "0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
+	CharSequence alpha="a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
+	
 	if (result.hasErrors())
 		return new ModelAndView("AdminEditCourse");
-
-	ModelAndView mav = new ModelAndView("redirect:/admin/course/list");
-	String message = "Course was successfully updated.";
-
-	courseService.changeCourse(course);
-
-	redirectAttributes.addFlashAttribute("message", message);
-	return mav;
+	if(!(course.getCourseName().contains(nums)&&course.getDuration().contains(alpha))) {
+		ModelAndView mav = new ModelAndView("redirect:/admin/course/list");
+		message = "Course was successfully updated.";
+	
+		courseService.changeCourse(course);
+	
+		redirectAttributes.addFlashAttribute("message", message);
+		return mav;
+	}
+	else {
+		message = "Please enter Valid Data .";
+		return new ModelAndView();
+	}
 }
 
 @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

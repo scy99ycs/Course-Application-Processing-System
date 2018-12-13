@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h2>My Courses</h2>
-	<table>
+	<table class="table table-hover">
 		<!-- Table - Header -->
 		<tr>
 			<th>Course ID</th>
@@ -42,7 +42,5 @@
 			</tr>
 		</c:forEach>
 	</table>
-
-
 </body>
 </html>

@@ -1,7 +1,8 @@
 package sg.iss.team10.caps.controllers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Admin;
+import sg.iss.team10.caps.model.Course;
 import sg.iss.team10.caps.model.Lecturer;
 import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.AdminService;
+import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.LecturerService;
 import sg.iss.team10.caps.services.StudentService;
 import sg.iss.team10.caps.validator.AdminLoginValidator;
@@ -36,6 +38,9 @@ public class CommonController {
 
 	@Autowired
 	private StudentService sService;
+
+	@Autowired
+	private CourseService cService;
 
 	@Autowired
 	private AdminLoginValidator aValidator;
@@ -62,8 +67,16 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home() {
-		return "Home";
+	public ModelAndView home() {
+		ModelAndView mav = new ModelAndView("Home");
+		ArrayList<Course> cList = cService.findAllCourse();
+		ArrayList<Lecturer> lecList = new ArrayList<Lecturer>();
+		for(Course current:cList) {
+			lecList.add(lService.findLecturerById(current.getStaffId()));
+		}
+		mav.addObject("courseList", cList);
+		mav.addObject("lecList", lecList);
+		return mav;
 	}
 
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.GET)

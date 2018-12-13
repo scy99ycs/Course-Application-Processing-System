@@ -16,7 +16,7 @@
 	<h2>Edit Grades</h2>
 	<!-- Course details -->
 	<h3>Course</h3>
-	<table>
+	<table class="table table-hover">
 		<tr>
 			<td>Course Name</td>
 			<td>${course.courseName}</td>
@@ -36,7 +36,7 @@
 	<h3>Student</h3>
 	<form:form action="${pageContext.request.contextPath}/lecturer/grade"
 		method="POST" modelAttribute="enrollment">
-		<table>
+		<table class="table table-hover">
 			<tr>
 				<td>First and Middle name</td>
 				<td>${student.firstMidName}</td>
@@ -57,8 +57,8 @@
 				<td><form:hidden readonly="true" path="studentId" /></td>
 			</tr>
 		</table>
-		<input type="submit" value="Submit" />
-		<input type="reset" value="Cancel" onclick="history.go(-1)"/>
+		<input type="submit" value="Submit" class="btn btn-warning"/>
+		<input type="reset" value="Clear" class="btn btn-warning"/>
 	</form:form>
 </body>
 </html>
