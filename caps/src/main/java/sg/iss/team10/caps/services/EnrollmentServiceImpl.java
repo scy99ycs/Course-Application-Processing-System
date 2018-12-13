@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sg.iss.team10.caps.model.Course;
 import sg.iss.team10.caps.model.Enrollment;
 import sg.iss.team10.caps.repo.EnrollmentRepository;
 
@@ -47,6 +48,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		for (Enrollment current:slist)
 		System.out.println(current.toString());
 		return slist;
+	}
+	
+	@Override
+	public Integer findNumEnrolledByCourseID(Integer courseID) {
+		return findEnrollmentByCourseID(courseID).size();
 	}
 	
 	@Override

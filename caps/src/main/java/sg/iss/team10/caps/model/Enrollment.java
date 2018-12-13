@@ -16,13 +16,13 @@ public class Enrollment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int enrollmentId;
+	private Integer enrollmentId;
 
-	private int courseId;
+	private Integer courseId;
 
 	private Float score;
 
-	private int studentId;
+	private Integer studentId;
 	@ManyToOne
 	@JoinColumn(name= "courseId", insertable=false, updatable=false)
 	private Course course;
@@ -33,7 +33,7 @@ public class Enrollment implements Serializable {
 	public Enrollment() {
 	}
 
-	public int getEnrollmentId() {
+	public Integer getEnrollmentId() {
 		return this.enrollmentId;
 	}
 
@@ -41,7 +41,7 @@ public class Enrollment implements Serializable {
 		this.enrollmentId = enrollmentId;
 	}
 
-	public int getCourseId() {
+	public Integer getCourseId() {
 		return this.courseId;
 	}
 
@@ -57,7 +57,7 @@ public class Enrollment implements Serializable {
 		this.score = score;
 	}
 
-	public int getStudentId() {
+	public Integer getStudentId() {
 		return this.studentId;
 	}
 
