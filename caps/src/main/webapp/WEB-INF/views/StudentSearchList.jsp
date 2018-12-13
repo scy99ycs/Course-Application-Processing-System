@@ -15,7 +15,7 @@
 <body>
 
 
-<h3>Course List Page</h3>
+<h3>Course List Page</h3> 
 
 	<h2 style="color:#000">${message}</h2>
 	<c:remove var = "message" scope = "session"/>

@@ -65,7 +65,7 @@ public class StudentController {
 			final RedirectAttributes attributes, HttpSession Session) /* throw */ {
 		
 		
-		//validation for Max capacity of course
+		//validation for Max capacity of course 1
 		ModelAndView mav = new ModelAndView();
 		ArrayList<Enrollment> en = new ArrayList<Enrollment>();
 		en = eService.findEnrollmentByCourseID(courseId);	
