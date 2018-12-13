@@ -1,6 +1,7 @@
 package sg.iss.team10.caps.controllers;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Admin;
 import sg.iss.team10.caps.model.Lecturer;
@@ -37,16 +39,16 @@ public class CommonController {
 
 	@Autowired
 	private AdminLoginValidator aValidator;
-	
-	@InitBinder("admin")
+
+	@InitBinder("Admin")
 	private void initAdminBinder(WebDataBinder binder) {
 		binder.addValidators(aValidator);
 	}
-	
+
 	@Autowired
 	private LecturerLoginValidator lValidator;
 	
-	@InitBinder("lecturer")
+	@InitBinder("Lecturer")
 	private void initLecturerBinder(WebDataBinder binder) {
 		binder.addValidators(lValidator);
 	}
@@ -54,7 +56,7 @@ public class CommonController {
 	@Autowired
 	private StudentLoginValidator sValidator;
 	
-	@InitBinder("student")
+	@InitBinder("Student")
 	private void initStudentBinder(WebDataBinder binder) {
 		binder.addValidators(sValidator);
 	}
@@ -71,9 +73,12 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
-	public ModelAndView adminAuthenticate(@ModelAttribute Admin admin, HttpSession session, BindingResult result) {
+	public ModelAndView adminAuthenticate(@ModelAttribute @Valid Admin admin, HttpSession session,
+			BindingResult result, final RedirectAttributes redirectAttributes) {
+		String message = null;
 		ModelAndView mav = new ModelAndView("AdminLogin");
 		if (result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("message", "false");
 			return mav;
 		}
 		UserSession us = new UserSession();
@@ -90,6 +95,7 @@ public class CommonController {
 			return mav;
 		}
 		session.setAttribute("USERSESSION", us);
+		redirectAttributes.addFlashAttribute("message", "true");
 		return mav;
 	}
 
