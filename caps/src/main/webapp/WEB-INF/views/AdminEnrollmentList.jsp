@@ -5,7 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-        
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,28 +13,28 @@
 </head>
 <body>
 <form:form>
-<c:if test="${fn:length(studentList) gt 0}">
+<c:if test="${fn:length(enrollmentList) gt 0}">
 <table>
 	<tr>
+		<th><spring:message code="Enrollment Id"/></th>
+		<th><spring:message code="Course Id"/></th>
 		<th><spring:message code="Student Id"/></th>
-		<th><spring:message code="First & Middle Name"/></th>
-		<th><spring:message code="Last Name"/></th>
-		<th><spring:message code="User Name"/></th>
+		<th><spring:message code="Score"/></th>
 		<th><spring:message code="Edit"/></th>
 		<th><spring:message code="Delete"/></th>
 	</tr>
 	
-	<c:forEach var="student" items="${studentList}">
+	<c:forEach var="enrollment" items="${enrollmentList}">
 	<tr>
-		<td>${student.studentId}</td>
-		<td>${student.firstMidName}</td>
-		<td>${student.lastName}</td>
-		<td>${student.username}</td>
+		<td>${enrollment.enrollmentId}</td>
+		<td>${enrollment.courseId}</td>
+		<td>${enrollment.studentId}</td>
+		<td>${enrollment.score}</td>
 		<td align="center"><a
-				href="${pageContext.request.contextPath}/admin/student/edit/${student.studentId}.html"><spring:message
+				href="${pageContext.request.contextPath}/admin/enrollment/edit/${enrollment.enrollmentId}.html"><spring:message
 						code="Edit" /></a></td>
 		<td><a
-				href="${pageContext.request.contextPath}/admin/student/delete/${student.studentId}.html"><spring:message
+				href="${pageContext.request.contextPath}/admin/enrollment/delete/${enrollment.enrollmentId}.html"><spring:message
 						code="Delete" /></a></td>
 	</tr>
 	</c:forEach>
@@ -44,23 +43,3 @@
 </form:form>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

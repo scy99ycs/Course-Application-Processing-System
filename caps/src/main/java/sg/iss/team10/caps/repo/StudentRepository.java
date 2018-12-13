@@ -24,6 +24,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	@Query("SELECT s from Student s where s.studentId = :studentId")
 	Student findStudentByStudentID(@Param("studentId") Integer studentId);
 	//Display All Details Upon Selection | DualFunction
+
 	@Query("SELECT s from Student s where s.lastName LIKE %:lastName%")
 	ArrayList<Student> findStudentByLastName(@Param("lastName") String lastName);
 	
@@ -35,6 +36,9 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	
 	@Query("SELECT s FROM Student s WHERE s.username=:un AND s.password=:pwd")
 	Student authenticate(@Param("un") String username, @Param("pwd") String password);
+	
+	@Query("SELECT s FROM Student s")
+	ArrayList<Integer> findAllIds();
 
 	
 	

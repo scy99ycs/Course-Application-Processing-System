@@ -1,5 +1,6 @@
 package sg.iss.team10.caps.services;
 
+
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -84,5 +85,12 @@ public class StudentServiceImpl implements StudentService {
 	@Transactional
 	public Student authenticate(String username, String password) {
 		return srepo.authenticate(username, password);
+	}
+
+	@Override
+	public ArrayList<Integer> findAllStudentsId() {
+		// TODO Auto-generated method stub
+		return srepo.findAllIds();
+		
 	}
 }

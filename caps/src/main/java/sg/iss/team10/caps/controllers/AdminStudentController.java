@@ -1,12 +1,18 @@
 package sg.iss.team10.caps.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +30,20 @@ public class AdminStudentController {
 	@Autowired
 	private StudentService sService;
 	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
+	}
+	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public ModelAndView newAddStudentPage()
 	{
-		ModelAndView mav= new ModelAndView("student-new","student",new Student());
-		mav.addObject("sidlist", sService.findAllStudents());
+		ModelAndView mav= new ModelAndView("AdminAddStudent","student",new Student());
+		int length =sService.findAllStudents().size() + 1;
+		mav.addObject("sid",length );
 		return mav;
 	}
 	
@@ -37,11 +52,26 @@ public class AdminStudentController {
 			final RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors())
-			return new ModelAndView("student-new");
+			return new ModelAndView("AdminAddStudent");
 
 		ModelAndView mav = new ModelAndView();
 		String message = "New Student " + student.getStudentId() + " was successfully created.";
-
+		
+		String username ="S"+value(student.getStudentId())+student.getFirstMidName();
+		
+		student.setUsername(username);
+		
+		String password ="S"+value(student.getStudentId())+student.getFirstMidName();
+		student.setPassword(password);
+		
+		
+		
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//give format in which you are receiving the `String date_updated`
+	    //Date date = sdf.parse(student.getEnrollmentDate());
+	    //java.sql.Date sqlDate_updated = new java.sql.Date(date.getTime());
+		
+		
+		
 		sService.createStudent(student);
 		mav.setViewName("redirect:/admin/student/list");
 
@@ -94,4 +124,10 @@ public class AdminStudentController {
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
+	
+	private String value(int id)
+	{
+		return String.format("%03d", id);
+	}
 }
+

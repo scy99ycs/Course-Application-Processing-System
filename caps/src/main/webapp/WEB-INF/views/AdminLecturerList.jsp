@@ -5,37 +5,34 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-        
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>List of Lecturers</title>
 </head>
 <body>
 <form:form>
-<c:if test="${fn:length(studentList) gt 0}">
+<c:if test="${fn:length(lecturerList) gt 0}">
 <table>
 	<tr>
-		<th><spring:message code="Student Id"/></th>
-		<th><spring:message code="First & Middle Name"/></th>
-		<th><spring:message code="Last Name"/></th>
-		<th><spring:message code="User Name"/></th>
+		<th><spring:message code="Staff Id"/></th>
+		<th><spring:message code="Staff Name"/></th>
+		<th><spring:message code="Designation"/></th>
 		<th><spring:message code="Edit"/></th>
 		<th><spring:message code="Delete"/></th>
 	</tr>
 	
-	<c:forEach var="student" items="${studentList}">
+	<c:forEach  var="lecturer" items="${lecturerList}"> 
 	<tr>
-		<td>${student.studentId}</td>
-		<td>${student.firstMidName}</td>
-		<td>${student.lastName}</td>
-		<td>${student.username}</td>
+		<td>${lecturer.staffId}</td>
+		<td>${lecturer.staffName}</td>
+		<td>${lecturer.designation}</td>
 		<td align="center"><a
-				href="${pageContext.request.contextPath}/admin/student/edit/${student.studentId}.html"><spring:message
+				href="${pageContext.request.contextPath}/admin/lecturer/edit/${lecturer.staffId}.html"><spring:message
 						code="Edit" /></a></td>
 		<td><a
-				href="${pageContext.request.contextPath}/admin/student/delete/${student.studentId}.html"><spring:message
+				href="${pageContext.request.contextPath}/admin/lecturer/delete/${lecturer.staffId}.html"><spring:message
 						code="Delete" /></a></td>
 	</tr>
 	</c:forEach>
