@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import sg.iss.team10.caps.model.Admin;
 import sg.iss.team10.caps.model.Lecturer;
 
 public interface LecturerRepository extends JpaRepository<Lecturer, Integer>	 {
