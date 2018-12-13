@@ -17,6 +17,8 @@
 
 <h3>Course List Page</h3>
 
+	<h2 style="color:#000">${message}</h2>
+	<c:remove var = "message" scope = "session"/>
 	
 <c:if test="${fn:length(courseList) gt 0}">
 
@@ -32,7 +34,7 @@
 		<th><spring:message code="Duration" /></th>
 		<th><spring:message code="StartDate" /></th>
 		<th><spring:message code="StaffID" /></th>
-		<th><spring:message code="caption.edit" /></th>
+		<th><spring:message code="View" /></th>
 		
 		
 		
@@ -60,6 +62,8 @@
 	</c:forEach>
 
 </table>
+
+
 
 </c:if>
 

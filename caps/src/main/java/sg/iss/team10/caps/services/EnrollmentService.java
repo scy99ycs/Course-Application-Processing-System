@@ -14,7 +14,9 @@ public interface EnrollmentService {
 	
 	ArrayList<Enrollment>findEnrollmentByStudentID (Integer studentID);
 	
-	ArrayList<Enrollment>findEnrollmentByCourseID (Integer CourseID);
+	ArrayList<Enrollment>findEnrollmentByCourseID (Integer courseID);
+	
+	Integer findNumEnrolledByCourseID (Integer courseID);
 	
 	Enrollment createEnrollment(Enrollment e);
 

@@ -1,6 +1,7 @@
 package sg.iss.team10.caps.controllers;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Admin;
 import sg.iss.team10.caps.model.Lecturer;
@@ -37,24 +39,24 @@ public class CommonController {
 
 	@Autowired
 	private AdminLoginValidator aValidator;
-	
-	@InitBinder("admin")
+
+	@InitBinder("Admin")
 	private void initAdminBinder(WebDataBinder binder) {
 		binder.addValidators(aValidator);
 	}
-	
+
 	@Autowired
 	private LecturerLoginValidator lValidator;
-	
-	@InitBinder("lecturer")
+
+	@InitBinder("Lecturer")
 	private void initLecturerBinder(WebDataBinder binder) {
 		binder.addValidators(lValidator);
 	}
-	
+
 	@Autowired
 	private StudentLoginValidator sValidator;
-	
-	@InitBinder("student")
+
+	@InitBinder("Student")
 	private void initStudentBinder(WebDataBinder binder) {
 		binder.addValidators(sValidator);
 	}
@@ -71,26 +73,44 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
-	public ModelAndView adminAuthenticate(@ModelAttribute Admin admin, HttpSession session, BindingResult result) {
+	public ModelAndView adminAuthenticate(@Valid @ModelAttribute("admin") Admin admin, HttpSession session,
+			BindingResult result, final RedirectAttributes redirectAttributes) {
 		ModelAndView mav = new ModelAndView("AdminLogin");
 		if (result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("message", "USERNAME or PASSWORD cannot be empty!");
 			return mav;
-		}
-		UserSession us = new UserSession();
-		if (admin.getUsername() != null && admin.getPassword() != null) {
+		} else {
 			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
 			if (ad == null) {
+				redirectAttributes.addFlashAttribute("message", "INCORRECT USERNAME or PASSWORD!");
 				return mav;
 			} else {
+				UserSession us = new UserSession();
 				us.setSessionId(session.getId());
 				us.setAdmin(ad);
 				mav = new ModelAndView("redirect:/admin/student/list");
+				session.setAttribute("USERSESSION", us);
+//				redirectAttributes.addFlashAttribute("message", "true");
+				return mav;
 			}
-		} else {
-			return mav;
+
 		}
-		session.setAttribute("USERSESSION", us);
-		return mav;
+//		UserSession us = new UserSession();
+//		if (admin.getUsername() != null && admin.getPassword() != null) {
+//			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
+//			if (ad == null) {
+//				return mav;
+//			} else {
+//				us.setSessionId(session.getId());
+//				us.setAdmin(ad);
+//				mav = new ModelAndView("redirect:/admin/student/list");
+//			}
+//		} else {
+//			return mav;
+//		}
+//		session.setAttribute("USERSESSION", us);
+//		redirectAttributes.addFlashAttribute("message", "true");
+//		return mav;
 	}
 
 	@RequestMapping(value = "/lecturerlogin", method = RequestMethod.GET)

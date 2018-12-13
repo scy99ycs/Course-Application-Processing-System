@@ -2,6 +2,7 @@ package sg.iss.team10.caps.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -49,7 +51,7 @@ public class StudentController {
 	// Creation after Confirmation
 	@RequestMapping(value = "/create/{courseId}", method = RequestMethod.GET)
 	public ModelAndView newEnrollmentPage(@PathVariable("courseId") Integer courseId) {
-		ModelAndView mav = new ModelAndView("enrollmentnew", "enrollment", new Enrollment());
+		ModelAndView mav = new ModelAndView("StudentEnrollmentNew");
 		Course course = cService.findCourseById(courseId);
 		mav.addObject("course", course);
 		// mav.addObject("eidlist", eService.findAllEnrollmentID());
@@ -57,43 +59,55 @@ public class StudentController {
 
 	}
 
-	@RequestMapping(value = "/create/{CourseID}", method = RequestMethod.POST)
-	public ModelAndView createNewEnrollment(@ModelAttribute @Valid Enrollment enrollment, BindingResult result,
-			final RedirectAttributes redirectAttributes, @PathVariable("courseId") Integer courseId) /* throw */ {
-
+	@RequestMapping(value = "/create/{courseId}", method = RequestMethod.POST)
+	public ModelAndView createNewEnrollment(@ModelAttribute @Valid Enrollment enrollment,
+			@PathVariable("courseId") Integer courseId, BindingResult result,
+			final RedirectAttributes attributes, HttpSession Session) /* throw */ {
 		if (result.hasErrors())
-			return new ModelAndView("enrollmentnew");
-
+			return new ModelAndView("StudentEnrollmentNew");
+		//HttpSession session
 		ModelAndView mav = new ModelAndView();
-		// HttpSession session
-		// BindingResult result,
-		// String message = "New enrollment " + enrollment.getEnrollmentId() + " was
-		// successfully created.";
-		// Student s= (Student)session.getAttribute("USERSESSION");
-		// enrollment.setStudentId(s.getStudentId());
-		enrollment.setStudentId(5);
-		enrollment.setCourseId(courseId);
-		enrollment.setEnrollmentId(16);
-		eService.createEnrollment(enrollment);
+		Enrollment em = new Enrollment();
+		//Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
+		String message = "Your enrollment is successful.";
+		//em.setStudentId(s.getStudentId());
+		em.setStudentId(2);
+		em.setCourseId(courseId);
+		eService.createEnrollment(em);
+		Session.setAttribute("message", message);
 		mav.setViewName("redirect:/student/search");
-		// redirectAttributes.addFlashAttribute("message", message);
+		
 		return mav;
 	}
 
 	// 1st Page to be displayed when Student log in through ID
 	@RequestMapping(value = "/landing", method = RequestMethod.GET)
 	public ModelAndView StudentLandingPage(Integer studentId) {
-		ModelAndView mav = new ModelAndView("enrollmentlist");
+		ModelAndView mav = new ModelAndView("StudentEnrollmentList");
 		ArrayList<Enrollment> GradeList = eService.findEnrollmentByStudentID(studentId);
 		mav.addObject("GradeList", GradeList);
 		return mav;
 	}
+	
 
 	// 2.1 Page : findAllCourse
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView StudentSearchCoursePage() {
+	public ModelAndView StudentSearchCoursePage(Integer studentId) {
 		ModelAndView mav = new ModelAndView("StudentSearchList");
-		ArrayList<Course> courseList = cService.findAllCourse();
+		ArrayList<Course> courseList = cService.findAllCourse();//Get list of all courses
+		ArrayList<Enrollment> elist = eService.findEnrollmentByStudentID(studentId); //Get enrollment list w courseID
+		//ArrayList<Course> courselist = new ArrayList<Course>();
+		for(int i=0;i<elist.size();i++){
+			for(int j=0;j<courseList.size();j++) {
+				if(courseList.get(j).getCourseId() == elist.get(i).getCourseId()) {
+					courseList.remove(j);
+				}
+			}
+		}
+//		ArrayList<Course> courselist1 = new ArrayList<Course>();
+//		for(int j=0;j<courseList.size();j++) {
+//			courselist1.set(j, courseList.get(j));			
+//			}
 		mav.addObject("courseList", courseList);
 		return mav;
 	}
