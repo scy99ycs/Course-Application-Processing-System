@@ -16,7 +16,7 @@
 <link rel="mask-icon" type=""
 	href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg"
 	color="#111" />
-<title>CodePen - Canvas Navigation</title>
+<title>Team 10 CAPS</title>
 <link
 	href='https://fonts.googleapis.com/css?family=Montserrat+Alternates:700'
 	rel='stylesheet' type='text/css'>
@@ -45,10 +45,11 @@ a {
 }
 
 #mainnav li {
-	margin: 85px 0;
+	margin: 35px 0;
 	left: -550px;
 	position: relative;
 	display: none;
+	font-size: 0.5em;
 }
 
 #mainnav a {
@@ -125,10 +126,10 @@ h1 {
 <body translate="no">
 
 	<nav role='navigation' id="mainnav">
-		<ul>
+		<ul style= "padding-top:60px">
+		
 			<%@include file="Menu.jsp"%>
-			<li><a href="#?">About</a></li>
-			<li><a href="#?">Contact Us</a></li>
+<!-- 			<li><a href="#?">About Us</a></li> -->
 		</ul>
 	</nav>
 
