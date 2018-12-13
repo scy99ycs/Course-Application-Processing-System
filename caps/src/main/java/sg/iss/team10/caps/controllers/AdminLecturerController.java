@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 //import edu.iss.cats.exception.EmployeeNotFound;
 import sg.iss.team10.caps.model.Admin;
 import sg.iss.team10.caps.model.Lecturer;
+import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.AdminService;
 import sg.iss.team10.caps.services.LecturerService;
 //import edu.iss.cats.validator.EmployeeValidator;
@@ -52,8 +53,20 @@ public class AdminLecturerController {
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public ModelAndView newLecturerPage(@ModelAttribute Lecturer lecturer) {
-		ModelAndView mav = new ModelAndView("AdminLecturerAdd", "Lecturer", new Lecturer());
+	public ModelAndView newLecturerPage(@ModelAttribute @Valid Lecturer lecturer, BindingResult result,
+			final RedirectAttributes redirectAttributes) {
+
+		if (result.hasErrors())
+			return new ModelAndView("AdminLecturerAdd");
+
+		ModelAndView mav = new ModelAndView();
+		String message = "New lecturer " + lecturer.getStaffId() + " was successfully added.";
+
+		
+		lService.createLecturer(lecturer);
+		mav.setViewName("redirect:/admin/lecturer/list");
+
+		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
 	
@@ -65,41 +78,46 @@ public class AdminLecturerController {
 		return mav;
 	}
 	
-/*
-	@RequestMapping(value = "/edit{id}", method = RequestMethod.GET)
-	public ModelAndView editLecturerPage(@PathVariable Integer id) {
-		Lecturer lecturer = lService.findLecturerById(id);
-		ModelAndView mav = new ModelAndView("AdminLecturerEdit","lecturer",Lecturer);
+	@RequestMapping(value = "/edit/{staffid}", method = RequestMethod.GET)
+	public ModelAndView editLecturerPage(@PathVariable("staffid") int staffid) {
+		
+		Lecturer lecturer = lService.findLecturerById(staffid);
+		ModelAndView mav = new ModelAndView("AdminLecturerEdit");
+		mav.addObject("lecturer",lecturer);
 		return mav;
 	}
-
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView editLecturer(@ModelAttribute @Valid Lecturer lecturer, BindingResult result,
-			@PathVariable Integer id, final RedirectAttributes redirectAttributes) throws LecturerNotFound {
-
-		if (result.hasErrors())
-			return new ModelAndView("lecturer-edit");
-
-		ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
-		String message = "Lecturer was successfully updated.";
-
-		lService.updateLecturer(lecturer);
-
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView editLecturerPage(@Valid @ModelAttribute ("lecturer")  Lecturer lecturer, BindingResult result, final RedirectAttributes redirectAttributes) {
+		
+		String message;
+				
+		if (result.hasErrors()) {
+			message =  "Unsuccessful update"; }
+			else {
+				lService.updateLecturer(lecturer);
+				message = "Lecturer was successfully updated.";
+			}
+			ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
+			redirectAttributes.addFlashAttribute("message", message);
+			return mav;
+		}
+		
+		
+		/*ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
-	}
-
+	}*/
+		
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteLecturer(@PathVariable Integer id, final RedirectAttributes redirectAttributes)
-			throws LecturerNotFound {
+	public ModelAndView deleteLecturer(@PathVariable int id, final RedirectAttributes redirectAttributes)
+		{
 
 		ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
-		Lecturer lecturer = lService. findLecturerById(id);
+		Lecturer lecturer = lService.findLecturerById(id);
 		lService.removeLecturer(lecturer);
 		String message = "The lecturer " + lecturer.getStaffId() + " was successfully deleted.";
-
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
-*/
 }

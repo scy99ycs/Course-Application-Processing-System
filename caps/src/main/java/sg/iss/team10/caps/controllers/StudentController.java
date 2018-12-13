@@ -63,10 +63,24 @@ public class StudentController {
 	public ModelAndView createNewEnrollment(@ModelAttribute @Valid Enrollment enrollment,
 			@PathVariable("courseId") Integer courseId, BindingResult result,
 			final RedirectAttributes attributes, HttpSession Session) /* throw */ {
-		if (result.hasErrors())
-			return new ModelAndView("StudentEnrollmentNew");
-		//HttpSession session
+		
+		
+		//validation for Max capacity of course 1
 		ModelAndView mav = new ModelAndView();
+		ArrayList<Enrollment> en = new ArrayList<Enrollment>();
+		en = eService.findEnrollmentByCourseID(courseId);	
+		if(en.size()>= cService.findCourseById(courseId).getCapacity()) {
+			String errormessage = "The Course is full.";
+			Session.setAttribute("errormessage", errormessage);
+			mav.setViewName("redirect:/student/search");
+			return mav;
+		}	
+		
+		
+//		if (result.hasErrors())
+//			return new ModelAndView("StudentEnrollmentNew");
+		
+		
 		Enrollment em = new Enrollment();
 		//Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
 		String message = "Your enrollment is successful.";

@@ -12,6 +12,7 @@
 <title>List of Lecturers</title>
 </head>
 <body>
+<p style="color:white">${message}</p>
 <form:form>
 <c:if test="${fn:length(lecturerList) gt 0}">
 <table>
@@ -22,7 +23,6 @@
 		<th><spring:message code="Edit"/></th>
 		<th><spring:message code="Delete"/></th>
 	</tr>
-	
 	<c:forEach  var="lecturer" items="${lecturerList}"> 
 	<tr>
 		<td>${lecturer.staffId}</td>

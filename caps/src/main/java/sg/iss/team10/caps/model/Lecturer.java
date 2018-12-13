@@ -19,8 +19,9 @@ public class Lecturer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
-	@SequenceGenerator(name="id_generator", sequenceName = "staffid_seq", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+	//@SequenceGenerator(name="id_generator", sequenceName = "staffid_seq", allocationSize=1)
 	private int staffId;
 	
 	private String staffName;

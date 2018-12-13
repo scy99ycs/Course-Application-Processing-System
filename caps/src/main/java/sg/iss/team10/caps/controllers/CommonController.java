@@ -40,7 +40,7 @@ public class CommonController {
 	@Autowired
 	private AdminLoginValidator aValidator;
 
-	@InitBinder("Admin")
+	@InitBinder("admin")
 	private void initAdminBinder(WebDataBinder binder) {
 		binder.addValidators(aValidator);
 	}
@@ -48,7 +48,7 @@ public class CommonController {
 	@Autowired
 	private LecturerLoginValidator lValidator;
 
-	@InitBinder("Lecturer")
+	@InitBinder("lecturer")
 	private void initLecturerBinder(WebDataBinder binder) {
 		binder.addValidators(lValidator);
 	}
@@ -56,7 +56,7 @@ public class CommonController {
 	@Autowired
 	private StudentLoginValidator sValidator;
 
-	@InitBinder("Student")
+	@InitBinder("student")
 	private void initStudentBinder(WebDataBinder binder) {
 		binder.addValidators(sValidator);
 	}
@@ -73,44 +73,25 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
-	public ModelAndView adminAuthenticate(@Valid @ModelAttribute("admin") Admin admin, HttpSession session,
-			BindingResult result, final RedirectAttributes redirectAttributes) {
+	public ModelAndView adminAuthenticate(@ModelAttribute Admin admin, HttpSession session, BindingResult result) {
 		ModelAndView mav = new ModelAndView("AdminLogin");
-		if (result.hasErrors()) {
-			redirectAttributes.addFlashAttribute("message", "USERNAME or PASSWORD cannot be empty!");
+		if (result.hasErrors())
 			return mav;
-		} else {
+		UserSession us = new UserSession();
+		if (admin.getUsername() != null && admin.getPassword() != null) {
 			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
 			if (ad == null) {
-				redirectAttributes.addFlashAttribute("message", "INCORRECT USERNAME or PASSWORD!");
 				return mav;
 			} else {
-				UserSession us = new UserSession();
 				us.setSessionId(session.getId());
 				us.setAdmin(ad);
 				mav = new ModelAndView("redirect:/admin/student/list");
-				session.setAttribute("USERSESSION", us);
-//				redirectAttributes.addFlashAttribute("message", "true");
-				return mav;
 			}
-
+		} else {
+			return mav;
 		}
-//		UserSession us = new UserSession();
-//		if (admin.getUsername() != null && admin.getPassword() != null) {
-//			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
-//			if (ad == null) {
-//				return mav;
-//			} else {
-//				us.setSessionId(session.getId());
-//				us.setAdmin(ad);
-//				mav = new ModelAndView("redirect:/admin/student/list");
-//			}
-//		} else {
-//			return mav;
-//		}
-//		session.setAttribute("USERSESSION", us);
-//		redirectAttributes.addFlashAttribute("message", "true");
-//		return mav;
+		session.setAttribute("USERSESSION", us);
+		return mav;
 	}
 
 	@RequestMapping(value = "/lecturerlogin", method = RequestMethod.GET)
@@ -133,7 +114,6 @@ public class CommonController {
 			} else {
 				us.setSessionId(session.getId());
 				us.setLecturer(lc);
-				// to change after check with the relevant team
 				mav = new ModelAndView("redirect:/lecturer/courselist");
 			}
 		} else {
@@ -163,7 +143,6 @@ public class CommonController {
 			} else {
 				us.setSessionId(session.getId());
 				us.setStudent(st);
-				// to change after check with the relevant team
 				mav = new ModelAndView("redirect:/student/landing");
 			}
 		} else {
@@ -179,9 +158,4 @@ public class CommonController {
 		return "redirect:/home";
 	}
 
-	// For testing after login, must delete after communicate with team
-	@RequestMapping(value = "/testadmin", method = RequestMethod.GET)
-	public String adminTest() {
-		return "TestingAfterLoginAdmin";
-	}
 }

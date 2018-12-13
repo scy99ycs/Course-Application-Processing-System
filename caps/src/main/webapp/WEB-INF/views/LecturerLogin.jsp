@@ -21,16 +21,8 @@
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td><form:button name="submit" type="submit" value="s">
-					<img
-						src="${pageContext.request.contextPath}/image/button_login.gif"
-						alt="" align="middle">
-				</form:button></td>
-			<td><form:button name="clear" type="reset" value="r">
-					<img
-						src="${pageContext.request.contextPath}/image/button_clear.gif"
-						alt="" align="middle">
-				</form:button></td>
+			<td><input type="submit" value="Submit"/></td>
+			<td><input type="reset" value="Clear"/></td>
 		</tr>
 	</table>
 </form:form>

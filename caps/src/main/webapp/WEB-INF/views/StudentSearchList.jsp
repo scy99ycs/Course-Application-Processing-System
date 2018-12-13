@@ -15,10 +15,13 @@
 <body>
 
 
-<h3>Course List Page</h3>
+<h3>Course List Page</h3> 
 
 	<h2 style="color:#000">${message}</h2>
 	<c:remove var = "message" scope = "session"/>
+	<br></br>
+		<h2 style="color:#000">${errormessage}</h2>
+	<c:remove var = "errormessage" scope = "session"/>
 	
 <c:if test="${fn:length(courseList) gt 0}">
 
