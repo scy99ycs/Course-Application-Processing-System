@@ -42,8 +42,8 @@ public class AdminStudentController {
 	public ModelAndView newAddStudentPage()
 	{
 		ModelAndView mav= new ModelAndView("AdminAddStudent","student",new Student());
-		int length =sService.findAllStudents().size() + 1;
-		mav.addObject("sid",length );
+		//int length =sService.findAllStudents().size() + 1;
+		//mav.addObject("sid",length );
 		return mav;
 	}
 	
@@ -135,3 +135,8 @@ public class AdminStudentController {
 		return String.format("%03d", id);
 	}
 }
+
+/*<tr>
+<td><spring:message	code="Student Id"/></td>
+<td><form:input path="studentId" value="${sid}" readonly="true"/></td>
+</tr>*/

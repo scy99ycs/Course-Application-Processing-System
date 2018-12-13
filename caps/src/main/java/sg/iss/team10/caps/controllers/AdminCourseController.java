@@ -42,8 +42,8 @@ public void initBinder(WebDataBinder binder) {
 public ModelAndView newAddCoursePage()
 {
 	ModelAndView mav=new ModelAndView("AdminAddCourse","course", new Course());
-	int length =courseService.findAllCourse().size() + 1;
-	mav.addObject("cid",length );
+	//int length =courseService.findAllCourse().size() + 1;
+	//mav.addObject("cid",length );
 	return mav;
 }
 @RequestMapping(value = "/add", method = RequestMethod.POST)

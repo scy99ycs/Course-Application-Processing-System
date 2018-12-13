@@ -6,17 +6,13 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
-<h3>Edit Student Page</h3>
+<h3>Add New Enrollment</h3>
 <form:form method="POST" modelAttribute="enrollment"
 	action="${pageContext.request.contextPath}/admin/enrollment/edit/${enrollment.enrollmentId}.html">
 	
-	<table>
+	<table align="center">
 		<tbody>
-			<tr>
-				<td><spring:message code="Enrollment Id" /></td>
-				<td><form:input path="enrollmentId" value="${enrollment.enrollmentId}" readonly="true" /></td>
-				<td><form:errors path="enrollmentId" cssStyle="color: red;" /></td>
-			</tr>
+			
 			<tr>
 				<td><spring:message code="Student Id" /></td>
 				<td><form:input path="studentId"/></td>

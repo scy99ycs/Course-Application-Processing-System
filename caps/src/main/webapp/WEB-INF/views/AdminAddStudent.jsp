@@ -17,14 +17,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<p>${message}</p>
 <form:form method="POST" modelAttribute="student" action="${pageContext.request.contextPath}/admin/student/add.html">
 
 	Add New Student
 	<table align="center">
-		<tr>
-			<td><spring:message	code="Student Id"/></td>
-			<td><form:input path="studentId" value="${sid}" readonly="true"/></td>
-		</tr>
+		
 		<tr>		
 			<td><spring:message code="Student Name"/></td>
 			<td><form:input path="firstMidName"/></td>

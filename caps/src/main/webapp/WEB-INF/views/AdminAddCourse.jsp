@@ -18,10 +18,7 @@
 
 	Add New Course
 	<table align="center">
-		<tr>
-			<td><spring:message	code="Course Id"/></td>
-			<td><form:input path="courseId" value="${cid}" readonly="true"/></td>
-		</tr>
+		
 		<tr>		
 			<td><spring:message code="Course Name"/></td>
 			<td><form:input path="courseName"/></td>
