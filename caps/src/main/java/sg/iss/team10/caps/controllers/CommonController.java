@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Admin;
 import sg.iss.team10.caps.model.Course;
@@ -71,7 +72,7 @@ public class CommonController {
 		ModelAndView mav = new ModelAndView("Home");
 		ArrayList<Course> cList = cService.findAllCourse();
 		ArrayList<Lecturer> lecList = new ArrayList<Lecturer>();
-		for(Course current:cList) {
+		for (Course current : cList) {
 			lecList.add(lService.findLecturerById(current.getStaffId()));
 		}
 		mav.addObject("courseList", cList);
@@ -87,24 +88,26 @@ public class CommonController {
 
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
 	public ModelAndView adminAuthenticate(@ModelAttribute Admin admin, HttpSession session, BindingResult result) {
-		ModelAndView mav = new ModelAndView("AdminLogin");
+
+		String message = "Incorrect username or password!";
+		ModelAndView mav = new ModelAndView("AdminLogin", "message", message);
+
 		if (result.hasErrors())
 			return mav;
-		UserSession us = new UserSession();
-		if (admin.getUsername() != null && admin.getPassword() != null) {
+
+		if (admin.getUsername() !="" && admin.getPassword() != "") {
 			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
 			if (ad == null) {
 				return mav;
 			} else {
+				UserSession us = new UserSession();
 				us.setSessionId(session.getId());
 				us.setAdmin(ad);
-				mav = new ModelAndView("redirect:/admin/student/list");
+				session.setAttribute("USERSESSION", us);
+				return new ModelAndView("redirect:/admin/student/list");
 			}
-		} else {
-			return mav;
-		}
-		session.setAttribute("USERSESSION", us);
-		return mav;
+		} else
+			return new ModelAndView("AdminLogin", "message", "Please complete the form");
 	}
 
 	@RequestMapping(value = "/lecturerlogin", method = RequestMethod.GET)
@@ -116,24 +119,26 @@ public class CommonController {
 	@RequestMapping(value = "/lecturerlogin", method = RequestMethod.POST)
 	public ModelAndView lecturerAuthenticate(@ModelAttribute Lecturer lecturer, HttpSession session,
 			BindingResult result) {
-		ModelAndView mav = new ModelAndView("LecturerLogin");
+
+		String message = "Incorrect username or password!";
+		ModelAndView mav = new ModelAndView("LecturerLogin", "message", message);
+
 		if (result.hasErrors())
 			return mav;
-		UserSession us = new UserSession();
-		if (lecturer.getUsername() != null && lecturer.getPassword() != null) {
+
+		if (lecturer.getUsername() != "" && lecturer.getPassword() != "") {
 			Lecturer lc = lService.authenticate(lecturer.getUsername(), lecturer.getPassword());
 			if (lc == null) {
 				return mav;
 			} else {
+				UserSession us = new UserSession();
 				us.setSessionId(session.getId());
 				us.setLecturer(lc);
-				mav = new ModelAndView("redirect:/lecturer/courselist");
+				session.setAttribute("USERSESSION", us);
+				return new ModelAndView("redirect:/lecturer/courselist");
 			}
-		} else {
-			return mav;
-		}
-		session.setAttribute("USERSESSION", us);
-		return mav;
+		} else
+			return new ModelAndView("LecturerLogin", "message", "Please complete the form");
 	}
 
 	@RequestMapping(value = "/studentlogin", method = RequestMethod.GET)
@@ -145,24 +150,26 @@ public class CommonController {
 	@RequestMapping(value = "/studentlogin", method = RequestMethod.POST)
 	public ModelAndView studentAuthenticate(@ModelAttribute Student student, HttpSession session,
 			BindingResult result) {
-		ModelAndView mav = new ModelAndView("StudentLogin");
+		
+		String message = "Incorrect username or password!";
+		ModelAndView mav = new ModelAndView("StudentLogin", "message", message);
+
 		if (result.hasErrors())
 			return mav;
-		UserSession us = new UserSession();
-		if (student.getUsername() != null && student.getPassword() != null) {
+		
+		if (student.getUsername() != "" && student.getPassword() != "") {
 			Student st = sService.authenticate(student.getUsername(), student.getPassword());
 			if (st == null) {
 				return mav;
 			} else {
+				UserSession us = new UserSession();
 				us.setSessionId(session.getId());
 				us.setStudent(st);
-				mav = new ModelAndView("redirect:/student/landing");
+				session.setAttribute("USERSESSION", us);
+				return new ModelAndView("redirect:/student/landing");
 			}
-		} else {
-			return mav;
-		}
-		session.setAttribute("USERSESSION", us);
-		return mav;
+		} else 
+			return new ModelAndView("StudentLogin", "message", "Please complete the form");
 	}
 
 	@RequestMapping(value = "/logout")
