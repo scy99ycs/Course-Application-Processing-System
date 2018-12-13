@@ -25,6 +25,8 @@
 		<th><spring:message code="CourseId" /></th>
 		<th><spring:message code="Score" /></th>		
 	</tr>
+	
+	
 
 	<c:forEach var= "enrollment" items="${GradeList}">
 	
