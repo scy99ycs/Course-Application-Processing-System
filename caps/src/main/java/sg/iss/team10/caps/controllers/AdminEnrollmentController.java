@@ -1,6 +1,5 @@
 package sg.iss.team10.caps.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,7 +21,6 @@ import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.EnrollmentService;
 import sg.iss.team10.caps.services.StudentService;
 import sg.iss.team10.caps.validator.AdminEnrollmentValidator;
-import sg.iss.team10.caps.validator.AdminStudentValidator;
 
 @RequestMapping(value="/admin/enrollment")
 @Controller
@@ -47,27 +45,32 @@ public class AdminEnrollmentController {
 	public ModelAndView newAddEnrollmentPage()
 	{
 		ModelAndView mav= new ModelAndView("AdminAddEnrollment","enrollment",new Enrollment());
-		//int length =eService.findAllEnrollment().size() + 1;
-		//mav.addObject("eid",length );
-		//mav.addObject("sidList", sService.findAllStudents());
 		return mav;
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView createNewEnrollment(@ModelAttribute @Valid Enrollment enrollment, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
-
+		
+		String message="";
+		
 		if (result.hasErrors())
 			return new ModelAndView("AdminAddEnrollment");
-
-		ModelAndView mav = new ModelAndView();
-		String message = "New Enrollment " + enrollment.getEnrollmentId() + " was successfully created.";
-
-		eService.createEnrollment(enrollment);
-		mav.setViewName("redirect:/admin/enrollment/list");
-
-		redirectAttributes.addFlashAttribute("message", message);
-		return mav;
+		
+		if(sService.findStudentByStudentID(enrollment.getStudentId())!=null && cService.findCourseById(enrollment.getCourseId())!=null) {
+			ModelAndView mav = new ModelAndView();
+			message = "New Enrollment " + enrollment.getEnrollmentId() + " was successfully created.";
+	
+			eService.createEnrollment(enrollment);
+			mav.setViewName("redirect:/admin/enrollment/list");
+	
+			redirectAttributes.addFlashAttribute("message", message);
+			return mav;
+		}
+		else {
+			message = "Please enter Valid Data .";
+			return new ModelAndView();
+		}
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -94,16 +97,23 @@ public class AdminEnrollmentController {
 	public ModelAndView editEnrollment(@ModelAttribute @Valid Enrollment enrollment, BindingResult result,
 			@PathVariable int id, final RedirectAttributes redirectAttributes) /*throws DepartmentNotFound*/ {
 
+		String message="";
+		
 		if (result.hasErrors())
 			return new ModelAndView("AdminEditEnrollment");
-
-		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment/list");
-		String message = "Enrollment was successfully updated.";
-
-		eService.updateEnrollment(enrollment);
-
-		redirectAttributes.addFlashAttribute("message", message);
-		return mav;
+		if(sService.findStudentByStudentID(enrollment.getStudentId())!=null && cService.findCourseById(enrollment.getCourseId())!=null) {
+			ModelAndView mav = new ModelAndView("redirect:/admin/enrollment/list");
+			message = "Enrollment was successfully updated.";
+	
+			eService.updateEnrollment(enrollment);
+	
+			redirectAttributes.addFlashAttribute("message", message);
+			return mav;
+		}
+		else {
+			message = "Please enter Valid Data .";
+			return new ModelAndView();
+		}
 	}
 		
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
