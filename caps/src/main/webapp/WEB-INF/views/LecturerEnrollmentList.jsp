@@ -14,11 +14,11 @@
 <title>Enrollment List</title>
 </head>
 <body>
-	<p style="color: red">${message}</p>
+	<p class="errormessage">${message}</p>
 	<h2>Enrollment</h2>
 
 	<h3>Course: ${course.courseName}</h3>
-	<table>
+	<table class="table table-hover">
 		<tr>
 			<td>Course ID</td>
 			<td>${course.courseId}</td>
@@ -47,7 +47,7 @@
 	</table>
 
 	<h3>Enrolled Students</h3>
-	<table>
+	<table class="table table-hover">
 		<!-- Table - Header -->
 		<tr>
 			<td>#</td>
