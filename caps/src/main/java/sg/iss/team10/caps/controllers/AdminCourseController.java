@@ -71,7 +71,7 @@ public ModelAndView viewAllCourse()
 
 @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 public ModelAndView editCoursePage(@PathVariable Integer id) {
-	ModelAndView mav = new ModelAndView("course-edit");
+	ModelAndView mav = new ModelAndView("AdminEditCourse");
 	Course course = courseService.findCourseById(id);
 	mav.addObject("course", course);
 	return mav;
@@ -83,7 +83,7 @@ public ModelAndView editCourse(@ModelAttribute @Valid Course course, BindingResu
 {
 
 	if (result.hasErrors())
-		return new ModelAndView("course-edit");
+		return new ModelAndView("AdminEditCourse");
 
 	ModelAndView mav = new ModelAndView("redirect:/admin/course/list");
 	String message = "Course was successfully updated.";

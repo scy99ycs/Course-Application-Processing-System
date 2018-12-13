@@ -42,14 +42,13 @@ public class LecturerController {
 	public ModelAndView courseListPage(HttpSession session) {
 		int lcId = ((UserSession) session.getAttribute("USERSESSION")).getLecturer().getStaffId();
 		ModelAndView mav = new ModelAndView("LecturerCoursesTaught");
-		Collection<Course> CourseList = cService.findAllCourse();
-
+		ArrayList<Course> CourseList = cService.findCourseByStaffId(lcId);
+		
 		// Get current enrollment per course
 		ArrayList<Integer> numEnrolled = new ArrayList<Integer>();
 		for (Course current : CourseList) {
 			numEnrolled.add(eService.findNumEnrolledByCourseID(current.getCourseId()));
 		}
-
 		mav.addObject("CourseList", CourseList);
 		mav.addObject("numEnrolled", numEnrolled);
 		return mav;

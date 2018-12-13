@@ -16,13 +16,14 @@ public class Enrollment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private Integer enrollmentId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int enrollmentId;
 
-	private Integer courseId;
+	private int courseId;
 
 	private Float score;
 
-	private Integer studentId;
+	private int studentId;
 	@ManyToOne
 	@JoinColumn(name= "courseId", insertable=false, updatable=false)
 	private Course course;
@@ -33,7 +34,7 @@ public class Enrollment implements Serializable {
 	public Enrollment() {
 	}
 
-	public Integer getEnrollmentId() {
+	public int getEnrollmentId() {
 		return this.enrollmentId;
 	}
 
@@ -41,7 +42,7 @@ public class Enrollment implements Serializable {
 		this.enrollmentId = enrollmentId;
 	}
 
-	public Integer getCourseId() {
+	public int getCourseId() {
 		return this.courseId;
 	}
 
@@ -57,7 +58,7 @@ public class Enrollment implements Serializable {
 		this.score = score;
 	}
 
-	public Integer getStudentId() {
+	public int getStudentId() {
 		return this.studentId;
 	}
 

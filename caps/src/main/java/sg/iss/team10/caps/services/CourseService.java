@@ -13,5 +13,6 @@ public interface CourseService {
 	Course findCourseByName(String name);
 	ArrayList<Course> findCourseByStaffId(Integer sid);
 	Course findCourseById(Integer cid);
+	ArrayList<Integer> findAllCourseIds();
 	
 }

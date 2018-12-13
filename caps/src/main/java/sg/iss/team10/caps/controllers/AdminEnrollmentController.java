@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Enrollment;
+import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.EnrollmentService;
 import sg.iss.team10.caps.services.StudentService;
 
@@ -25,7 +26,10 @@ public class AdminEnrollmentController {
 	
 	@Autowired
 	private EnrollmentService eService;
+	@Autowired
 	private StudentService sService;
+	@Autowired
+	private CourseService cService;
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public ModelAndView newAddEnrollmentPage()
@@ -64,10 +68,13 @@ public class AdminEnrollmentController {
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editEnrollmentPage(@PathVariable int id) {
-		ModelAndView mav = new ModelAndView("enrollment-edit");
-		ArrayList<Enrollment> enrollment = eService.findEnrollmentByStudentID(id);
+		ModelAndView mav = new ModelAndView("AdminEditEnrollment");
+		Enrollment enrollment = eService.findEnrollmentById(id);
+		int stuid= id;
+		mav.addObject("stuid", stuid);
 		mav.addObject("enrollment", enrollment);
-		mav.addObject("sidlist", eService.findAllEnrollment());
+		//mav.addObject("sidlist", sService.findAllStudentsId());
+		//mav.addObject("sidlist", cService.findAllCourseIds());
 		return mav;
 	}
 
@@ -76,7 +83,7 @@ public class AdminEnrollmentController {
 			@PathVariable int id, final RedirectAttributes redirectAttributes) /*throws DepartmentNotFound*/ {
 
 		if (result.hasErrors())
-			return new ModelAndView("enrollment-edit");
+			return new ModelAndView("AdminEditEnrollment");
 
 		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment/list");
 		String message = "Enrollment was successfully updated.";
@@ -101,4 +108,5 @@ public class AdminEnrollmentController {
 	}
 }
 
-/*<td><form:select path="studentId" items="${sidList}"/></td>*/
+/*<td><form:select path="studentId" items="${sidList}"/></td>
+ * <td><form:select path="studentId" items="${sidList}"/></td>*/
