@@ -89,10 +89,9 @@ public class AdminStudentController {
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editStudentPage(@PathVariable int id) {
-		ModelAndView mav = new ModelAndView("student-edit");
+		ModelAndView mav = new ModelAndView("AdminEditStudent");
 		Student student = sService.findStudentByStudentID(id);
 		mav.addObject("student", student);
-		mav.addObject("sidlist", sService.findAllStudents());
 		return mav;
 	}
 
@@ -101,9 +100,15 @@ public class AdminStudentController {
 			@PathVariable String id, final RedirectAttributes redirectAttributes) /*throws DepartmentNotFound*/ {
 
 		if (result.hasErrors())
-			return new ModelAndView("student-edit");
+			return new ModelAndView("AdminEditStudent");
 
 		ModelAndView mav = new ModelAndView("redirect:/admin/student/list");
+		String username ="S"+value(student.getStudentId())+student.getFirstMidName();
+		
+		student.setUsername(username);
+		
+		String password ="S"+value(student.getStudentId())+student.getFirstMidName();
+		student.setPassword(password);
 		String message = "Student was successfully updated.";
 
 		sService.updateStudent(student);
@@ -130,4 +135,3 @@ public class AdminStudentController {
 		return String.format("%03d", id);
 	}
 }
-

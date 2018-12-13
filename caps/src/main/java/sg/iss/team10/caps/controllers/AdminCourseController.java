@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Course;
 import sg.iss.team10.caps.services.CourseService;
-import sg.iss.team10.caps.services.LecturerService;
 
 @RequestMapping(value="/admin/course")
 @Controller
@@ -29,9 +28,6 @@ public class AdminCourseController
 {
 @Autowired
 private CourseService courseService;
-
-@Autowired
-private LecturerService lecturerService;
 
 @InitBinder
 public void initBinder(WebDataBinder binder) {
@@ -77,9 +73,7 @@ public ModelAndView viewAllCourse()
 public ModelAndView editCoursePage(@PathVariable Integer id) {
 	ModelAndView mav = new ModelAndView("AdminEditCourse");
 	Course course = courseService.findCourseById(id);
-	//mav.addObject("sidlist", lecturerService.findAllLecturerIds());
 	mav.addObject("course", course);
-	
 	return mav;
 }
 
