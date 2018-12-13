@@ -8,6 +8,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,8 @@ import sg.iss.team10.caps.model.Enrollment;
 import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.EnrollmentService;
 import sg.iss.team10.caps.services.StudentService;
+import sg.iss.team10.caps.validator.AdminEnrollmentValidator;
+import sg.iss.team10.caps.validator.AdminStudentValidator;
 
 @RequestMapping(value="/admin/enrollment")
 @Controller
@@ -31,6 +35,14 @@ public class AdminEnrollmentController {
 	@Autowired
 	private CourseService cService;
 	
+	@Autowired
+	private AdminEnrollmentValidator aValidator;
+	
+	@InitBinder("enrollment")
+	private void initStudentBinder(WebDataBinder binder)
+	{
+		binder.addValidators(aValidator);
+	}
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public ModelAndView newAddEnrollmentPage()
 	{

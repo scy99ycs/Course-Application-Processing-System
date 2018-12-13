@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import sg.iss.team10.caps.model.Student;
 
 public interface StudentService {
+	
 
 	ArrayList<Student> findAllStudents();
 
