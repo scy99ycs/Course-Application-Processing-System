@@ -47,15 +47,15 @@ public class CommonController {
 
 	@Autowired
 	private LecturerLoginValidator lValidator;
-	
+
 	@InitBinder("Lecturer")
 	private void initLecturerBinder(WebDataBinder binder) {
 		binder.addValidators(lValidator);
 	}
-	
+
 	@Autowired
 	private StudentLoginValidator sValidator;
-	
+
 	@InitBinder("Student")
 	private void initStudentBinder(WebDataBinder binder) {
 		binder.addValidators(sValidator);
@@ -73,30 +73,44 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
-	public ModelAndView adminAuthenticate(@ModelAttribute @Valid Admin admin, HttpSession session,
+	public ModelAndView adminAuthenticate(@Valid @ModelAttribute("admin") Admin admin, HttpSession session,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
-		String message = null;
 		ModelAndView mav = new ModelAndView("AdminLogin");
 		if (result.hasErrors()) {
-			redirectAttributes.addFlashAttribute("message", "false");
+			redirectAttributes.addFlashAttribute("message", "USERNAME or PASSWORD cannot be empty!");
 			return mav;
-		}
-		UserSession us = new UserSession();
-		if (admin.getUsername() != null && admin.getPassword() != null) {
+		} else {
 			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
 			if (ad == null) {
+				redirectAttributes.addFlashAttribute("message", "INCORRECT USERNAME or PASSWORD!");
 				return mav;
 			} else {
+				UserSession us = new UserSession();
 				us.setSessionId(session.getId());
 				us.setAdmin(ad);
 				mav = new ModelAndView("redirect:/admin/student/list");
+				session.setAttribute("USERSESSION", us);
+//				redirectAttributes.addFlashAttribute("message", "true");
+				return mav;
 			}
-		} else {
-			return mav;
+
 		}
-		session.setAttribute("USERSESSION", us);
-		redirectAttributes.addFlashAttribute("message", "true");
-		return mav;
+//		UserSession us = new UserSession();
+//		if (admin.getUsername() != null && admin.getPassword() != null) {
+//			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
+//			if (ad == null) {
+//				return mav;
+//			} else {
+//				us.setSessionId(session.getId());
+//				us.setAdmin(ad);
+//				mav = new ModelAndView("redirect:/admin/student/list");
+//			}
+//		} else {
+//			return mav;
+//		}
+//		session.setAttribute("USERSESSION", us);
+//		redirectAttributes.addFlashAttribute("message", "true");
+//		return mav;
 	}
 
 	@RequestMapping(value = "/lecturerlogin", method = RequestMethod.GET)

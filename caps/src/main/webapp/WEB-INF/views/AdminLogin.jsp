@@ -12,12 +12,12 @@
 		<tr>
 			<td><s:message code="USERNAME" /></td>
 			<td colspan="3"><form:input path="username" size="40" /></td>
-			<td><form:errors path="username" cssStyle="color: red;" /></td>
+<%-- 			<td><form:errors path="username" cssStyle="color: red;" /></td> --%>
 		</tr>
 		<tr>
 			<td><s:message code="PASSWORD" /></td>
 			<td colspan="3"><form:password path="password" size="40" /></td>
-			<td><form:errors path="password" cssStyle="color: red;" /></td>
+<%-- 			<td><form:errors path="password" cssStyle="color: red;" /></td> --%>
 		</tr>
 		<tr>
 			<td colspan="4">&nbsp;</td>
