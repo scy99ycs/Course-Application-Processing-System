@@ -14,7 +14,7 @@ public interface EnrollmentService {
 	
 	ArrayList<Enrollment>findEnrollmentByStudentID (Integer studentID);
 	
-	ArrayList<Enrollment>findEnrollmentByCourseID (Integer courseID);
+	ArrayList<Enrollment>findEnrollmentByCourseID (Integer CourseID);
 	
 	Integer findNumEnrolledByCourseID (Integer courseID);
 	
@@ -27,5 +27,7 @@ public interface EnrollmentService {
 	ArrayList<Integer> findAllEnrollmentID();
 	
 	void removeEnrollment(Enrollment e);
+	
+	Enrollment findEnrollmentById(Integer id);
 
 }
