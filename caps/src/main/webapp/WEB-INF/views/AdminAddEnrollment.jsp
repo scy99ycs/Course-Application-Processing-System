@@ -7,9 +7,10 @@
 
 
 <h3>Add New Enrollment</h3>
+
 <form:form method="POST" modelAttribute="enrollment"
-	action="${pageContext.request.contextPath}/admin/enrollment/edit/${enrollment.enrollmentId}.html">
-	
+	action="${pageContext.request.contextPath}/admin/enrollment/add.html">
+	<p class ="errormessage">${message}</p>
 	<table align="center">
 		<tbody>
 			
@@ -24,15 +25,9 @@
 				<td><form:input path="courseId"/></td>
 				<td><form:errors path="courseId" cssStyle="color: red;" /></td>
 			</tr>
-			
+						
 			<tr>
-				<td><spring:message code="Score"/></td>
-				<td><form:input path="score" readonly="true"/></td>		
-				<td><form:errors path="score" cssStyle="color: red;" /></td>
-			</tr>
-			
-			<tr>
-				<td><input type="submit" value="Update"/></td>
+				<td><input type="submit" value="Add"/></td>
 				<td></td>
 				<td></td>
 			</tr>

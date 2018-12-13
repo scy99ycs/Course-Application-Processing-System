@@ -53,23 +53,29 @@ public class AdminEnrollmentController {
 			final RedirectAttributes redirectAttributes) {
 		
 		String message="";
+		ModelAndView mav;
 		
 		if (result.hasErrors())
 			return new ModelAndView("AdminAddEnrollment");
 		
-		if(sService.findStudentByStudentID(enrollment.getStudentId())!=null && cService.findCourseById(enrollment.getCourseId())!=null) {
-			ModelAndView mav = new ModelAndView();
+		if(sService.findStudentByStudentID(enrollment.getStudentId())!=null ) {
+			if(cService.findCourseById(enrollment.getCourseId())!=null) {
+			mav = new ModelAndView();
 			message = "New Enrollment " + enrollment.getEnrollmentId() + " was successfully created.";
 	
 			eService.createEnrollment(enrollment);
-			mav.setViewName("redirect:/admin/enrollment/list");
-	
+			mav.setViewName("redirect:/admin/enrollment/list");	
 			redirectAttributes.addFlashAttribute("message", message);
 			return mav;
+			}
+			else {
+				message = "Please enter Valid Data .";
+				return new ModelAndView("AdminEditEnrollment", "message", message);
+			}
 		}
 		else {
 			message = "Please enter Valid Data .";
-			return new ModelAndView();
+			return new ModelAndView("AdminEditEnrollment", "message", message);
 		}
 	}
 	
@@ -88,8 +94,6 @@ public class AdminEnrollmentController {
 		int stuid= id;
 		mav.addObject("stuid", stuid);
 		mav.addObject("enrollment", enrollment);
-		//mav.addObject("sidlist", sService.findAllStudentsId());
-		//mav.addObject("sidlist", cService.findAllCourseIds());
 		return mav;
 	}
 
@@ -101,7 +105,8 @@ public class AdminEnrollmentController {
 		
 		if (result.hasErrors())
 			return new ModelAndView("AdminEditEnrollment");
-		if(sService.findStudentByStudentID(enrollment.getStudentId())!=null && cService.findCourseById(enrollment.getCourseId())!=null) {
+		if(sService.findStudentByStudentID(enrollment.getStudentId())!=null ) {
+			if(cService.findCourseById(enrollment.getCourseId())!=null) {
 			ModelAndView mav = new ModelAndView("redirect:/admin/enrollment/list");
 			message = "Enrollment was successfully updated.";
 	
@@ -109,6 +114,11 @@ public class AdminEnrollmentController {
 	
 			redirectAttributes.addFlashAttribute("message", message);
 			return mav;
+			}
+			else {
+				message = "Please enter Valid Data .";
+				return new ModelAndView();
+			}
 		}
 		else {
 			message = "Please enter Valid Data .";
