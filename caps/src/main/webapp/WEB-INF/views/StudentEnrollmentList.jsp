@@ -23,16 +23,18 @@
 
 <tr class="listHeading">
 		<th><spring:message code="CourseId" /></th>
-		<th><spring:message code="Score" /></th>		
+		<th><spring:message code="Score" /></th>
+		<th><spring:message code="Grade" /></th>		
 	</tr>
 	
 	
 
-	<c:forEach var= "enrollment" items="${GradeList}">
+	<c:forEach var= "enrollment" items="${GradeList}" varStatus="index">
 	
 		<tr class="ListRecord">
 			<td align="left">${enrollment.courseId}</td>
-			<td align="left">${enrollment.score}</td>		
+			<td align="left">${enrollment.score}</td>	
+			<td align = "left"> ${grades.get(index.index)}</td>	
 		</tr>
 	</c:forEach>
 

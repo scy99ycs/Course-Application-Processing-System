@@ -26,6 +26,7 @@ import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.EnrollmentService;
 import sg.iss.team10.caps.services.StudentService;
+import sg.iss.team10.caps.util.CapsLogic;
 
 @Controller
 @RequestMapping(value = "/student")
@@ -98,13 +99,25 @@ public class StudentController {
 	@RequestMapping(value = "/landing", method = RequestMethod.GET)
 	public ModelAndView StudentLandingPage(Integer studentId) {
 		ModelAndView mav = new ModelAndView("StudentEnrollmentList");
+		
 		ArrayList<Enrollment> GradeList = eService.findEnrollmentByStudentID(studentId);
+	
+		ArrayList<Character> grades = new ArrayList<Character>();
+		for(Enrollment current: GradeList) {
+			grades.add(CapsLogic.calculateGrade(current.getScore()));
+		}
+		
+//		for(int i=0;i<GradeList.size();i++) {
+//					var i = GradeList.get(i).getScore();
+//		}
+//		CapsLogic.calculateGrade(score)
 		mav.addObject("GradeList", GradeList);
+		mav.addObject("grades", grades);
 		return mav;
 	}
 	
 
-	// 2.1 Page : findAllCourse
+	// 2.1 Page : findAllCourse (Complete)
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView StudentSearchCoursePage(Integer studentId) {
 		ModelAndView mav = new ModelAndView("StudentSearchList");

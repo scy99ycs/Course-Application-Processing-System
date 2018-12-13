@@ -18,7 +18,7 @@ public class CapsLogic {
 			}
 		} 
 		else
-			return null;
+			return '-';
 	}
 }
 
