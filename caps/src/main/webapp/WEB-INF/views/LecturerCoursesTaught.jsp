@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +12,37 @@
 <title>My Courses</title>
 </head>
 <body>
-hello!
-Lecturer first page
-<form:form method="POST"> 
-hello!
-Lecturer first page
-<input type="submit" value="Ok" />
-</form:form>
+	<h2>My Courses</h2>
+	<table>
+		<!-- Table - Header -->
+		<tr>
+			<th>Course ID</th>
+			<th>Course Name</th>
+			<th>Start Date</th>
+			<th>Duration (days)</th>
+			<th>Credits</th>
+			<th>Capacity</th>
+			<th>Enrolled</th>
+			<th>View Students</th>
+		</tr>
+		<!-- Table - Records -->
+		<c:forEach items="${CourseList}" var="course" varStatus="index">
+			<tr>
+				<td>${course.courseId}</td>
+				<td>${course.courseName}</td>
+				<td><fmt:formatDate value="${course.startDate}"
+						pattern="EEEE, d MMMM yyyy" /></td>
+				<td>${course.duration}</td>
+				<td>${course.credit}</td>
+				<td>${course.capacity}</td>
+				<td><c:out value="${numEnrolled.get(index.index)}" /></td>
+				<td><a
+					href="${pageContext.request.contextPath}/lecturer/studentlist/${course.courseId}">View
+						Students</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+
+
 </body>
 </html>
