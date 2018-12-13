@@ -14,8 +14,9 @@
 <body>
 
 <h1>New Enrollment</h1>
-<form:form method = "POST" modelAttribute = "Enrollment"
-	action = "${pageContext.request.contextPath}/create/${course.courseId}"> 
+<form:form method = "POST" modelAttribute = "Enrollment" 
+	action = "${pageContext.request.contextPath}/student/create/${course.courseId}"> 
+	
 <table style="cellspacing: 2; cellpadding: 2; border: 1;">
 
 
@@ -46,14 +47,21 @@
 			href="${pageContext.request.contextPath}/student/search.html}"><spring:message
 						code="back" /></a></td>
 						
+		
+						
+					
 					
 				
 		
 		</tr>
-
-
+		
 </table>
 
+
+
 </form:form>
+
+
+
 </body>
 </html>

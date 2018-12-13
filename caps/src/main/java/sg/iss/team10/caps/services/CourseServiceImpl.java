@@ -66,4 +66,10 @@ public class CourseServiceImpl implements CourseService{
 		return courseRepository.findCourseById(id);
 	}
 
+	@Override
+	public ArrayList<Integer> findAllCourseIds() {
+		// TODO Auto-generated method stub
+		return courseRepository.findallCourseIds();
+	}
+
 }

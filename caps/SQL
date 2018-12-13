@@ -25,7 +25,7 @@ CREATE TABLE `team10caps`.`course` (
 
 
 CREATE TABLE `team10caps`.`enrollment` (
-  `enrollmentId` int(11) NOT NULL,
+  `enrollmentId` int(11) NOT NULL AUTO_INCREMENT,
   `courseId` int(11) NOT NULL,
   `studentId` int(11) NOT NULL,
   `score` float,

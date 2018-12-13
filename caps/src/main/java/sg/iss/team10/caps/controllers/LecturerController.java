@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Cache;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import sg.iss.team10.caps.model.Course;
 import sg.iss.team10.caps.model.Enrollment;
 import sg.iss.team10.caps.model.Lecturer;
 import sg.iss.team10.caps.model.Student;
+import sg.iss.team10.caps.controllers.UserSession;
 import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.EnrollmentService;
 import sg.iss.team10.caps.services.StudentService;
@@ -37,16 +39,16 @@ public class LecturerController {
 	private EnrollmentService eService;
 
 	@RequestMapping(value = "/courselist", method = RequestMethod.GET)
-	public ModelAndView courseListPage() {
+	public ModelAndView courseListPage(HttpSession session) {
+		int lcId = ((UserSession) session.getAttribute("USERSESSION")).getLecturer().getStaffId();
 		ModelAndView mav = new ModelAndView("LecturerCoursesTaught");
-		Collection<Course> CourseList = cService.findAllCourse();
-
+		ArrayList<Course> CourseList = cService.findCourseByStaffId(lcId);
+		
 		// Get current enrollment per course
 		ArrayList<Integer> numEnrolled = new ArrayList<Integer>();
 		for (Course current : CourseList) {
 			numEnrolled.add(eService.findNumEnrolledByCourseID(current.getCourseId()));
 		}
-
 		mav.addObject("CourseList", CourseList);
 		mav.addObject("numEnrolled", numEnrolled);
 		return mav;
@@ -108,17 +110,17 @@ public class LecturerController {
 
 	@RequestMapping(value = "/performance/{studentId}", method = RequestMethod.GET)
 	public ModelAndView studentperformancePage(@PathVariable("studentId") int studentId) {
-		
+
 		Student student = sService.findStudentByStudentID(studentId);
 		ArrayList<Enrollment> performanceList = eService.findEnrollmentByStudentID(studentId);
 		ArrayList<Course> course = new ArrayList<Course>();
 		ArrayList<Character> grade = new ArrayList<Character>();
-		
-		for (Enrollment current: performanceList) {
+
+		for (Enrollment current : performanceList) {
 			course.add(cService.findCourseById(current.getCourseId()));
 			grade.add(CapsLogic.calculateGrade(current.getScore()));
 		}
-		
+
 		ModelAndView mav = new ModelAndView("LecturerStudentPerformance");
 		mav.addObject("student", student);
 		mav.addObject("performanceList", performanceList);
@@ -126,7 +128,7 @@ public class LecturerController {
 		mav.addObject("grade", grade);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/performance", method = RequestMethod.GET)
 	public ModelAndView studentListPage() {
 		ModelAndView mav = new ModelAndView("LecturerStudentList");

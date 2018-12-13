@@ -37,7 +37,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	@Query("SELECT s FROM Student s WHERE s.username=:un AND s.password=:pwd")
 	Student authenticate(@Param("un") String username, @Param("pwd") String password);
 	
-	@Query("SELECT s FROM Student s")
+	@Query("SELECT studentId FROM Student")
 	ArrayList<Integer> findAllIds();
 
 	
