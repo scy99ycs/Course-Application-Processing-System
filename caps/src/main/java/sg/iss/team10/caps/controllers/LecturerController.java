@@ -100,8 +100,12 @@ public class LecturerController {
 		if (result.hasErrors())
 			message = "Oops! Unsuccessful grade update...Try again?";
 		else {
+			if (enrollment.getScore()>100||enrollment.getScore()<0) 
+			message = "Score is out of range.Please retype a score?";
+			else {
 			eService.updateEnrollment(enrollment);
 			message = "Successful grade update!";
+			}
 		}
 		ModelAndView mav = new ModelAndView("redirect:/lecturer/studentlist/" + enrollment.getCourseId());
 		redirectAttributes.addFlashAttribute("message", message);
