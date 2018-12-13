@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Attributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -57,7 +58,6 @@ public class StudentController {
 		mav.addObject("course", course);
 		// mav.addObject("eidlist", eService.findAllEnrollmentID());
 		return mav;
-
 	}
 
 	@RequestMapping(value = "/create/{courseId}", method = RequestMethod.POST)
@@ -83,10 +83,9 @@ public class StudentController {
 		
 		
 		Enrollment em = new Enrollment();
-		//Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
+		Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
 		String message = "Your enrollment is successful.";
-		//em.setStudentId(s.getStudentId());
-		em.setStudentId(2);
+		em.setStudentId(s.getStudentId());
 		em.setCourseId(courseId);
 		eService.createEnrollment(em);
 		Session.setAttribute("message", message);
@@ -95,35 +94,53 @@ public class StudentController {
 		return mav;
 	}
 
+	
+/*-------------------------- 1st Page / Landing -----------------------------------*/
+	
 	// 1st Page to be displayed when Student log in through ID
 	@RequestMapping(value = "/landing", method = RequestMethod.GET)
-	public ModelAndView StudentLandingPage(Integer studentId) {
-		ModelAndView mav = new ModelAndView("StudentEnrollmentList");
+	public ModelAndView StudentLandingPage(HttpSession Session) {
 		
+		ModelAndView mav = new ModelAndView("StudentEnrollmentList");
+		int studentId = ((UserSession)Session.getAttribute("USERSESSION")).getStudent().getStudentId();
 		ArrayList<Enrollment> GradeList = eService.findEnrollmentByStudentID(studentId);
+		Student student = sService.findStudentByStudentID(studentId);
+		String firstMidName = (student.getFirstMidName());
+		String lastName = (student.getLastName());
+		
+		
+		//Getting courseName
+		//Creating an emptyArraylist to store Course objects with the same Id
+		ArrayList<Course> courseName = new ArrayList<Course>();
+		
+
+		
 	
 		ArrayList<Character> grades = new ArrayList<Character>();
 		for(Enrollment current: GradeList) {
+			courseName.add(cService.findCourseById(current.getCourseId()));
 			grades.add(CapsLogic.calculateGrade(current.getScore()));
 		}
 		
-//		for(int i=0;i<GradeList.size();i++) {
-//					var i = GradeList.get(i).getScore();
-//		}
-//		CapsLogic.calculateGrade(score)
+
 		mav.addObject("GradeList", GradeList);
 		mav.addObject("grades", grades);
+		mav.addObject("courseName", courseName);
+		mav.addObject("firstMidName", firstMidName);
+		mav.addObject("lastName", lastName);
 		return mav;
 	}
 	
-
+/* -------------------------Search Functions-----------------------------*/
+	
 	// 2.1 Page : findAllCourse (Complete)
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView StudentSearchCoursePage(Integer studentId) {
+	public ModelAndView StudentSearchCoursePage(HttpSession Session) {
+		
+		Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
 		ModelAndView mav = new ModelAndView("StudentSearchList");
 		ArrayList<Course> courseList = cService.findAllCourse();//Get list of all courses
-		ArrayList<Enrollment> elist = eService.findEnrollmentByStudentID(studentId); //Get enrollment list w courseID
-		//ArrayList<Course> courselist = new ArrayList<Course>();
+		ArrayList<Enrollment> elist = eService.findEnrollmentByStudentID(s.getStudentId()); //Get enrollment list w courseID
 		for(int i=0;i<elist.size();i++){
 			for(int j=0;j<courseList.size();j++) {
 				if(courseList.get(j).getCourseId() == elist.get(i).getCourseId()) {
@@ -131,34 +148,37 @@ public class StudentController {
 				}
 			}
 		}
-//		ArrayList<Course> courselist1 = new ArrayList<Course>();
-//		for(int j=0;j<courseList.size();j++) {
-//			courselist1.set(j, courseList.get(j));			
-//			}
+
 		mav.addObject("courseList", courseList);
 		return mav;
+		
 	}
+	
 
-	// 2.2 Page : findCourseById
-	@RequestMapping(value = "/SearchById", method = RequestMethod.GET)
+	// 2.2 Page : findCourseById (input)
+	@RequestMapping(value = "/searchbyid", method = RequestMethod.GET)
 	public ModelAndView StudentSearchCoursePageById(Integer courseId) {
 		ModelAndView mav = new ModelAndView("courseId");
 		Course course = cService.findCourseById(courseId);
 		mav.addObject("courseId", course);
 		return mav;
-
+		
 	}
 
-	// 2.3 Page : FindCourseByName
-	@RequestMapping(value = "/SearchByName", method = RequestMethod.GET)
-	public ModelAndView StudentSearchCourseByName(String name) {
-		ModelAndView mav = new ModelAndView("courseName");
-		Course course = cService.findCourseByName(name);
-		mav.addObject("courseName", course);
+
+		
+	// 2.3 Page : FindCourseByName (input) get and set to session
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView StudentSearchCourseByName(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("StudentSearchList");
+		ArrayList<Course> courseList = cService.findCoursesByName(request.getParameter("Name"));
+		//Session.setAttribute("message", message);
+		mav.addObject("courseList", courseList);
 		return mav;
 
 	}
-
+	
+	
 	// 2.4 Page: findCourseByStaffId
 	@RequestMapping(value = "/SearchByStaff", method = RequestMethod.GET)
 	public ModelAndView findCourseByStaffId(Integer sid) {
@@ -169,42 +189,5 @@ public class StudentController {
 
 	}
 
-//	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-//	public ModelAndView editDepartmentPage(@PathVariable String id) {
-//		ModelAndView mav = new ModelAndView("department-edit");
-//		Department department = dService.findDepartment(id);
-//		mav.addObject("department", department);
-//		mav.addObject("eidlist", eService.findAllEmployeeIDs());
-//		return mav;
-//	}
-//
-//	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-//	public ModelAndView editDepartment(@ModelAttribute @Valid Department department, BindingResult result,
-//			@PathVariable String id, final RedirectAttributes redirectAttributes) throws DepartmentNotFound {
-//
-//		if (result.hasErrors())
-//			return new ModelAndView("department-edit");
-//
-//		ModelAndView mav = new ModelAndView("redirect:/admin/department/list");
-//		String message = "Department was successfully updated.";
-//
-//		dService.changeDepartment(department);
-//
-//		redirectAttributes.addFlashAttribute("message", message);
-//		return mav;
-//	}
-//
-//	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-//	public ModelAndView deleteDepartment(@PathVariable String id, final RedirectAttributes redirectAttributes)
-//			throws DepartmentNotFound {
-//
-//		ModelAndView mav = new ModelAndView("redirect:/admin/department/list");
-//		Department department = dService.findDepartment(id);
-//		dService.removeDepartment(department);
-//		String message = "The department " + department.getDepartmentId() + " was successfully deleted.";
-//
-//		redirectAttributes.addFlashAttribute("message", message);
-//		return mav;
-//	}
-
+	
 }

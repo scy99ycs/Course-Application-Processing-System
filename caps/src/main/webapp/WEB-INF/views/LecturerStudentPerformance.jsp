@@ -24,7 +24,7 @@
 		</tr>
 	</table>
 
-	<h3>Courses Attending</h3>
+	<h2>Courses Attending</h2>
 	<table>
 		<tr>
 			<th>#</th>

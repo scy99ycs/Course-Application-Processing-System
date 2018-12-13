@@ -44,7 +44,7 @@ public class CourseServiceImpl implements CourseService{
 		ArrayList<Course> findall= (ArrayList<Course>)courseRepository.findAll();
 		return findall;
 	}
-
+	
 	@Override
 	@Transactional
 	public Course findCourseByName(String name) {
@@ -70,6 +70,12 @@ public class CourseServiceImpl implements CourseService{
 	public ArrayList<Integer> findAllCourseIds() {
 		// TODO Auto-generated method stub
 		return courseRepository.findallCourseIds();
+	}
+
+	@Override
+	public ArrayList<Course> findCoursesByName(String name) {
+		// TODO Auto-generated method stub
+		return courseRepository.findCoursesByName(name);
 	}
 
 }

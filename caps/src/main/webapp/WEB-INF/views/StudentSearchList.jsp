@@ -17,12 +17,19 @@
 
 <h3>Course List Page</h3> 
 
+
 	<h2 style="color:#000">${message}</h2>
 	<c:remove var = "message" scope = "session"/>
 	<br></br>
 		<h2 style="color:#000">${errormessage}</h2>
 	<c:remove var = "errormessage" scope = "session"/>
 	
+	
+<form:form action="${pageContext.request.contextPath}/student/search" method="post">
+    <input name="Name" type="text"/>
+    <input type="submit" value="Submit">
+</form:form>
+
 <c:if test="${fn:length(courseList) gt 0}">
 
 <table style="cellspacing: 2; cellpadding: 2; border: 1;">

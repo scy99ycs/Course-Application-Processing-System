@@ -10,31 +10,49 @@
 <meta charset="ISO-8859-1">
 <title>Enrollment List</title>
 </head>
+
+
 <body>
 
-<h3>Course List Page</h3>
+<h2 class= "container" style = "padding-top: 151px;">Course List Page</h2>
 
+<table class ="container">
+		<tr>
+			<td>Student Name</td>
+			<td>${student.firstMidName}${student.lastName}</td>
+		</tr>
+		<tr>
+			<td>Student ID</td>
+			<td>${studentId}</td>
+		</tr>
+</table>
 	
 <c:if test="${fn:length(GradeList) gt 0}">
 
-<table style="cellspacing: 2; cellpadding: 2; border: 1;">
+<table class = "container" style="cellspacing: 2; cellpadding: 2; border: 1;">
 
 
 
 <tr class="listHeading">
 		<th><spring:message code="CourseId" /></th>
+		<th><spring:message code="CourseName"/></th>
 		<th><spring:message code="Score" /></th>
 		<th><spring:message code="Grade" /></th>		
 	</tr>
-	
-	
-
 	<c:forEach var= "enrollment" items="${GradeList}" varStatus="index">
 	
 		<tr class="ListRecord">
 			<td align="left">${enrollment.courseId}</td>
-			<td align="left">${enrollment.score}</td>	
-			<td align = "left"> ${grades.get(index.index)}</td>	
+			<td align="left">${courseName.get(index.index).courseName}</td>
+			<td align ="left">
+			<c:choose>
+						<c:when test="${empty enrollment.score}">No score yet</c:when>
+						<c:otherwise>${enrollment.score}</c:otherwise>
+					</c:choose></td>	
+			<td align ="left">${grades.get(index.index)}</td>
+			
+			
+			
 		</tr>
 	</c:forEach>
 
