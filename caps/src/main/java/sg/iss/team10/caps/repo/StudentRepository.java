@@ -39,14 +39,9 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	
 	@Query("SELECT studentId FROM Student")
 	ArrayList<Integer> findAllIds();
-
 	
-	
-	
-	
-	
-	
-	
+	@Query("SELECT MAX(studentId) FROM Student")
+	Integer findMaxStudentId();
 	
 	
 }

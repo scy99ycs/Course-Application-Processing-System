@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.StudentService;
+import sg.iss.team10.caps.validator.AdminStudentValidator;
 
 @RequestMapping(value="/admin/student")
 @Controller
@@ -29,13 +30,21 @@ public class AdminStudentController {
 	
 	@Autowired
 	private StudentService sService;
+	@Autowired
+	private AdminStudentValidator aValidator;
 	
+	@InitBinder("student")
+	private void initStudentBinder(WebDataBinder binder)
+	{
+		binder.addValidators(aValidator);
+	}
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, false));
+		
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
@@ -55,21 +64,15 @@ public class AdminStudentController {
 			return new ModelAndView("AdminAddStudent");
 
 		ModelAndView mav = new ModelAndView();
-		String message = "New Student " + student.getStudentId() + " was successfully created.";
+		String message = "New Student " + (sService.findMaxStudentId()+1) + " was successfully created.";
 		
-		String username ="S"+value(student.getStudentId())+student.getFirstMidName();
+		String username ="S"+value(sService.findMaxStudentId()+1)+student.getFirstMidName();
+		//String username ="S"+value(sService.findAllStudents().size() + 1)+student.getFirstMidName();
 		
 		student.setUsername(username);
 		
-		String password ="S"+value(student.getStudentId())+student.getFirstMidName();
+		String password ="S"+value(sService.findMaxStudentId()+1)+student.getFirstMidName();
 		student.setPassword(password);
-		
-		
-		
-		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//give format in which you are receiving the `String date_updated`
-	    //Date date = sdf.parse(student.getEnrollmentDate());
-	    //java.sql.Date sqlDate_updated = new java.sql.Date(date.getTime());
-		
 		
 		
 		sService.createStudent(student);

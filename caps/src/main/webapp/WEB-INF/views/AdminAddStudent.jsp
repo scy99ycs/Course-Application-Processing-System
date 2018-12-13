@@ -17,7 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>${message}</p>
+
 <form:form method="POST" modelAttribute="student" action="${pageContext.request.contextPath}/admin/student/add.html">
 
 	Add New Student
@@ -26,15 +26,17 @@
 		<tr>		
 			<td><spring:message code="Student Name"/></td>
 			<td><form:input path="firstMidName"/></td>
+			<td><form:errors path="firstMidName" cssStyle="color: red;" /></td>
 		</tr>
 		<tr>	
 			<td><spring:message code="Last Name"/></td>
 			<td><form:input path="lastName"/></td>
+			<td><form:errors path="lastName" cssStyle="color: red;" /></td>
 		</tr>
 		<tr>
 			<td><spring:message code="Enrollment Date"/></td>
 			<td><form:input path="enrollmentDate" type="date" format="yyyy-MM-dd"/></td>			
-			
+			<td><form:errors path="enrollmentDate" cssStyle="color: red;" /></td>
 		</tr>
 		<tr>
 			<td><input type="submit" value="Add"/></td>

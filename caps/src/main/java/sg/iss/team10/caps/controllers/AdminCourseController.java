@@ -21,13 +21,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Course;
 import sg.iss.team10.caps.services.CourseService;
+import sg.iss.team10.caps.validator.AdminCourseValidator;
 
 @RequestMapping(value="/admin/course")
 @Controller
 public class AdminCourseController 
 {
+
 @Autowired
 private CourseService courseService;
+
+
+
+@Autowired
+private AdminCourseValidator courseValidator;
+
+@InitBinder("course")
+private void initCourseBinder(WebDataBinder binder)
+{
+	binder.addValidators(courseValidator);
+}
 
 @InitBinder
 public void initBinder(WebDataBinder binder) {
@@ -38,12 +51,14 @@ public void initBinder(WebDataBinder binder) {
 }
 
 
+
+
 @RequestMapping(value="/add" ,method=RequestMethod.GET)
 public ModelAndView newAddCoursePage()
 {
 	ModelAndView mav=new ModelAndView("AdminAddCourse","course", new Course());
-	//int length =courseService.findAllCourse().size() + 1;
-	//mav.addObject("cid",length );
+	int length =courseService.findAllCourse().size() + 1;
+	mav.addObject("cid",length );
 	return mav;
 }
 @RequestMapping(value = "/add", method = RequestMethod.POST)

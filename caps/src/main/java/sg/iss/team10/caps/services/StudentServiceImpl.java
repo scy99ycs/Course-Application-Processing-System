@@ -93,4 +93,10 @@ public class StudentServiceImpl implements StudentService {
 		return srepo.findAllIds();
 		
 	}
+
+	@Override
+	public Integer findMaxStudentId() {
+		// TODO Auto-generated method stub
+		return srepo.findMaxStudentId();
+	}
 }

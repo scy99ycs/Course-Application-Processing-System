@@ -23,6 +23,8 @@ public interface StudentService {
 	void removeStudent(Student s);
 	ArrayList<Integer> findAllStudentsId();
 	
+	Integer findMaxStudentId();
+	
 	Student authenticate(String username, String password);
 
 }
