@@ -24,15 +24,16 @@
 		<h2 style="color:#000">${errormessage}</h2>
 	<c:remove var = "errormessage" scope = "session"/>
 	
-	
+
 <form:form action="${pageContext.request.contextPath}/student/search" method="post">
     <input name="Name" type="text"/>
-    <input type="submit" value="Submit">
+    <input class="btn btn-warning" placeholder="Input Course Name" type="submit" value="Search">
 </form:form>
+
 
 <c:if test="${fn:length(courseList) gt 0}">
 
-<table style="cellspacing: 2; cellpadding: 2; border: 1;">
+<table class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 
 
 

@@ -133,7 +133,7 @@ public class StudentController {
 	
 /* -------------------------Search Functions-----------------------------*/
 	
-	// 2.1 Page : findAllCourse (Complete)
+	// 2.1 Page : ListofAllAvailableCourses(Complete)
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView StudentSearchCoursePage(HttpSession Session) {
 		
@@ -156,27 +156,42 @@ public class StudentController {
 	
 
 	// 2.2 Page : findCourseById (input)
-	@RequestMapping(value = "/searchbyid", method = RequestMethod.GET)
-	public ModelAndView StudentSearchCoursePageById(Integer courseId) {
+	@RequestMapping(value = "/searchbyid", method = RequestMethod.POST)
+	public ModelAndView StudentSearchCoursePageById(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("courseId");
-		Course course = cService.findCourseById(courseId);
-		mav.addObject("courseId", course);
+		int i = Integer.parseInt(request.getParameter("Name"));
+		Course courseList = cService.findCourseById(i);
+		mav.addObject("courseId", courseList);
 		return mav;
 		
 	}
 
-
-		
+//AOP
+//Trying Join Point
+	
 	// 2.3 Page : FindCourseByName (input) get and set to session
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView StudentSearchCourseByName(HttpServletRequest request) {
+	public ModelAndView StudentSearchCourseByName(HttpServletRequest request, HttpSession Session) {
+		
+		Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
 		ModelAndView mav = new ModelAndView("StudentSearchList");
-		ArrayList<Course> courseList = cService.findCoursesByName(request.getParameter("Name"));
+		ArrayList<Course> courseList = cService.findCoursesByName(request.getParameter("Name"));//Get list of all courses
+		ArrayList<Enrollment> elist = eService.findEnrollmentByStudentID(s.getStudentId()); //Get enrollment list w courseID
+		for(int i=0;i<elist.size();i++){
+			for(int j=0;j<courseList.size();j++) {
+				if(courseList.get(j).getCourseId() == elist.get(i).getCourseId()) {
+					courseList.remove(j);
+				}
+			}
+		}
+		//Invalid Return...Courselist.size = 0 (==)
 		//Session.setAttribute("message", message);
 		mav.addObject("courseList", courseList);
 		return mav;
 
 	}
+	
+	
 	
 	
 	// 2.4 Page: findCourseByStaffId
