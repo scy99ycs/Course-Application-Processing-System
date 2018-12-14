@@ -9,8 +9,8 @@
 <form:form method="POST" modelAttribute="course"
 	action="${pageContext.request.contextPath}/admin/course/edit/${course.courseId}.html">
 	<p class ="errormessage">${message}</p>
-	<table>
-		<tbody>
+	<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">		
+	<tbody>
 		<tr><td> &nbsp; <td></tr>
 			<tr>
 				<td><spring:message code="Course Id" /></td>
@@ -56,7 +56,7 @@
 			</tr>
 			<tr><td> &nbsp; <td></tr>
 			<tr>
-				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="submit" value="Update" style="height:30px; width:70px"/></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input class="table table-hover" type="submit" value="Update" style="height:30px; width:70px"/></td>
 			</tr>
 		</tbody>
 	</table>

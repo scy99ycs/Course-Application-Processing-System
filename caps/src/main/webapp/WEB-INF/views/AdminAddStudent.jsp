@@ -14,14 +14,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Add New Student</title>
 </head>
 <body>
 <p class ="errormessage">${message}</p>
 <form:form method="POST" modelAttribute="student" action="${pageContext.request.contextPath}/admin/student/add.html">
 
 	<h2>Add New Student</h2>
-	<table align="center">
+	<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 		<tr><td> &nbsp; <td></tr>
 		<tr>		
 			<td><spring:message code="Student Name"/></td>
@@ -42,7 +42,7 @@
 		</tr>
 		<tr><td> &nbsp; <td></tr>
 		<tr>
-			<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" value="Add" style="height:30px; width:70px"/></td>
+			<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="table table-hover" type="submit" value="Add" style="height:30px; width:70px"/></td>
 			<td></td>
 			<td></td>
 		</tr>

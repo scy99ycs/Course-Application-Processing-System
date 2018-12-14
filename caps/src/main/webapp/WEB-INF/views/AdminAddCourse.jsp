@@ -11,14 +11,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Add New Course </title>
 </head>
 <body>
 <p class ="errormessage">${message}</p>
 <form:form method="POST" modelAttribute="course" action="${pageContext.request.contextPath}/admin/course/add.html">
 
 	<h2>Add New Course</h2>
-	<table align="center">
+	<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 		<tr><td> &nbsp; <td></tr>
 		<tr>		
 			<td><spring:message code="Course Name"/></td>

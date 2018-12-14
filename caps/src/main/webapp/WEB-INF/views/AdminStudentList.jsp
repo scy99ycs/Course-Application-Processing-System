@@ -9,13 +9,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Student List</title>
 </head>
 <body>
 <p class ="errormessage">${message}</p>
+<br/>
+<p align="left">
+<a href="${pageContext.request.contextPath}/admin/student/add.html"><input class="table table-hover" type="submit" value="Add New Student" style="height:30px; width:150px"/></a>
+</p><br/>
 <form:form>
 <c:if test="${fn:length(studentList) gt 0}">
-<table>
+<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 	<tr>
 		<th><spring:message code="Student Id"/></th>
 		<th><spring:message code="First & Middle Name"/></th>

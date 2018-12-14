@@ -10,7 +10,7 @@
 <form:form method="POST" modelAttribute="enrollment"
 	action="${pageContext.request.contextPath}/admin/enrollment/edit/${enrollment.enrollmentId}.html">
 	<p class ="errormessage">${message}</p>
-	<table>
+	<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 		<tbody>
 			<tr><td> &nbsp; <td></tr>
 			<tr>
@@ -40,7 +40,7 @@
 			</tr>
 			<tr><td> &nbsp; <td></tr>
 			<tr>
-				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="submit" value="Update" style="height:30px; width:70px"/></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="submit" class="table table-hover" value="Update" style="height:30px; width:70px"/></td>
 				<td></td>
 				<td></td>
 			</tr>

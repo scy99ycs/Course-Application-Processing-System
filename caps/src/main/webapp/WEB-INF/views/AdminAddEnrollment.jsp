@@ -11,9 +11,8 @@
 <form:form method="POST" modelAttribute="enrollment"
 	action="${pageContext.request.contextPath}/admin/enrollment/add.html">
 	<p class ="errormessage">${message}</p>
-	<table align="center">
+	<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 		<tbody>
-			
 			<tr>
 			<td>Student Id &nbsp; &nbsp; </td>
 				<td><form:select path="studentId" style="width: 100px;">
@@ -29,7 +28,7 @@
 			</tr>
 			<tr><td> &nbsp; <td></tr>	
 			<tr>
-				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="submit" value="Add" style="height:30px; width:70px"/></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input class="table table-hover" type="submit" value="Add" style="height:30px; width:70px"/></td>
 			</tr>
 		</tbody>
 	</table>
