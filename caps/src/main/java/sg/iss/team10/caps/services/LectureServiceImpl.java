@@ -64,5 +64,11 @@ public class LectureServiceImpl implements LecturerService {
 		// TODO Auto-generated method stub
 		return lrepos.findAllIds();
 	}
+	
+	@Override
+	public Integer findMaxStaffId() {
+		// TODO Auto-generated method stub
+		return lrepos.findMaxStaffId();
+	}
 
 }

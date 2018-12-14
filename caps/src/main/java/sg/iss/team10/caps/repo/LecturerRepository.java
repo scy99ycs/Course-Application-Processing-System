@@ -21,4 +21,7 @@ public interface LecturerRepository extends JpaRepository<Lecturer, Integer>	 {
 	
 	@Query("SELECT staffId FROM Lecturer")
 	ArrayList<Integer> findAllIds();
+	
+	@Query("SELECT MAX(staffId) FROM Lecturer")
+	Integer findMaxStaffId();
 }
