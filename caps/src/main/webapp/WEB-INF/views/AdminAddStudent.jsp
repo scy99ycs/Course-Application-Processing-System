@@ -42,7 +42,7 @@
 		</tr>
 		<tr><td> &nbsp; <td></tr>
 		<tr>
-			<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <input type="submit" value="Add" style="height:30px; width:70px"/></td>
+			<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" value="Add" style="height:30px; width:70px"/></td>
 			<td></td>
 			<td></td>
 		</tr>
