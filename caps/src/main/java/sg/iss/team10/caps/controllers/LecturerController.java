@@ -7,6 +7,7 @@ import javax.persistence.Cache;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.aspectj.weaver.tools.cache.FlatFileCacheBacking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -43,7 +44,7 @@ public class LecturerController {
 		int lcId = ((UserSession) session.getAttribute("USERSESSION")).getLecturer().getStaffId();
 		ModelAndView mav = new ModelAndView("LecturerCoursesTaught");
 		ArrayList<Course> CourseList = cService.findCourseByStaffId(lcId);
-		
+
 		// Get current enrollment per course
 		ArrayList<Integer> numEnrolled = new ArrayList<Integer>();
 		for (Course current : CourseList) {
@@ -92,7 +93,7 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/grade", method = RequestMethod.POST)
-	public ModelAndView editUserPage(@Valid @ModelAttribute("enrollment") Enrollment enrollment, BindingResult result,
+	public ModelAndView editGrade(@Valid @ModelAttribute("enrollment") Enrollment enrollment, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 
 		String message;
@@ -100,11 +101,11 @@ public class LecturerController {
 		if (result.hasErrors())
 			message = "Oops! Unsuccessful grade update...Try again?";
 		else {
-			if (enrollment.getScore()>100||enrollment.getScore()<0) 
-			message = "Score is out of range.Please retype a score?";
+			if (enrollment.getScore() > 100 || enrollment.getScore() < 0)
+				message = "Score is out of range. Please retype a score?";
 			else {
-			eService.updateEnrollment(enrollment);
-			message = "Successful grade update!";
+				eService.updateEnrollment(enrollment);
+				message = "Successful grade update!";
 			}
 		}
 		ModelAndView mav = new ModelAndView("redirect:/lecturer/studentlist/" + enrollment.getCourseId());
@@ -120,16 +121,33 @@ public class LecturerController {
 		ArrayList<Course> course = new ArrayList<Course>();
 		ArrayList<Character> grade = new ArrayList<Character>();
 
+		Float totalScore = (float) 0;
+		int totalWeight = 0;
+		Float GPA = null;
+
 		for (Enrollment current : performanceList) {
-			course.add(cService.findCourseById(current.getCourseId()));
+
+			Course c = cService.findCourseById(current.getCourseId());
+			course.add(c);
 			grade.add(CapsLogic.calculateGrade(current.getScore()));
+
+			// Calculate GPA
+			if (current.getScore() != null) {
+				totalScore += current.getScore();
+				totalWeight += c.getCredit();
+			}
 		}
+
+		// Calculate GPA
+		if (totalScore != 0)
+			GPA = CapsLogic.calculateGPA(totalScore / totalWeight);
 
 		ModelAndView mav = new ModelAndView("LecturerStudentPerformance");
 		mav.addObject("student", student);
 		mav.addObject("performanceList", performanceList);
 		mav.addObject("course", course);
 		mav.addObject("grade", grade);
+		mav.addObject("GPA", GPA);
 		return mav;
 	}
 

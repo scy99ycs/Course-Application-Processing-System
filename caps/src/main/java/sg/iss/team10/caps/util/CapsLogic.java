@@ -20,8 +20,8 @@ public class CapsLogic {
 		else
 			return '-';
 	}
-}
-
-enum Grade {
-	F, D, C, B, A
+	
+	public static Float calculateGPA(Float averageScore) {
+		return averageScore/25;
+	}
 }

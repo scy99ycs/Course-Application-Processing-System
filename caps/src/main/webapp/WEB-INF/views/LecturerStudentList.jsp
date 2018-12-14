@@ -19,6 +19,7 @@
 			<td>First and Middle Name</td>
 			<td>Last Name</td>
 			<td>Enrollment Date</td>
+			<td>View Performance</td>
 		</tr>
 		<!-- Table - Records -->
 		<c:forEach items="${StudentList}" var="Student">

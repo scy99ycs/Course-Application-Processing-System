@@ -12,25 +12,43 @@
 </head>
 <body>
 	<h2>Student Performance</h2>
+	<br />
 
+	<h3>Student Details</h3>
 	<table class="table table-hover">
 		<tr>
-			<td>Student Name</td>
-			<td>${student.firstMidName}${student.lastName}</td>
+			<td>First Name</td>
+			<td>${student.firstMidName}</td>
+		</tr>
+		<tr>
+			<td>Last Name</td>
+			<td>${student.lastName}</td>
 		</tr>
 		<tr>
 			<td>Student ID</td>
 			<td>${student.studentId}</td>
 		</tr>
+		<tr>
+			<td>Enrollment Date</td>
+			<td><fmt:formatDate value="${student.enrollmentDate}"
+					pattern="EEEE, d MMMM yyyy" /></td>
+		</tr>
+		<tr>
+			<td>GPA (0 to 4)</td>
+			<c:choose>
+				<c:when test="${empty GPA}">
+					<td>To be graded</td>
+				</c:when>
+				<c:otherwise>
+					<td>${GPA}</td>
+				</c:otherwise>
+			</c:choose>
+		</tr>
 	</table>
+	<br />
 
-<<<<<<< HEAD
-	<h2>Courses Attending</h2>
-	<table>
-=======
 	<h3>Courses Attending</h3>
 	<table class="table table-hover">
->>>>>>> branch 'master' of https://github.com/SaphiraNgocThuy/NUS-CAPS.git
 		<tr>
 			<th>#</th>
 			<th>Course ID</th>
