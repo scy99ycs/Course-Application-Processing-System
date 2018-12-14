@@ -45,6 +45,8 @@ public class AdminEnrollmentController {
 	public ModelAndView newAddEnrollmentPage()
 	{
 		ModelAndView mav= new ModelAndView("AdminAddEnrollment","enrollment",new Enrollment());
+		mav.addObject("sidList", sService.findAllStudentsId());
+		mav.addObject("cidList",cService.findAllCourseIds());
 		return mav;
 	}
 	
@@ -92,6 +94,8 @@ public class AdminEnrollmentController {
 		ModelAndView mav = new ModelAndView("AdminEditEnrollment");
 		Enrollment enrollment = eService.findEnrollmentById(id);
 		mav.addObject("enrollment", enrollment);
+		mav.addObject("sidList", sService.findAllStudentsId());
+		mav.addObject("cidList",cService.findAllCourseIds());
 		return mav;
 	}
 
@@ -135,6 +139,3 @@ public class AdminEnrollmentController {
 		return mav;
 	}
 }
-
-/*<td><form:select path="studentId" items="${sidList}"/></td>
- * <td><form:select path="studentId" items="${sidList}"/></td>*/

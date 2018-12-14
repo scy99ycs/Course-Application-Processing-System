@@ -41,6 +41,11 @@ public class LecturerController {
 
 	@RequestMapping(value = "/courselist", method = RequestMethod.GET)
 	public ModelAndView courseListPage(HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
+
 		int lcId = ((UserSession) session.getAttribute("USERSESSION")).getLecturer().getStaffId();
 		ModelAndView mav = new ModelAndView("LecturerCoursesTaught");
 		ArrayList<Course> CourseList = cService.findCourseByStaffId(lcId);
@@ -56,7 +61,12 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/studentlist/{courseId}", method = RequestMethod.GET)
-	public ModelAndView studentListPage(@PathVariable("courseId") int courseId) {
+	public ModelAndView studentListPage(@PathVariable("courseId") int courseId, HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
+
 		ArrayList<Enrollment> enrollmentList = eService.findEnrollmentByCourseID(courseId);
 		Course course = cService.findCourseById(courseId);
 
@@ -82,9 +92,13 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/grade/{enrollmentId}", method = RequestMethod.GET)
-	public ModelAndView editGrade(@PathVariable("enrollmentId") int enrollmentId) {
+	public ModelAndView editGrade(@PathVariable("enrollmentId") int enrollmentId, HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
+
 		Enrollment enrollment = eService.searchEnrollmentByEnrollmentId(enrollmentId);
-		Lecturer lecturer = new Lecturer();
 		ModelAndView mav = new ModelAndView("LecturerGradeEdit");
 		mav.addObject("course", cService.findCourseById(enrollment.getCourseId()));
 		mav.addObject("student", sService.findStudentByStudentID(enrollment.getStudentId()));
@@ -114,7 +128,11 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/performance/{studentId}", method = RequestMethod.GET)
-	public ModelAndView studentperformancePage(@PathVariable("studentId") int studentId) {
+	public ModelAndView studentperformancePage(@PathVariable("studentId") int studentId, HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
 
 		Student student = sService.findStudentByStudentID(studentId);
 		ArrayList<Enrollment> performanceList = eService.findEnrollmentByStudentID(studentId);
@@ -152,7 +170,12 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/performance", method = RequestMethod.GET)
-	public ModelAndView studentListPage() {
+	public ModelAndView studentListPage(HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
+
 		ModelAndView mav = new ModelAndView("LecturerStudentList");
 		ArrayList<Student> StudentList = sService.findAllStudents();
 		mav.addObject("StudentList", StudentList);

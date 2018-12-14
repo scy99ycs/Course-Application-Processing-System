@@ -19,6 +19,20 @@
 
 <table class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 
+
+<tr>
+			<td>GPA (0 to 4)</td>
+			<c:choose>
+				<c:when test="${empty GPA}">
+					<td>To be graded</td>
+				</c:when>
+				<c:otherwise>
+					<td>${GPA}</td>
+				</c:otherwise>
+			</c:choose>
+		</tr>
+
+
 <tr class="listHeading">
 		<th><spring:message code="CourseId" /></th>
 		<th><spring:message code="CourseName"/></th>
@@ -34,7 +48,7 @@
 			<c:choose>
 						<c:when test="${empty enrollment.score}">No score yet</c:when>
 						<c:otherwise>${enrollment.score}</c:otherwise>
-					</c:choose></td>	
+					</c:choose></td>			
 			<td align ="left">${grades.get(index.index)}</td>			
 		</tr>
 	</c:forEach>
