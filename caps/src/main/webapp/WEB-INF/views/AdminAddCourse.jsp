@@ -27,11 +27,6 @@
 		</tr>
 		<tr><td> &nbsp; </td></tr>
 		<tr>	
-			<td><spring:message code="Capacity"/></td>
-			<td><form:input path="capacity"/></td>
-			<td><form:errors path="capacity" cssStyle="color: red;" /></td>
-		</tr><tr><td> &nbsp; </td></tr>
-		<tr>	
 			<td><spring:message code="Credit"/></td>
 			<td><form:input path="credit"/></td>
 			<td><form:errors path="credit" cssStyle="color: red;" /></td>

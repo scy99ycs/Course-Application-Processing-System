@@ -71,24 +71,26 @@ public class AdminCourseController {
 		String message = "";
 		CharSequence nums = "0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
 		CharSequence alpha = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
-		if (result.hasErrors())
-			return new ModelAndView("AdminAddCourse");
-		if (!(course.getCourseName().contains(nums) && course.getDuration().contains(alpha))) {
-			if (courseService.findCourseByStaffId(course.getStaffId()) != null) {
+		if (result.hasErrors()){
+			message = "Please enter Valid Data .";
+			return new ModelAndView("AdminEditEnrollment", "message", message);
+		}
+//		if (!(course.getCourseName().contains(nums) && course.getDuration().contains(alpha))) {
+//			if (courseService.findCourseByStaffId(course.getStaffId()) != null) {
 				ModelAndView mav = new ModelAndView();
 				message = "New course " + course.getCourseName() + " was successfully created.";
 				courseService.createCourse(course);
 				mav.setViewName("redirect:/admin/course/list");
 				redirectAttributes.addFlashAttribute("message", message);
 				return mav;
-			} else {
-				message = "Please enter Valid Data .";
-				return new ModelAndView("AdminAddCourse", "message", message);
-			}
-		} else {
-			message = "Please enter Valid Data .";
-			return new ModelAndView("AdminAddCourse", "message", message);
-		}
+//			} else {
+//				message = "Please enter Valid Data .";
+//				return new ModelAndView("AdminAddCourse", "message", message);
+//			}
+//		} else {
+//			message = "Please enter Valid Data .";
+//			return new ModelAndView("AdminAddCourse", "message", message);
+//		}
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -113,7 +115,7 @@ public class AdminCourseController {
 		ArrayList<Course> courseList = courseService.findCoursesByName(searchDetail);
 		String message = courseList.size() + " search result(s) for \""+ searchDetail + "\"";
 		
-		ModelAndView mav = new ModelAndView("AdminStudentList");
+		ModelAndView mav = new ModelAndView("AdminCourseList");
 		mav.addObject("courseList", courseList);
 		mav.addObject("message", message);
 		return mav;
@@ -141,10 +143,12 @@ public class AdminCourseController {
 		CharSequence nums = "0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
 		CharSequence alpha = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
 
-		if (result.hasErrors())
-			return new ModelAndView("AdminEditCourse");
-		if (!(course.getCourseName().contains(nums) && course.getDuration().contains(alpha))) {
-			if (courseService.findCourseByStaffId(course.getStaffId()) != null) {
+		if (result.hasErrors()){
+			message = "Please enter Valid Data .";
+			return new ModelAndView("AdminEditEnrollment", "message", message);
+		}
+//		if (!(course.getCourseName().contains(nums) && course.getDuration().contains(alpha))) {
+//			if (courseService.findCourseByStaffId(course.getStaffId()) != null) {
 				ModelAndView mav = new ModelAndView("redirect:/admin/course/list");
 				message = "Course was successfully updated.";
 
@@ -152,14 +156,14 @@ public class AdminCourseController {
 
 				redirectAttributes.addFlashAttribute("message", message);
 				return mav;
-			} else {
-				message = "Please enter Valid Data .";
-				return new ModelAndView("AdminEditCourse", "message", message);
-			}
-		} else {
-			message = "Please enter Valid Data .";
-			return new ModelAndView("AdminEditCourse", "message", message);
-		}
+//			} else {
+//				message = "Please enter Valid Data .";
+//				return new ModelAndView("AdminEditCourse", "message", message);
+//			}
+//		} else {
+//			message = "Please enter Valid Data .";
+//			return new ModelAndView("AdminEditCourse", "message", message);
+//		}
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

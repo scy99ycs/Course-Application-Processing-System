@@ -18,11 +18,10 @@
 <a href="${pageContext.request.contextPath}/admin/course/add.html"><input class="btn btn-warning" type="submit" value="Add New Course" style=" width:150px"/></a>
 </p><br/>
 
-<form:form method="POST" modelAttribute="enrollment"
+<form:form method="POST" modelAttribute="course"
 	action="${pageContext.request.contextPath}/admin/course/list.html">
 	<input name="sname" type="text" />
 		<input class="btn btn-warning" type="submit" value="Search">
-	<p> &nbsp; </p>
 <c:if test="${fn:length(courseList) gt 0}">
 <table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 <thead>

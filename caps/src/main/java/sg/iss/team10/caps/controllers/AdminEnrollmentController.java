@@ -65,11 +65,13 @@ public class AdminEnrollmentController {
 		String message = "";
 		ModelAndView mav;
 
-		if (result.hasErrors())
-			return new ModelAndView("AdminAddEnrollment");
+		if (result.hasErrors()) {
+			message = "Please enter Valid Data .";
+			return new ModelAndView("AdminAddEnrollment", "message", message);
+		}
 
-		if (sService.findStudentByStudentID(enrollment.getStudentId()) != null) {
-			if (cService.findCourseById(enrollment.getCourseId()) != null) {
+		/*if (sService.findStudentByStudentID(enrollment.getStudentId()) != null) {
+			if (cService.findCourseById(enrollment.getCourseId()) != null) {*/
 				mav = new ModelAndView();
 				message = "New Enrollment " + (eService.findMaxEnrollmentId() + 1) + " was successfully created.";
 
@@ -77,14 +79,14 @@ public class AdminEnrollmentController {
 				mav.setViewName("redirect:/admin/enrollment/list");
 				redirectAttributes.addFlashAttribute("message", message);
 				return mav;
-			} else {
+			/*} else {
 				message = "Please enter Valid Data .";
 				return new ModelAndView("AdminAddEnrollment", "message", message);
 			}
 		} else {
 			message = "Please enter Valid Data .";
 			return new ModelAndView("AdminAddEnrollment", "message", message);
-		}
+		}*/
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -121,24 +123,26 @@ public class AdminEnrollmentController {
 
 		String message = "";
 
-		if (result.hasErrors())
-			return new ModelAndView("AdminEditEnrollment");
-		if (sService.findStudentByStudentID(enrollment.getStudentId()) != null) {
-			if (cService.findCourseById(enrollment.getCourseId()) != null) {
+		if (result.hasErrors()){
+			message = "Please enter Valid Data .";
+			return new ModelAndView("AdminEditEnrollment", "message", message);
+		}
+//		if (sService.findStudentByStudentID(enrollment.getStudentId()) != null) {
+//			if (cService.findCourseById(enrollment.getCourseId()) != null) {
 				ModelAndView mav = new ModelAndView("redirect:/admin/enrollment/list");
 				message = "Enrollment was successfully updated.";
 
 				eService.updateEnrollment(enrollment);
 				redirectAttributes.addFlashAttribute("message", message);
 				return mav;
-			} else {
-				message = "Please enter Valid Data .";
-				return new ModelAndView("AdminEditEnrollment", "message", message);
-			}
-		} else {
-			message = "Please enter Valid Data .";
-			return new ModelAndView("AdminEditEnrollment", "message", message);
-		}
+//			} else {
+//				message = "Please enter Valid Data .";
+//				return new ModelAndView("AdminEditEnrollment", "message", message);
+//			}
+//		} else {
+//			message = "Please enter Valid Data .";
+//			return new ModelAndView("AdminEditEnrollment", "message", message);
+//		}
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

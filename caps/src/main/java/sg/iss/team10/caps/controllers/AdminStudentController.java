@@ -70,7 +70,7 @@ public class AdminStudentController {
 			return new ModelAndView("AdminAddStudent");
 
 		ModelAndView mav = new ModelAndView();
-		if (!(student.getFirstMidName().contains(nums) && student.getLastName().contains(nums))) {
+		if (!(student.getFirstMidName().contains(nums) || student.getLastName().contains(nums))) {
 
 			message = "New Student " + (sService.findMaxStudentId() + 1) + " was successfully created.";
 			String username = "S" + value(sService.findMaxStudentId() + 1) + student.getFirstMidName();
