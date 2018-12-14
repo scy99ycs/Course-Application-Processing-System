@@ -6,7 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
-<h3>Add New Enrollment</h3>
+<h2>Add New Enrollment</h2>
 
 <form:form method="POST" modelAttribute="enrollment"
 	action="${pageContext.request.contextPath}/admin/enrollment/add.html">
@@ -29,7 +29,7 @@
 			</tr>
 			<tr><td> &nbsp; <td></tr>	
 			<tr>
-				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="submit" value="Add"/></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="submit" value="Add" style="height:30px; width:70px"/></td>
 			</tr>
 		</tbody>
 	</table>

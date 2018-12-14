@@ -94,6 +94,8 @@ public class AdminEnrollmentController {
 		ModelAndView mav = new ModelAndView("AdminEditEnrollment");
 		Enrollment enrollment = eService.findEnrollmentById(id);
 		mav.addObject("enrollment", enrollment);
+		mav.addObject("sidList", sService.findAllStudentsId());
+		mav.addObject("cidList",cService.findAllCourseIds());
 		return mav;
 	}
 

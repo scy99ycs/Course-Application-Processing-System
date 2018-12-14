@@ -24,4 +24,5 @@ public interface LecturerService {
 	
 	Lecturer authenticate(String username, String password);
 
+	ArrayList<Integer> findAllIds();
 }

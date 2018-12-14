@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Course;
 import sg.iss.team10.caps.services.CourseService;
+import sg.iss.team10.caps.services.LecturerService;
 import sg.iss.team10.caps.validator.AdminCourseValidator;
 
 @RequestMapping(value = "/admin/course")
@@ -30,6 +31,9 @@ public class AdminCourseController {
 
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private LecturerService lService;
 
 	@Autowired
 	private AdminCourseValidator courseValidator;
@@ -54,6 +58,7 @@ public class AdminCourseController {
 		}
 
 		ModelAndView mav = new ModelAndView("AdminAddCourse", "course", new Course());
+		mav.addObject("sidList", lService.findAllIds());
 		return mav;
 	}
 
@@ -105,6 +110,7 @@ public class AdminCourseController {
 
 		ModelAndView mav = new ModelAndView("AdminEditCourse");
 		Course course = courseService.findCourseById(id);
+		mav.addObject("sidList", lService.findAllIds());
 		mav.addObject("course", course);
 		return mav;
 
