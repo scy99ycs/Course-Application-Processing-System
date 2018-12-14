@@ -15,6 +15,7 @@
 	<h2>My Courses</h2>
 	<table class="table table-hover">
 		<!-- Table - Header -->
+		<thead>
 		<tr>
 			<th>Course ID</th>
 			<th>Course Name</th>
@@ -25,6 +26,7 @@
 			<th>Enrolled</th>
 			<th>View Students</th>
 		</tr>
+		</thead>
 		<!-- Table - Records -->
 		<c:forEach items="${CourseList}" var="course" varStatus="index">
 			<tr>

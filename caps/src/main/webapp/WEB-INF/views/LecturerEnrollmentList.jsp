@@ -14,15 +14,26 @@
 <title>Enrollment List</title>
 </head>
 <body>
-	<p class="errormessage">${message}</p>
+
 	<h2>Enrollment</h2>
+	<br />
+
+	<c:if test="${not empty message}">
+		<div class="alert alert-warning" style="width: 100%;">
+			<p>${message}</p>
+		</div>
+	</c:if>
+	<br />
 
 	<h3>Course: ${course.courseName}</h3>
+	<br />
 	<table class="table table-hover">
+		<thead>
 		<tr>
 			<td>Course ID</td>
 			<td>${course.courseId}</td>
 		</tr>
+		</thead>
 		<tr>
 			<td>Credit</td>
 			<td>${course.credit} credits</td>
@@ -45,18 +56,25 @@
 			<td>${fn:length(enrollmentList)} student(s)</td>
 		</tr>
 	</table>
+	<br/>
 
 	<h3>Enrolled Students</h3>
+	<br />
 	<table class="table table-hover">
 		<!-- Table - Header -->
-		<tr>
-			<td>#</td>
-			<td>Student ID</td>
-			<td>First and Middle Name</td>
-			<td>Last Name</td>
-			<td>Score</td>
-			<td>Grade</td>
-		</tr>
+		<thead>
+			<tr>
+				<td>#</td>
+				<td>Student ID</td>
+				<td>First and Middle Name</td>
+				<td>Last Name</td>
+				<td>Score</td>
+				<td>Grade</td>
+				<td>Edit Score</td>
+				<td>View Performance</td>
+			</tr>
+		</thead>
+		
 		<!-- Table - Records -->
 		<c:forEach items="${enrollmentList}" var="enrollment"
 			varStatus="index">
@@ -66,19 +84,21 @@
 				<td>${firstNames.get(index.index)}</td>
 				<td>${lastNames.get(index.index)}</td>
 				<c:choose>
-						<c:when test="${empty enrollment.score}">
-							<td>To be scored</td>
-							<td>-</td>
-						</c:when>
-						<c:otherwise>
-							<td>${enrollment.score}</td>
-							<td>${grades.get(index.index)}</td>
-						</c:otherwise>
-					</c:choose>
-					
-					<td><a href="${pageContext.request.contextPath}/lecturer/grade/${enrollment.enrollmentId}">Edit
+					<c:when test="${empty enrollment.score}">
+						<td>To be scored</td>
+						<td>-</td>
+					</c:when>
+					<c:otherwise>
+						<td>${enrollment.score}</td>
+						<td>${grades.get(index.index)}</td>
+					</c:otherwise>
+				</c:choose>
+
+				<td><a
+					href="${pageContext.request.contextPath}/lecturer/grade/${enrollment.enrollmentId}">Edit
 						Score</a></td>
-					<td><a href="${pageContext.request.contextPath}/lecturer/performance/${enrollment.studentId}">View
+				<td><a
+					href="${pageContext.request.contextPath}/lecturer/performance/${enrollment.studentId}">View
 						Performance</a></td>
 			</tr>
 		</c:forEach>

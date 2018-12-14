@@ -13,7 +13,8 @@
 </head>
 <body>
 	<div>
-		<img src="${pageContext.request.contextPath}/image/welcomebanner.jpg" alt="" align="middle">
+		<img src="${pageContext.request.contextPath}/image/welcomebanner.jpg"
+			alt="" align="middle">
 	</div>
 	<div style="width: 1000px" align="justify">
 		<h2>Welcome to Bond University</h2>
@@ -43,11 +44,18 @@
 	</div>
 	<div>
 		<h2>Courses offered by University</h2>
+
 		<form:form action="${pageContext.request.contextPath}/home"
 			method="POST" modelAttribute="course">
 			<input type="text" name="cName" placeholder="type course name" />
-			<input type="submit" value="Search" class="btn btn-warning" />
-			<table class="table table-hover" style="width:1000px">
+			<input type="submit" name="search" value="Search"
+				class="btn btn-warning" />
+			<input type="submit" name="clear" value="Clear"
+				class="btn btn-warning" />
+			<p>${message}</p>
+		</form:form>
+		<table class="table table-hover" style="width: 1000px">
+			<thead>
 				<tr>
 					<th>No</th>
 					<th>Course Name</th>
@@ -56,19 +64,19 @@
 					<th>Class Capacity</th>
 					<th>Instructor</th>
 				</tr>
-				<c:forEach items="${courseList}" var="course" varStatus="index">
-					<tr>
-						<td>${index.index+1}</td>
-						<td>${course.courseName}</td>
-						<td><fmt:formatDate value="${course.startDate}"
-								pattern="EEEE, d MMMM yyyy" /></td>
-						<td>${course.duration}</td>
-						<td>${course.capacity}</td>
-						<td><c:out value="${lecList.get(index.index).staffName}" /></td>
-					</tr>
-				</c:forEach>
-			</table>
-		</form:form>
+			</thead>
+			<c:forEach items="${courseList}" var="course" varStatus="index">
+				<tr>
+					<td>${index.index+1}</td>
+					<td>${course.courseName}</td>
+					<td><fmt:formatDate value="${course.startDate}"
+							pattern="EEEE, d MMMM yyyy" /></td>
+					<td>${course.duration}</td>
+					<td>${course.capacity}</td>
+					<td><c:out value="${lecList.get(index.index).staffName}" /></td>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
 
 </body>

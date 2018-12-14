@@ -22,7 +22,11 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td colspan="3"><p class="errormessage">${message}</p></td>
+				<td colspan="3"><c:if test="${not empty message}">
+						<div class="alert alert-warning" style="width: 100%;">
+							<p>${message}</p>
+						</div>
+					</c:if></td>
 			</tr>
 			<tr>
 				<td></td>
