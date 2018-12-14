@@ -15,13 +15,13 @@
 <body>
 
 
-<h3>Course List Page</h3> 
+<h2 class= "container" style = "padding-top: 151px;">Course List Page</h2> 
 
 
-	<h2 style="color:#000">${message}</h2>
+	<h3 style="color:#000">${message}</h3>
 	<c:remove var = "message" scope = "session"/>
 	<br></br>
-		<h2 style="color:#000">${errormessage}</h2>
+		<h3 style="color:#000">${errormessage}</h3>
 	<c:remove var = "errormessage" scope = "session"/>
 	
 

@@ -33,7 +33,6 @@
 				<td><form:errors path="courseId" cssStyle="color: red;" /></td>
 			</tr>
 
-
 <tr class="listHeading">
 		<th><spring:message code="CourseId" /></th>
 		<th><spring:message code="CourseName" /></th>
@@ -42,13 +41,9 @@
 		<th><spring:message code="Duration" /></th>
 		<th><spring:message code="StartDate" /></th>
 		<th><spring:message code="StaffID" /></th>
-		<th><spring:message code="View" /></th>
-		
-		
-		
+		<th><spring:message code="View" /></th>	
 	</tr>
 
-	
 		<tr class="ListRecord">
 			<td align="left">${course.courseId}</td>
 			<td align="left">${course.courseName}</td>
@@ -61,22 +56,13 @@
 			<td align="center"><a 
 			href="${pageContext.request.contextPath}/student/create/${course.courseId}"><spring:message
 						code="view" /></a></td>
-						
-					
-				
-		
 		</tr>
-	
 	</tbody>
 </table>
 
 </form:form>
 
-
 </c:if>
-
-
-
 
 </body>
 </html>
