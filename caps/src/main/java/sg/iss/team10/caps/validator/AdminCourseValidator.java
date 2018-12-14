@@ -23,7 +23,7 @@ public class AdminCourseValidator implements Validator
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "capacity", "error.capacity", "Valid Capacity is required.");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "credit", "error.credit", "Valid Credit is required.");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "duration", "error.duration", "Valid Duration is required.");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startDate", "error.startDate", "Valid Start date is required.");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startDate", "error.startDate", "Valid Start date is required.");
 				
 	}
 	

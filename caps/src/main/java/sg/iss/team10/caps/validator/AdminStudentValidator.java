@@ -20,9 +20,9 @@ public class AdminStudentValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		Student student= (Student) target;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstMidName", "error.firstMidName", "Valid Course name is required.");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstMidName", "error.firstMidName", "Valid Student name is required.");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "error.lastName", "Valid Last Name is required.");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "enrollmentDate", "error.enrollmentDate", "Valid Enrollment Date is required.");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "enrollmentDate", "error.enrollmentDate", "Valid Enrollment Date is required.");
 		
 		System.out.println(student.toString());
 	}

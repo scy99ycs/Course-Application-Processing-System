@@ -72,8 +72,10 @@ public class AdminCourseController {
 		CharSequence nums = "0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
 		CharSequence alpha = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
 		if (result.hasErrors()){
+			ModelAndView mav = new ModelAndView("AdminAddCourse", "message", message);
 			message = "Please enter Valid Data .";
-			return new ModelAndView("AdminEditEnrollment", "message", message);
+			mav.addObject("sidList", lService.findAllIds());
+			return mav;
 		}
 //		if (!(course.getCourseName().contains(nums) && course.getDuration().contains(alpha))) {
 //			if (courseService.findCourseByStaffId(course.getStaffId()) != null) {
@@ -81,6 +83,7 @@ public class AdminCourseController {
 				message = "New course " + course.getCourseName() + " was successfully created.";
 				courseService.createCourse(course);
 				mav.setViewName("redirect:/admin/course/list");
+				mav.addObject("sidList", lService.findAllIds());
 				redirectAttributes.addFlashAttribute("message", message);
 				return mav;
 //			} else {

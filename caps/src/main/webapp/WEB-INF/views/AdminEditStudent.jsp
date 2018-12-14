@@ -29,8 +29,7 @@
 			</tr><tr><td> &nbsp; </td></tr>
 			<tr>
 				<td><spring:message code="Enrollment Date"/></td>
-				<td><form:input path="enrollmentDate" type="date" format="yyyy-MM-dd"/></td>		
-				<td><form:errors path="enrollmentDate" cssStyle="color: red;" /></td>
+				<td><form:input path="enrollmentDate" type="date" format="yyyy-MM-dd"/></td>
 			</tr><tr><td> &nbsp; </td></tr>
 			<tr>
 				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input class="btn btn-warning" type="submit" value="Update" style="height:30px; width:70px"/></td>

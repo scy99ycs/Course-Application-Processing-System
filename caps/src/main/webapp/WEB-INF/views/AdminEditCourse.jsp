@@ -45,8 +45,7 @@
 		</tr><tr><td> &nbsp; </td></tr>
 			<tr>
 				<td><spring:message code="Start Date"/></td>
-				<td><form:input path="startDate" type="date" format="yyyy-MM-dd"/></td>		
-				<td><form:errors path="startDate" cssStyle="color: red;" /></td>
+				<td><form:input path="startDate" type="date" format="yyyy-MM-dd"/></td>	
 			</tr><tr><td> &nbsp; </td></tr>
 			<tr>
 				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input class="btn btn-warning" type="submit" value="Update" style="height:30px; width:70px"/></td>

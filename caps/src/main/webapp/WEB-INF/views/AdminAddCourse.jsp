@@ -34,7 +34,6 @@
 		<tr>
 			<td><spring:message code="Start Date"/></td>
 			<td><form:input path="startDate" type="date" format="yyyy-MM-dd"/></td>	
-			<td><form:errors path="startDate" cssStyle="color: red;" /></td>		
 		</tr><tr><td> &nbsp; </td></tr>
 		<tr>	
 			<td><spring:message code="Duration"/></td>
