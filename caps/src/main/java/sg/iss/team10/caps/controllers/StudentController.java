@@ -101,15 +101,35 @@ public class StudentController {
 		String lastName = (student.getLastName());
 		ArrayList<Course> courseName = new ArrayList<Course>();
 		ArrayList<Character> grades = new ArrayList<Character>();
+		
+		//GPA part
+		Float totalScore = (float) 0;
+		int totalWeight = 0;
+		Float GPA = null;
+		
 		for(Enrollment current: GradeList) {
 			courseName.add(cService.findCourseById(current.getCourseId()));
 			grades.add(CapsLogic.calculateGrade(current.getScore()));
+			
+			// Calculate GPA
+						if (current.getScore() != null) {
+							totalScore += current.getScore()*cService.findCourseById(current.getCourseId()).getCredit();
+							totalWeight += cService.findCourseById(current.getCourseId()).getCredit();
+						}
+							
 		}
+		
+		// Calculate GPA
+				if (totalScore != 0)
+					GPA = CapsLogic.calculateGPA(totalScore / totalWeight);
+		
 		mav.addObject("GradeList", GradeList);
 		mav.addObject("grades", grades);
 		mav.addObject("courseName", courseName);
 		mav.addObject("firstMidName", firstMidName);
 		mav.addObject("lastName", lastName);
+		
+		mav.addObject("GPA", GPA);
 		return mav;
 	}
 
