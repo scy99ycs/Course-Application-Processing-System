@@ -15,7 +15,7 @@
 	<h2>List of Lecturers</h2>
 	<p align="left">
 		<a href="${pageContext.request.contextPath}/admin/lecturer/new.html"><input
-			class="btn btn warning" type="submit" value="Add New Lecturer"
+			class="btn btn-warning" type="submit" value="Add New Lecturer"
 			style="height: 30px; width: 150px" /></a>
 	</p>
 	<br />

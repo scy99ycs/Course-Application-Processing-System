@@ -11,7 +11,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Add Lecturer</title>
-
 </head>
 <body>
 <h2>Add Lecturer</h2>
