@@ -48,7 +48,7 @@
 .header {
   overflow: hidden;
 
-  padding: 20px 10px;
+  padding: 0px 10px;
 }
 html {
 	font-family: 'average', serif;
@@ -81,7 +81,7 @@ a {
 
 .hamb {
 	position: absolute;
-/* 	top: 0px; */
+ 	top: 0px;
 	left: 20px;
 	font-size: 2.5em;
 	z-index: 1;
@@ -98,10 +98,9 @@ html, body, .hero {
 
 .hero {
 	width: 100%;
-	min-height: 600px;
-	height:100%;
+	min-height: 2000px;
 	background-image: linear-gradient(to bottom, #d59254, #cf7693);
-	margin-top: 95px;
+	margin-top: 55px;
 }
 
 h1 {
@@ -166,6 +165,7 @@ h1 {
 <body translate="no">
 
 	<header>
+	<br />
 		<%@ include file="Header.jsp" %>
 		
 	</header>
@@ -174,8 +174,10 @@ h1 {
 
 
 	<div class="hero">
-		<center style="	margin: 95px">
+		<center style="	margin: 55px">
+		
 			<dec:body />
+			
 		</center>
 	</div>
 

@@ -44,10 +44,10 @@
 						code="Home" /> </a></li>
 			<li><a href="${pageContext.request.contextPath}/adminlogin"><spring:message
 						code="Login as Administrator" /> </a></li>
-			<li><a href="${pageContext.request.contextPath}/studentlogin"><spring:message
-						code="Login as Student" /> </a></li>
 			<li><a href="${pageContext.request.contextPath}/lecturerlogin"><spring:message
 						code="Login as Lecturer" /> </a></li>
+			<li><a href="${pageContext.request.contextPath}/studentlogin"><spring:message
+						code="Login as Student" /> </a></li>
 		</c:otherwise>
 	</c:choose>
 
