@@ -11,8 +11,8 @@
 <head>
 
 <meta charset="UTF-8">
-<link rel="shortcut icon" type="image/x-icon"
-	href="image/owl.ico" />
+
+<link rel="shortcut icon" type="image/x-icon" href="image/owl.ico" />
 <link rel="mask-icon" type=""
 	href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg"
 	color="#111" />
@@ -27,15 +27,35 @@
 <link rel='stylesheet'
 	href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css'>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="STYLESHEET" type="text/css" href="/css/style.css" />
 <style>
+.caps{
+    font-family: fontawesome;
+    text-decoration: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 37px;
+    letter-spacing: 3px;
+    color: #555555;
+    display: block;
+    position: relative;
+}
+.header {
+  overflow: hidden;
+
+  padding: 20px 10px;
+}
 html {
 	font-family: 'average', serif;
 }
 
 a {
-  color: #FFF;
+	color: #FFF;
 }
 
 #mainnav {
@@ -61,7 +81,7 @@ a {
 
 .hamb {
 	position: absolute;
-	top: 20px;
+/* 	top: 0px; */
 	left: 20px;
 	font-size: 2.5em;
 	z-index: 1;
@@ -79,7 +99,9 @@ html, body, .hero {
 .hero {
 	width: 100%;
 	min-height: 600px;
+	height:100%;
 	background-image: linear-gradient(to bottom, #d59254, #cf7693);
+	margin-top: 95px
 }
 
 h1 {
@@ -105,6 +127,23 @@ h1 {
 	z-index: 1;
 	background: rgba(0, 0, 0, 0.5);
 }
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 102px;
+}
 </style>
 
 <script>
@@ -123,25 +162,18 @@ h1 {
 
 </head>
 
-<header>
-
-</header>
 
 <body translate="no">
 
-	<nav role='navigation' id="mainnav">
-		<ul style= "padding-top:60px">
+	<header>
+		<%@ include file="Header.jsp" %>
 		
-				<%@include file="Menu.jsp"%>
-<!-- 			<li><a href="#?">About Us</a></li> -->
-		</ul>
-	</nav>
+	</header>
 
-	<div class="hamb">
-		<a href="#"><i class="fa fa-bars"></i></a>
-	</div>
+	
 
-	<div class="hero" style="padding-top: 50px">
+
+	<div class="hero">
 		<center>
 			<dec:body />
 		</center>
