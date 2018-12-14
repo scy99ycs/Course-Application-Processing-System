@@ -30,4 +30,6 @@ public interface EnrollmentService {
 	
 	Enrollment findEnrollmentById(Integer id);
 
+	Integer findMaxEnrollmentId();
+
 }

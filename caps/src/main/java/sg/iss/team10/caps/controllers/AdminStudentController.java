@@ -104,7 +104,7 @@ public class AdminStudentController {
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView editStudent(@ModelAttribute @Valid Student student, BindingResult result,
-			@PathVariable String id, final RedirectAttributes redirectAttributes) /*throws DepartmentNotFound*/ {
+			@PathVariable int id, final RedirectAttributes redirectAttributes) /*throws DepartmentNotFound*/ {
 		
 		String message="";
 		CharSequence nums =  "0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
@@ -116,11 +116,11 @@ public class AdminStudentController {
 		{
 
 			ModelAndView mav = new ModelAndView("redirect:/admin/student/list");
-			String username ="S"+value(student.getStudentId())+student.getFirstMidName();
+			String username ="S"+value(id)+student.getFirstMidName();
 			
 			student.setUsername(username);
 			
-			String password ="S"+value(student.getStudentId())+student.getFirstMidName();
+			String password ="S"+value(id)+student.getFirstMidName();
 			student.setPassword(password);
 			 message = "Student was successfully updated.";
 	

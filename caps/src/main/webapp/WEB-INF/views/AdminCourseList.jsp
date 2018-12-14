@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<p class ="errormessage">${message}</p>
 <form:form>
 <c:if test="${fn:length(courseList) gt 0}">
 <table>

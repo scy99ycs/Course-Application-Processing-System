@@ -1,16 +1,12 @@
 package sg.iss.team10.caps.repo;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import sg.iss.team10.caps.model.Lecturer;
 import sg.iss.team10.caps.model.Student;
-
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 	
@@ -43,6 +39,4 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	
 	@Query("SELECT MAX(studentId) FROM Student")
 	Integer findMaxStudentId();
-	
-	
 }

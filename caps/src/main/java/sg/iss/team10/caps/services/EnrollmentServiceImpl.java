@@ -105,4 +105,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		// TODO Auto-generated method stub
 		return srepo.findById(id).get();
 	}
+	@Override
+	public Integer findMaxEnrollmentId() {
+		// TODO Auto-generated method stub
+		return srepo.findMaxEnrollmentId();
+	}
 }

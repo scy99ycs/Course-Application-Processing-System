@@ -9,7 +9,7 @@
 <h3>Edit Student Page</h3>
 <form:form method="POST" modelAttribute="enrollment"
 	action="${pageContext.request.contextPath}/admin/enrollment/edit/${enrollment.enrollmentId}.html">
-	
+	<p class ="errormessage">${message}</p>
 	<table>
 		<tbody>
 			<tr>

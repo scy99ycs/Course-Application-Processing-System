@@ -14,6 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<p class ="errormessage">${message}</p>
 <form:form method="POST" modelAttribute="course" action="${pageContext.request.contextPath}/admin/course/add.html">
 
 	Add New Course

@@ -8,7 +8,7 @@
 <h3>Edit Course Page</h3>
 <form:form method="POST" modelAttribute="course"
 	action="${pageContext.request.contextPath}/admin/course/edit/${course.courseId}.html">
-	
+	<p class ="errormessage">${message}</p>
 	<table>
 		<tbody>
 			<tr>

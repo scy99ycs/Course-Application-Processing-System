@@ -61,7 +61,7 @@ public class AdminEnrollmentController {
 		if(sService.findStudentByStudentID(enrollment.getStudentId())!=null ) {
 			if(cService.findCourseById(enrollment.getCourseId())!=null) {
 			mav = new ModelAndView();
-			message = "New Enrollment " + enrollment.getEnrollmentId() + " was successfully created.";
+			message = "New Enrollment " + (eService.findMaxEnrollmentId()+1) + " was successfully created.";
 	
 			eService.createEnrollment(enrollment);
 			mav.setViewName("redirect:/admin/enrollment/list");	
@@ -91,15 +91,13 @@ public class AdminEnrollmentController {
 	public ModelAndView editEnrollmentPage(@PathVariable int id) {
 		ModelAndView mav = new ModelAndView("AdminEditEnrollment");
 		Enrollment enrollment = eService.findEnrollmentById(id);
-		int stuid= id;
-		mav.addObject("stuid", stuid);
 		mav.addObject("enrollment", enrollment);
 		return mav;
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView editEnrollment(@ModelAttribute @Valid Enrollment enrollment, BindingResult result,
-			@PathVariable int id, final RedirectAttributes redirectAttributes) /*throws DepartmentNotFound*/ {
+			@PathVariable int id, final RedirectAttributes redirectAttributes) {
 
 		String message="";
 		
@@ -110,30 +108,28 @@ public class AdminEnrollmentController {
 			ModelAndView mav = new ModelAndView("redirect:/admin/enrollment/list");
 			message = "Enrollment was successfully updated.";
 	
-			eService.updateEnrollment(enrollment);
-	
+			eService.updateEnrollment(enrollment);	
 			redirectAttributes.addFlashAttribute("message", message);
 			return mav;
 			}
 			else {
 				message = "Please enter Valid Data .";
-				return new ModelAndView();
+				return new ModelAndView("AdminEditEnrollment", "message", message);
 			}
 		}
 		else {
 			message = "Please enter Valid Data .";
-			return new ModelAndView();
+			return new ModelAndView("AdminEditEnrollment", "message", message);
 		}
 	}
 		
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteEnrollment(@PathVariable int id, final RedirectAttributes redirectAttributes)
-			/*throws DepartmentNotFound*/ {
+	public ModelAndView deleteEnrollment(@PathVariable int id, final RedirectAttributes redirectAttributes) {
 
 		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment/list");
 		Enrollment enrollment = eService.searchEnrollmentByEnrollmentId(id);
 		eService.removeEnrollment(enrollment);
-		String message = "The enrollment " + enrollment.getEnrollmentId() + " was successfully deleted.";
+		String message = "The enrollment " + id + " was successfully deleted.";
 
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;

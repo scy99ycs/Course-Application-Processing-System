@@ -26,5 +26,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 		@Query("SELECT DISTINCT e.enrollmentId FROM Enrollment e")
 		ArrayList<Integer> findAllEnrollmentID();
 		
+		@Query("SELECT MAX(enrollmentId) FROM Enrollment")
+		Integer findMaxEnrollmentId();
 		
 }

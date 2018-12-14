@@ -50,9 +50,6 @@ public void initBinder(WebDataBinder binder) {
 			dateFormat, false));
 }
 
-
-
-
 @RequestMapping(value="/add" ,method=RequestMethod.GET)
 public ModelAndView newAddCoursePage()
 {
@@ -68,16 +65,22 @@ public ModelAndView addNewCourse(@ModelAttribute @Valid Course course, BindingRe
 				if (result.hasErrors()) 
 					return new ModelAndView("AdminAddCourse");
 				if(!(course.getCourseName().contains(nums)&&course.getDuration().contains(alpha))) {
+					if(courseService.findCourseByStaffId(course.getStaffId())!=null) {
 						ModelAndView mav = new ModelAndView();
 						message = "New course " + course.getCourseName() + " was successfully created.";
 						courseService.createCourse(course);
 						mav.setViewName("redirect:/admin/course/list");
 						redirectAttributes.addFlashAttribute("message", message);
 						return mav;
+					}
+					else {
+						message = "Please enter Valid Data .";
+						return new ModelAndView("AdminAddCourse", "message", message);
+					}
 				}
 				else {
-					message = "Please enter Valid Data .";
-					return new ModelAndView();
+						message = "Please enter Valid Data .";
+						return new ModelAndView("AdminAddCourse", "message", message);
 				}
 }
 
@@ -96,6 +99,7 @@ public ModelAndView editCoursePage(@PathVariable Integer id) {
 	Course course = courseService.findCourseById(id);
 	mav.addObject("course", course);
 	return mav;
+
 }
 
 @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
@@ -109,28 +113,33 @@ public ModelAndView editCourse(@ModelAttribute @Valid Course course, BindingResu
 	if (result.hasErrors())
 		return new ModelAndView("AdminEditCourse");
 	if(!(course.getCourseName().contains(nums)&&course.getDuration().contains(alpha))) {
-		ModelAndView mav = new ModelAndView("redirect:/admin/course/list");
-		message = "Course was successfully updated.";
-	
-		courseService.changeCourse(course);
-	
-		redirectAttributes.addFlashAttribute("message", message);
-		return mav;
+		if(courseService.findCourseByStaffId(course.getStaffId())!=null) {
+			ModelAndView mav = new ModelAndView("redirect:/admin/course/list");
+			message = "Course was successfully updated.";
+		
+			courseService.changeCourse(course);
+		
+			redirectAttributes.addFlashAttribute("message", message);
+			return mav;
+		}
+		else {
+			message = "Please enter Valid Data .";
+			return new ModelAndView("AdminEditCourse", "message", message);
+		}
 	}
 	else {
-		message = "Please enter Valid Data .";
-		return new ModelAndView();
+			message = "Please enter Valid Data .";
+			return new ModelAndView("AdminEditCourse", "message", message);
 	}
 }
 
 @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 public ModelAndView deleteDepartment(@PathVariable Integer id, final RedirectAttributes redirectAttributes)
-	 {
-
+{
 	ModelAndView mav = new ModelAndView("redirect:/admin/course/list");
 	Course course = courseService.findCourseById(id);
 	courseService.removeCourse(course);
-	String message = "The course " + course.getCourseId() + " was successfully deleted.";
+	String message = "The course " + id + " was successfully deleted.";
 
 	redirectAttributes.addFlashAttribute("message", message);
 	return mav;
