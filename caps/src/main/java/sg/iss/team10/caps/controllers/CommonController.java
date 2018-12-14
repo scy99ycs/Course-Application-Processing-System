@@ -70,6 +70,7 @@ public class CommonController {
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView home() {
+
 		ModelAndView mav = new ModelAndView("Home");
 		ArrayList<Course> cList = cService.findAllCourse();
 		ArrayList<Lecturer> lecList = new ArrayList<Lecturer>();
@@ -81,17 +82,27 @@ public class CommonController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.POST)
-	public ModelAndView home(HttpServletRequest request) {
+	@RequestMapping(value = "/home", params = "search", method = RequestMethod.POST)
+	public ModelAndView homeSearch(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("Home");
 		String cName = request.getParameter("cName");
-		ArrayList<Course> cList = cService.findCoursesByName(cName);
-		ArrayList<Lecturer> lecList = new ArrayList<Lecturer>();
-		for (Course current : cList) {
-			lecList.add(lService.findLecturerById(current.getStaffId()));
+		if (cName != "") {
+			ArrayList<Course> cList = cService.findCoursesByName(cName);
+			ArrayList<Lecturer> lecList = new ArrayList<Lecturer>();
+			for (Course current : cList) {
+				lecList.add(lService.findLecturerById(current.getStaffId()));
+			}
+			String message = cList.size() + " search result(s) for \"" + cName + "\"";
+			mav.addObject("courseList", cList);
+			mav.addObject("lecList", lecList);
+			mav.addObject("message", message);
 		}
-		mav.addObject("courseList", cList);
-		mav.addObject("lecList", lecList);
+		return mav;
+	}
+
+	@RequestMapping(value = "/home", params = "clear", method = RequestMethod.POST)
+	public ModelAndView homeClear() {
+		ModelAndView mav = new ModelAndView("redirect:/home");
 		return mav;
 	}
 
@@ -195,10 +206,10 @@ public class CommonController {
 		session.invalidate();
 		return "redirect:/home";
 	}
-	
+
 	@RequestMapping(value = "/")
 	public ModelAndView doDefault() {
-		return new ModelAndView("redirect:/home"); 
+		return new ModelAndView("redirect:/home");
 	}
 
 }
