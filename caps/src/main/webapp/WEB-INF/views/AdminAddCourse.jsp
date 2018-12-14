@@ -11,55 +11,60 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Add New Course </title>
 </head>
 <body>
 <p class ="errormessage">${message}</p>
 <form:form method="POST" modelAttribute="course" action="${pageContext.request.contextPath}/admin/course/add.html">
 
-	Add New Course
-	<table align="center">
-		
+	<h2>Add New Course</h2>
+	<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
+		<tr><td> &nbsp; <td></tr>
 		<tr>		
 			<td><spring:message code="Course Name"/></td>
 			<td><form:input path="courseName"/></td>
 			<td><form:errors path="courseName" cssStyle="color: red;" /></td>
 		</tr>
+		<tr><td> &nbsp; <td></tr>
 		<tr>	
 			<td><spring:message code="Capacity"/></td>
 			<td><form:input path="capacity"/></td>
 			<td><form:errors path="capacity" cssStyle="color: red;" /></td>
 		</tr>
+		<tr><td> &nbsp; <td></tr>
 		<tr>	
 			<td><spring:message code="Credit"/></td>
 			<td><form:input path="credit"/></td>
 			<td><form:errors path="credit" cssStyle="color: red;" /></td>
 		</tr>
+		<tr><td> &nbsp; <td></tr>
 		<tr>
 			<td><spring:message code="Start Date"/></td>
 			<td><form:input path="startDate" type="date" format="yyyy-MM-dd"/></td>	
 			<td><form:errors path="startDate" cssStyle="color: red;" /></td>		
-			
 		</tr>
+		<tr><td> &nbsp; <td></tr>
 		<tr>	
 			<td><spring:message code="Duration"/></td>
 			<td><form:input path="Duration"/></td>
 			<td><form:errors path="Duration" cssStyle="color: red;" /></td>
 		</tr>
+		<tr><td> &nbsp; <td></tr>
 		<tr>	
 			<td><spring:message code="Capacity"/></td>
 			<td><form:input path="capacity"/></td>
 			<td><form:errors path="capacity" cssStyle="color: red;" /></td>
 		</tr>
+		<tr><td> &nbsp; <td></tr>
 		<tr>	
-			<td><spring:message code="Staff Id"/></td>
-			<td><form:input path="staffId"/></td>
-			<td><form:errors path="staffId" cssStyle="color: red;" /></td>
+			<td>Staff Id &nbsp; &nbsp; </td>
+				<td><form:select path="staffId" style="width: 100px;">
+					  <form:options items="${sidList}" />	
+					  </form:select></td>
 		</tr>
+		<tr><td> &nbsp; <td></tr>
 		<tr>
-			<td><input type="submit" value="Add"/></td>
-			<td></td>
-			<td></td>
+			<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <input class="btn btn-warning" type="submit" value="Add" style="height:30px; width:70px"/></td>
 		</tr>
 	</table>
 </form:form>

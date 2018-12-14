@@ -6,30 +6,27 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
-<h3>Add New Enrollment</h3>
+<h2>Add New Enrollment</h2>
 
 <form:form method="POST" modelAttribute="enrollment"
 	action="${pageContext.request.contextPath}/admin/enrollment/add.html">
 	<p class ="errormessage">${message}</p>
-	<table align="center">
+	<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 		<tbody>
-			
 			<tr>
-				<td><spring:message code="Student Id" /></td>
-				<td><form:input path="studentId"/></td>
-				<td><form:errors path="studentId" cssStyle="color: red;" /></td>
+			<td>Student Id &nbsp; &nbsp; </td>
+				<td><form:select path="studentId" style="width: 100px;">
+					  <form:options items="${sidList}" />	
+					  </form:select></td>
 			</tr>
-			
 			<tr>
-				<td><spring:message code="Course Id" /></td>
-				<td><form:input path="courseId"/></td>
-				<td><form:errors path="courseId" cssStyle="color: red;" /></td>
+				<td>Course Id &nbsp;  </td>
+				<td><form:select path="courseId" style="width: 100px;">
+					  <form:options items="${cidList}" />	
+					  </form:select></td>
 			</tr>
-						
 			<tr>
-				<td><input type="submit" value="Add"/></td>
-				<td></td>
-				<td></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input class="btn btn-warning" type="submit" value="Add" style="height:30px; width:70px"/></td>
 			</tr>
 		</tbody>
 	</table>

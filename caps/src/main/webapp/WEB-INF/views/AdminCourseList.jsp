@@ -13,9 +13,16 @@
 </head>
 <body>
 <p class ="errormessage">${message}</p>
-<form:form>
+<br/>
+<p align="left">
+<a href="${pageContext.request.contextPath}/admin/course/add.html"><input class="btn btn-warning" type="submit" value="Add New Course" style="height:30px; width:150px"/></a>
+</p><br/>
+
+<form:form method="POST" modelAttribute="enrollment"
+	action="${pageContext.request.contextPath}/admin/course/add.html">
+	<tr><td> &nbsp; <td></tr>
 <c:if test="${fn:length(courseList) gt 0}">
-<table>
+<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 	<tr>
 		<th><spring:message code="Course Id"/></th>
 		<th><spring:message code="Course Name"/></th>
@@ -36,11 +43,11 @@
 		<td align="center"><a
 				href="${pageContext.request.contextPath}/admin/course/edit/${course.courseId}.html"><spring:message
 						code="Edit" /></a></td>
-		<td><a
+		<td align="center"><a
 				href="${pageContext.request.contextPath}/admin/course/delete/${course.courseId}.html"><spring:message
 						code="Delete" /></a></td>
 	</tr>
-	</c:forEach>
+	</c:forEach>	
 </table>
 </c:if>	
 </form:form>

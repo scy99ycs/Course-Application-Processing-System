@@ -12,6 +12,17 @@
 </head>
 <body>
 	<h2>All Students</h2>
+
+	<!-- Search bar -->
+	<form:form
+		action="${pageContext.request.contextPath}/lecturer/performance"
+		method="post">
+		<input name="sname" type="text" />
+		<input class="btn btn-warning" type="submit" value="Search">
+	</form:form>
+
+	<p>${message}</p>
+	<!-- Results -->
 	<table class="table table-hover">
 		<!-- Table - Header -->
 		<tr>

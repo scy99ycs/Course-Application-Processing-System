@@ -17,8 +17,8 @@
 				<c:otherwise>
 					<div style="margin-left: 900px">
 						<a class="navbar-brand mb-0 h1 text-light"
-							style="padding-left: 70px"> Hello <c:out
-								value="${sessionScope.USERNAME}" />
+							style="padding-left: 70px"> Hello, <c:out
+								value="${sessionScope.USERNAME}" /> !
 						</a>
 
 					</div>

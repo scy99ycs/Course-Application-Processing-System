@@ -59,4 +59,10 @@ public class LectureServiceImpl implements LecturerService {
 		return lrepos.authenticate(username, password);
 	}
 
+	@Override
+	public ArrayList<Integer> findAllIds() {
+		// TODO Auto-generated method stub
+		return lrepos.findAllIds();
+	}
+
 }

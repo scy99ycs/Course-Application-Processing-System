@@ -195,5 +195,10 @@ public class CommonController {
 		session.invalidate();
 		return "redirect:/home";
 	}
+	
+	@RequestMapping(value = "/")
+	public ModelAndView doDefault() {
+		return new ModelAndView("redirect:/home"); 
+	}
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Cache;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -41,6 +43,11 @@ public class LecturerController {
 
 	@RequestMapping(value = "/courselist", method = RequestMethod.GET)
 	public ModelAndView courseListPage(HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
+
 		int lcId = ((UserSession) session.getAttribute("USERSESSION")).getLecturer().getStaffId();
 		ModelAndView mav = new ModelAndView("LecturerCoursesTaught");
 		ArrayList<Course> CourseList = cService.findCourseByStaffId(lcId);
@@ -56,7 +63,12 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/studentlist/{courseId}", method = RequestMethod.GET)
-	public ModelAndView studentListPage(@PathVariable("courseId") int courseId) {
+	public ModelAndView studentListPage(@PathVariable("courseId") int courseId, HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
+
 		ArrayList<Enrollment> enrollmentList = eService.findEnrollmentByCourseID(courseId);
 		Course course = cService.findCourseById(courseId);
 
@@ -82,9 +94,13 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/grade/{enrollmentId}", method = RequestMethod.GET)
-	public ModelAndView editGrade(@PathVariable("enrollmentId") int enrollmentId) {
+	public ModelAndView editGrade(@PathVariable("enrollmentId") int enrollmentId, HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
+
 		Enrollment enrollment = eService.searchEnrollmentByEnrollmentId(enrollmentId);
-		Lecturer lecturer = new Lecturer();
 		ModelAndView mav = new ModelAndView("LecturerGradeEdit");
 		mav.addObject("course", cService.findCourseById(enrollment.getCourseId()));
 		mav.addObject("student", sService.findStudentByStudentID(enrollment.getStudentId()));
@@ -114,7 +130,11 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/performance/{studentId}", method = RequestMethod.GET)
-	public ModelAndView studentperformancePage(@PathVariable("studentId") int studentId) {
+	public ModelAndView studentperformancePage(@PathVariable("studentId") int studentId, HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
 
 		Student student = sService.findStudentByStudentID(studentId);
 		ArrayList<Enrollment> performanceList = eService.findEnrollmentByStudentID(studentId);
@@ -133,7 +153,7 @@ public class LecturerController {
 
 			// Calculate GPA
 			if (current.getScore() != null) {
-				totalScore += current.getScore();
+				totalScore += current.getScore() *  c.getCredit();
 				totalWeight += c.getCredit();
 			}
 		}
@@ -152,10 +172,29 @@ public class LecturerController {
 	}
 
 	@RequestMapping(value = "/performance", method = RequestMethod.GET)
-	public ModelAndView studentListPage() {
-		ModelAndView mav = new ModelAndView("LecturerStudentList");
+	public ModelAndView studentListPage(HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getLecturer() == null) {
+			return new ModelAndView("redirect:/lecturerlogin");
+		}
+
 		ArrayList<Student> StudentList = sService.findAllStudents();
+		ModelAndView mav = new ModelAndView("LecturerStudentList");
 		mav.addObject("StudentList", StudentList);
+		return mav;
+	}
+	
+	// working on it
+	@RequestMapping(value = "/performance", method = RequestMethod.POST)
+	public ModelAndView studentListPage(HttpServletRequest request) {
+		
+		String searchDetail = request.getParameter("sname");
+		ArrayList<Student> StudentList = sService.findStudentByFullName(searchDetail);
+		String message = StudentList.size() + " search result(s) for \""+ searchDetail + "\"";
+		
+		ModelAndView mav = new ModelAndView("LecturerStudentList");
+		mav.addObject("StudentList", StudentList);
+		mav.addObject("message", message);
 		return mav;
 	}
 }

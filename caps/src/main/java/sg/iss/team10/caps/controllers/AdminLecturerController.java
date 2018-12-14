@@ -3,6 +3,7 @@ package sg.iss.team10.caps.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,26 +33,18 @@ public class AdminLecturerController {
 	private AdminService aService;
 	@Autowired
 	private LecturerService lService;
-	
-	/*@Autowired
-	private validator...*/
-	
-	/*@InitBinder("admin")
-	private void initEmployeeBinder(WebDataBinder binder) {
-		binder.addValidators(eValidator);*/
-	
-	/**
-	 * ADMIN CRUD OPERATIONS
-	 * 
-	 * @return
-	 */
-	
+
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public ModelAndView newLecturerPage() {
+	public ModelAndView newLecturerPage(HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getAdmin() == null) {
+			return new ModelAndView("redirect:/adminlogin");
+		}
+
 		ModelAndView mav = new ModelAndView("AdminLecturerAdd", "Lecturer", new Lecturer());
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public ModelAndView newLecturerPage(@ModelAttribute @Valid Lecturer lecturer, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
@@ -62,56 +55,68 @@ public class AdminLecturerController {
 		ModelAndView mav = new ModelAndView();
 		String message = "New lecturer " + lecturer.getStaffId() + " was successfully added.";
 
-		
 		lService.createLecturer(lecturer);
 		mav.setViewName("redirect:/admin/lecturer/list");
 
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView lecturerListPage() {
+	public ModelAndView lecturerListPage(HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getAdmin() == null) {
+			return new ModelAndView("redirect:/adminlogin");
+		}
+
 		ArrayList<Lecturer> findAll = lService.findAllLecturers();
 		ModelAndView mav = new ModelAndView("AdminLecturerList");
-		mav.addObject("lecturerList",findAll);
+		mav.addObject("lecturerList", findAll);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/edit/{staffid}", method = RequestMethod.GET)
-	public ModelAndView editLecturerPage(@PathVariable("staffid") int staffid) {
-		
+	public ModelAndView editLecturerPage(@PathVariable("staffid") int staffid, HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getAdmin() == null) {
+			return new ModelAndView("redirect:/adminlogin");
+		}
+
 		Lecturer lecturer = lService.findLecturerById(staffid);
 		ModelAndView mav = new ModelAndView("AdminLecturerEdit");
-		mav.addObject("lecturer",lecturer);
+		mav.addObject("lecturer", lecturer);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView editLecturerPage(@Valid @ModelAttribute ("lecturer")  Lecturer lecturer, BindingResult result, final RedirectAttributes redirectAttributes) {
-		
+	public ModelAndView editLecturerPage(@Valid @ModelAttribute("lecturer") Lecturer lecturer, BindingResult result,
+			final RedirectAttributes redirectAttributes) {
+
 		String message;
-				
+
 		if (result.hasErrors()) {
-			message =  "Unsuccessful update"; }
-			else {
-				lService.updateLecturer(lecturer);
-				message = "Lecturer was successfully updated.";
-			}
-			ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
-			redirectAttributes.addFlashAttribute("message", message);
-			return mav;
+			message = "Unsuccessful update";
+		} else {
+			lService.updateLecturer(lecturer);
+			message = "Lecturer was successfully updated.";
 		}
-		
-		
-		/*ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
+		ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
-	}*/
-		
+	}
+
+	/*
+	 * ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
+	 * redirectAttributes.addFlashAttribute("message", message); return mav; }
+	 */
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteLecturer(@PathVariable int id, final RedirectAttributes redirectAttributes)
-		{
+	public ModelAndView deleteLecturer(@PathVariable int id, final RedirectAttributes redirectAttributes,
+			HttpSession session) {
+		if (((UserSession) session.getAttribute("USERSESSION")) == null
+				|| ((UserSession) session.getAttribute("USERSESSION")).getAdmin() == null) {
+			return new ModelAndView("redirect:/adminlogin");
+		}
 
 		ModelAndView mav = new ModelAndView("redirect:/admin/lecturer/list");
 		Lecturer lecturer = lService.findLecturerById(id);

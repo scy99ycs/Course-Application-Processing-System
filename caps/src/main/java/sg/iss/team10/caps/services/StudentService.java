@@ -15,6 +15,8 @@ public interface StudentService {
 	
 	ArrayList<Student> findStudentByFirstMidName(String FirstMidName);
 	
+	ArrayList<Student> findStudentByFullName(String fullName);
+	
 	Student findStudentByUserName(String userName);
 
 	Student createStudent(Student s);

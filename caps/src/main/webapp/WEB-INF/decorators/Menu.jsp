@@ -43,11 +43,11 @@
 			<li><a href="${pageContext.request.contextPath}/home"><spring:message
 						code="Home" /> </a></li>
 			<li><a href="${pageContext.request.contextPath}/adminlogin"><spring:message
-						code="Signing as Administration" /> </a></li>
-			<li><a href="${pageContext.request.contextPath}/studentlogin"><spring:message
-						code="Signing as Student" /> </a></li>
+						code="Login as Administrator" /> </a></li>
 			<li><a href="${pageContext.request.contextPath}/lecturerlogin"><spring:message
-						code="Signing as Lecturer" /> </a></li>
+						code="Login as Lecturer" /> </a></li>
+			<li><a href="${pageContext.request.contextPath}/studentlogin"><spring:message
+						code="Login as Student" /> </a></li>
 		</c:otherwise>
 	</c:choose>
 
