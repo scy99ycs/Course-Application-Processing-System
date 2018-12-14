@@ -19,12 +19,12 @@
 			style="height: 30px; width: 150px" /></a>
 	</p>
 	<br />
-	<form:form
-		action="${pageContext.request.contextPath}/admin/lecturer/list"
-		method="post">
-		<input name="lname" type="text" />
-		<input class="btn btn-warning" type="submit" value="Search">
-	</form:form>
+<%-- 	<form:form --%>
+<%-- 		action="${pageContext.request.contextPath}/admin/lecturer/list" --%>
+<%-- 		method="post"> --%>
+<!-- 		<input name="lname" type="text" /> -->
+<!-- 		<input class="btn btn-warning" type="submit" value="Search"> -->
+<%-- 	</form:form> --%>
 	<form:errors path="courseName" cssStyle="color:red;" />
 	<c:if test="${not empty message}">
 

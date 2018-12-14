@@ -22,7 +22,7 @@ Designation : <form:input path="designation" size="50" /><form:errors path="desi
 <%-- User Name :  <form:input path="username" size="50" /><form:errors path="username" cssStyle="color:white;" /> <br/> --%>
 <%-- Password :  <form:input path="password" size="50" /><form:errors path="password" cssStyle="color:white;" /> <br/> --%>
 <input type="submit" value="Submit" /> <br/>
-<input type="reset" value="Cancel" /> <br/>
+<input type="reset" value="Reset" /> <br/>
 </form:form>
 </body>
 </html>
