@@ -11,12 +11,9 @@
 <title>Insert title here</title>
 </head>
 
-
 <body>
 
-
 <h2 class= "container" style = "padding-top: 151px;">Course List Page</h2> 
-
 
 	<h3 style="color:#000">${message}</h3>
 	<c:remove var = "message" scope = "session"/>
@@ -24,18 +21,14 @@
 		<h3 style="color:#000">${errormessage}</h3>
 	<c:remove var = "errormessage" scope = "session"/>
 	
-
 <form:form action="${pageContext.request.contextPath}/student/search" method="post">
     <input name="Name" type="text"/>
     <input class="btn btn-warning" placeholder="Input Course Name" type="submit" value="Search">
 </form:form>
 
-
 <c:if test="${fn:length(courseList) gt 0}">
 
 <table class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
-
-
 
 <tr class="listHeading">
 		<th><spring:message code="CourseId" /></th>
@@ -45,10 +38,7 @@
 		<th><spring:message code="Duration" /></th>
 		<th><spring:message code="StartDate" /></th>
 		<th><spring:message code="StaffID" /></th>
-		<th><spring:message code="View" /></th>
-		
-		
-		
+		<th><spring:message code="View" /></th>	
 	</tr>
 
 	<c:forEach var= "course" items="${courseList}">
@@ -61,25 +51,15 @@
 			<td align="left">${course.duration}</td>
 			<td align="left">${course.startDate}</td>
 			<td align="left">${course.staffId}</td>
-			
 			<td align="center"><a 
 			href="${pageContext.request.contextPath}/student/create/${course.courseId}"><spring:message
-						code="view" /></a></td>
-						
-					
-				
-		
+						code="view" /></a></td>	
 		</tr>
 	</c:forEach>
 
 </table>
 
-
-
 </c:if>
-
-
-
 
 </body>
 </html>

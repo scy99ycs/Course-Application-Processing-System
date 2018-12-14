@@ -50,23 +50,22 @@ public class StudentController {
 	 * @return
 	 */
 
-	// Creation after Confirmation
+/*-------------------------- Enroll function -----------------------------------*/
+	// View detail of the selected course
 	@RequestMapping(value = "/create/{courseId}", method = RequestMethod.GET)
 	public ModelAndView newEnrollmentPage(@PathVariable("courseId") Integer courseId) {
 		ModelAndView mav = new ModelAndView("StudentEnrollmentNew");
 		Course course = cService.findCourseById(courseId);
 		mav.addObject("course", course);
-		// mav.addObject("eidlist", eService.findAllEnrollmentID());
 		return mav;
 	}
 
+	// After clicking confirm button, create new enrollment
 	@RequestMapping(value = "/create/{courseId}", method = RequestMethod.POST)
 	public ModelAndView createNewEnrollment(@ModelAttribute @Valid Enrollment enrollment,
 			@PathVariable("courseId") Integer courseId, BindingResult result,
-			final RedirectAttributes attributes, HttpSession Session) /* throw */ {
-		
-		
-		//validation for Max capacity of course 1
+			final RedirectAttributes attributes, HttpSession Session){
+		// 1st validation for Max capacity of selected course
 		ModelAndView mav = new ModelAndView();
 		ArrayList<Enrollment> en = new ArrayList<Enrollment>();
 		en = eService.findEnrollmentByCourseID(courseId);	
@@ -76,12 +75,7 @@ public class StudentController {
 			mav.setViewName("redirect:/student/search");
 			return mav;
 		}	
-		
-		
-//		if (result.hasErrors())
-//			return new ModelAndView("StudentEnrollmentNew");
-		
-		
+		// 2nd create new enrollment
 		Enrollment em = new Enrollment();
 		Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
 		String message = "Your enrollment is successful.";
@@ -89,8 +83,7 @@ public class StudentController {
 		em.setCourseId(courseId);
 		eService.createEnrollment(em);
 		Session.setAttribute("message", message);
-		mav.setViewName("redirect:/student/search");
-		
+		mav.setViewName("redirect:/student/search");		
 		return mav;
 	}
 
@@ -100,29 +93,18 @@ public class StudentController {
 	// 1st Page to be displayed when Student log in through ID
 	@RequestMapping(value = "/landing", method = RequestMethod.GET)
 	public ModelAndView StudentLandingPage(HttpSession Session) {
-		
 		ModelAndView mav = new ModelAndView("StudentEnrollmentList");
 		int studentId = ((UserSession)Session.getAttribute("USERSESSION")).getStudent().getStudentId();
 		ArrayList<Enrollment> GradeList = eService.findEnrollmentByStudentID(studentId);
 		Student student = sService.findStudentByStudentID(studentId);
 		String firstMidName = (student.getFirstMidName());
 		String lastName = (student.getLastName());
-		
-		
-		//Getting courseName
-		//Creating an emptyArraylist to store Course objects with the same Id
 		ArrayList<Course> courseName = new ArrayList<Course>();
-		
-
-		
-	
 		ArrayList<Character> grades = new ArrayList<Character>();
 		for(Enrollment current: GradeList) {
 			courseName.add(cService.findCourseById(current.getCourseId()));
 			grades.add(CapsLogic.calculateGrade(current.getScore()));
 		}
-		
-
 		mav.addObject("GradeList", GradeList);
 		mav.addObject("grades", grades);
 		mav.addObject("courseName", courseName);
@@ -130,13 +112,13 @@ public class StudentController {
 		mav.addObject("lastName", lastName);
 		return mav;
 	}
+
 	
 /* -------------------------Search Functions-----------------------------*/
 	
 	// 2.1 Page : ListofAllAvailableCourses(Complete)
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView StudentSearchCoursePage(HttpSession Session) {
-		
 		Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
 		ModelAndView mav = new ModelAndView("StudentSearchList");
 		ArrayList<Course> courseList = cService.findAllCourse();//Get list of all courses
@@ -148,10 +130,8 @@ public class StudentController {
 				}
 			}
 		}
-
 		mav.addObject("courseList", courseList);
-		return mav;
-		
+		return mav;	
 	}
 	
 
@@ -163,7 +143,6 @@ public class StudentController {
 		Course courseList = cService.findCourseById(i);
 		mav.addObject("courseId", courseList);
 		return mav;
-		
 	}
 
 //AOP
@@ -172,7 +151,6 @@ public class StudentController {
 	// 2.3 Page : FindCourseByName (input) get and set to session
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView StudentSearchCourseByName(HttpServletRequest request, HttpSession Session) {
-		
 		Student s = ((UserSession)Session.getAttribute("USERSESSION")).getStudent();
 		ModelAndView mav = new ModelAndView("StudentSearchList");
 		ArrayList<Course> courseList = cService.findCoursesByName(request.getParameter("Name"));//Get list of all courses
@@ -184,11 +162,8 @@ public class StudentController {
 				}
 			}
 		}
-		//Invalid Return...Courselist.size = 0 (==)
-		//Session.setAttribute("message", message);
 		mav.addObject("courseList", courseList);
 		return mav;
-
 	}
 	
 	
@@ -201,7 +176,6 @@ public class StudentController {
 		ArrayList<Course> courseList = cService.findCourseByStaffId(sid);
 		mav.addObject("courseStaffList", courseList);
 		return mav;
-
 	}
 
 	
