@@ -31,7 +31,7 @@ public class AdminCourseController {
 
 	@Autowired
 	private CourseService courseService;
-	
+
 	@Autowired
 	private LecturerService lService;
 
