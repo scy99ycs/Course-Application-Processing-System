@@ -86,7 +86,7 @@ INSERT INTO `team10caps`.`student` (`studentId`, `lastName`, `firstMidName`, `en
 INSERT INTO `team10caps`.`student` (`studentId`, `lastName`, `firstMidName`, `enrollmentDate`, `username`, `password`) VALUES ('10', 'Christina', 'Shalin', '2018-11-01 00:00:00', 'S010Shalin', 'S010Shalin');
 
 
-INSERT INTO `team10caps`.`lecturer` (`staffId`, `staffName`, `designation`, `username`, `password`) VALUES ('1', ' Derek Kiong', 'Principal Lecturer', 'L001Derek1', 'L001Derek');
+INSERT INTO `team10caps`.`lecturer` (`staffId`, `staffName`, `designation`, `username`, `password`) VALUES ('1', 'Derek Kiong', 'Principal Lecturer', 'L001Derek', 'L001Derek');
 INSERT INTO `team10caps`.`lecturer` (`staffId`, `staffName`, `designation`, `username`, `password`) VALUES ('2', 'Venkat', 'Lecturer', 'L002Venkat', 'L002Venkat');
 INSERT INTO `team10caps`.`lecturer` (`staffId`, `staffName`, `designation`, `username`, `password`) VALUES ('3', 'Darryl NG', 'Lecturer', 'L003Darryl', 'L003Darryl');
 INSERT INTO `team10caps`.`lecturer` (`staffId`, `staffName`, `designation`, `username`, `password`) VALUES ('4', 'Esther Tan', 'Chief', 'L004Esther', 'L004Esther');
