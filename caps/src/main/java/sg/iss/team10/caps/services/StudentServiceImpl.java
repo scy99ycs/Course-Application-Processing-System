@@ -41,6 +41,12 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	public ArrayList<Student> findStudentByFullName(String fullName) {
+		ArrayList<Student> slist = srepo.findStudentByFullName(fullName);
+		return slist;
+	}
+	
+	@Override
 	@Transactional
 	public Student findStudentByUserName(String userName) {
 		Student slist = srepo.findStudentByUserName(userName);
@@ -83,4 +89,6 @@ public class StudentServiceImpl implements StudentService {
 		// TODO Auto-generated method stub
 		return srepo.findMaxStudentId();
 	}
+
+
 }

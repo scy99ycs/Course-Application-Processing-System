@@ -28,6 +28,9 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	@Query("SELECT s from Student s where s.firstMidName LIKE %:firstMidName%")
 	ArrayList<Student> findStudentByFirstMidName(@Param("firstMidName") String firstMidName);
 	
+	@Query("SELECT s from Student s where CONCAT(s.firstMidName, s.lastName) LIKE %:fullName%")
+	ArrayList<Student> findStudentByFullName(@Param("fullName") String fullName);
+	
 	@Query("SELECT s from Student s where s.username LIKE %:username%")
 	Student findStudentByUserName(@Param("username") String username);
 	

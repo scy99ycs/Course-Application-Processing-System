@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Cache;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -151,7 +153,7 @@ public class LecturerController {
 
 			// Calculate GPA
 			if (current.getScore() != null) {
-				totalScore += current.getScore();
+				totalScore += current.getScore() *  c.getCredit();
 				totalWeight += c.getCredit();
 			}
 		}
@@ -176,9 +178,23 @@ public class LecturerController {
 			return new ModelAndView("redirect:/lecturerlogin");
 		}
 
-		ModelAndView mav = new ModelAndView("LecturerStudentList");
 		ArrayList<Student> StudentList = sService.findAllStudents();
+		ModelAndView mav = new ModelAndView("LecturerStudentList");
 		mav.addObject("StudentList", StudentList);
+		return mav;
+	}
+	
+	// working on it
+	@RequestMapping(value = "/performance", method = RequestMethod.POST)
+	public ModelAndView studentListPage(HttpServletRequest request) {
+		
+		String searchDetail = request.getParameter("sname");
+		ArrayList<Student> StudentList = sService.findStudentByFullName(searchDetail);
+		String message = StudentList.size() + " search result(s) for \""+ searchDetail + "\"";
+		
+		ModelAndView mav = new ModelAndView("LecturerStudentList");
+		mav.addObject("StudentList", StudentList);
+		mav.addObject("message", message);
 		return mav;
 	}
 }
