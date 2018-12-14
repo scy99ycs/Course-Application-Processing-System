@@ -20,9 +20,6 @@
 				href="${pageContext.request.contextPath}/admin/enrollment/list">
 					<spring:message code="Manage Enrollment" />
 			</a></li>
-			<li><a href="${pageContext.request.contextPath}/logout"> <spring:message
-						code="Logout" />
-			</a></li>
 		</c:when>
 
 		<c:when test="${sessionScope.USERSESSION.lecturer != null}">
@@ -33,9 +30,6 @@
 				href="${pageContext.request.contextPath}/lecturer/performance">
 					<spring:message code="View a Student's Performance" />
 			</a></li>
-			<li><a href="${pageContext.request.contextPath}/logout"> <spring:message
-						code="Logout" />
-			</a></li>
 		</c:when>
 
 		<c:when test="${sessionScope.USERSESSION.student != null}">
@@ -43,9 +37,6 @@
 						code="Student Information" /> </a></li>
 			<li><a href="${pageContext.request.contextPath}/student/search">
 					<spring:message code="View Course List" />
-			</a></li>
-			<li><a href="${pageContext.request.contextPath}/logout"> <spring:message
-						code="Logout" />
 			</a></li>
 		</c:when>
 		<c:otherwise>

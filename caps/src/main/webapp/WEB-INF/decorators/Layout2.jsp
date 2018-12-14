@@ -101,7 +101,7 @@ html, body, .hero {
 	min-height: 600px;
 	height:100%;
 	background-image: linear-gradient(to bottom, #d59254, #cf7693);
-	margin-top: 95px
+	margin-top: 95px;
 }
 
 h1 {
@@ -121,7 +121,7 @@ h1 {
 #bubble {
 	width: 100%;
 	height: 100%;
-	opacity: .9;
+	opacity: 0.999;
 	position: fixed;
 	display: none;
 	z-index: 1;
@@ -174,12 +174,15 @@ h1 {
 
 
 	<div class="hero">
-		<center>
+		<center style="	margin: 95px">
 			<dec:body />
 		</center>
 	</div>
 
 	<canvas id="bubble"></canvas>
+	
+		<%@ include file="Footer.jsp" %>
+	
 	<script
 		src="//static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
 
