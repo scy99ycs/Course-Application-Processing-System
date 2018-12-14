@@ -11,9 +11,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Add Lecturer</title>
+
 </head>
 <body>
-<h3>Add New Lecturer</h3>
+<h2>Add Lecturer</h2>
+<form:errors path="courseName" cssStyle="color:red;" />
 <form:form  action="${pageContext.request.contextPath}/admin/lecturer/new.html" method="POST" modelAttribute="Lecturer">
 <%-- Staff ID : <form:input  path="staffId"  size="10" /> <br/> --%>
 Staff Name : <form:input  path="staffName" size ="100" /> <br/>

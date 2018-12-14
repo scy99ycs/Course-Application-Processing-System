@@ -12,10 +12,12 @@
 <title>List of Lecturers</title>
 </head>
 <body>
+<h2>List of Lecturers</h2>
+<form:errors path="courseName" cssStyle="color:red;" />
 <p style="color:white">${message}</p>
 <form:form>
 <c:if test="${fn:length(lecturerList) gt 0}">
-<table>
+<table class="table table-hover">
 	<tr>
 		<th><spring:message code="Staff Id"/></th>
 		<th><spring:message code="Staff Name"/></th>

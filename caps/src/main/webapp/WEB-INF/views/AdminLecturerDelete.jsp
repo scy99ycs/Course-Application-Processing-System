@@ -12,6 +12,8 @@
 <title>Delete Lecturer</title>
 </head>
 <body>
+<h2>Delete Lecturer</h2>
+<form:errors path="courseName" cssStyle="color:red;" />
 <a href="${pageContext.request.contextPath}/admin/lecturer/delete/${lecturer.staffId}.html"></a>
 </body>
 </html>

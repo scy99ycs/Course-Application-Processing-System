@@ -12,6 +12,8 @@
 <title>Edit Lecturer Details</title>
 </head>
 <body>
+<h2>Edit Lecturer Details</h2>
+<form:errors path="courseName" cssStyle="color:red;" />
 <form:form  action="${pageContext.request.contextPath}/admin/lecturer/edit.html" method="POST" modelAttribute="lecturer">
 Staff ID : <form:input  path="staffId" size ="100"  readonly="true"/>
 Staff Name : <form:input  path="staffName" size ="100" /> <br/>
