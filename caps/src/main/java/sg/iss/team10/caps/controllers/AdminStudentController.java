@@ -103,16 +103,16 @@ public class AdminStudentController {
 		return mav;
 		
 	}
-	@RequestMapping(value = "/student/list", method = RequestMethod.POST)
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
 	public ModelAndView studentListPage(HttpServletRequest request) 
 	{
 		
 		String searchDetail = request.getParameter("sname");
-		ArrayList<Student> StudentList = sService.findStudentByFullName(searchDetail);
-		String message = StudentList.size() + " search result(s) for \""+ searchDetail + "\"";
+		ArrayList<Student> studentList = sService.findStudentByFullName(searchDetail);
+		String message = studentList.size() + " search result(s) for \""+ searchDetail + "\"";
 		
 		ModelAndView mav = new ModelAndView("AdminStudentList");
-		mav.addObject("StudentList", StudentList);
+		mav.addObject("studentList", studentList);
 		mav.addObject("message", message);
 		return mav;
 	}

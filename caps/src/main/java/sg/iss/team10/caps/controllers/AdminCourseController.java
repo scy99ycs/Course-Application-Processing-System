@@ -2,9 +2,11 @@ package sg.iss.team10.caps.controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Course;
+import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.LecturerService;
 import sg.iss.team10.caps.validator.AdminCourseValidator;
@@ -98,6 +101,21 @@ public class AdminCourseController {
 		ModelAndView mav = new ModelAndView("AdminCourseList");
 		List<Course> courseList = courseService.findAllCourse();
 		mav.addObject("courseList", courseList);
+		return mav;
+	}
+	
+
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public ModelAndView studentListPage(HttpServletRequest request) 
+	{
+		
+		String searchDetail = request.getParameter("sname");
+		ArrayList<Course> courseList = courseService.findCoursesByName(searchDetail);
+		String message = courseList.size() + " search result(s) for \""+ searchDetail + "\"";
+		
+		ModelAndView mav = new ModelAndView("AdminStudentList");
+		mav.addObject("courseList", courseList);
+		mav.addObject("message", message);
 		return mav;
 	}
 

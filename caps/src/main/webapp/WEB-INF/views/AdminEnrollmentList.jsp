@@ -15,12 +15,13 @@
 	<p class="errormessage">${message}</p>
 	<br/>
 <p align="left">
-<a href="${pageContext.request.contextPath}/admin/enrollment/add.html"><input class="table table-hover" type="submit" value="Add New Enrollment" style="height:30px; width:180px"/></a>
+<a href="${pageContext.request.contextPath}/admin/enrollment/add.html"><input class="btn btn-warning" type="submit" value="Add New Enrollment" style=" width:180px"/></a>
 </p><br/>
 	
 	<form:form>
 		<c:if test="${fn:length(enrollmentList) gt 0}">
 			<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
+			<thead>
 				<tr>
 					<th><spring:message code="Enrollment Id" /></th>
 					<th><spring:message code="Course Id" /></th>
@@ -44,6 +45,7 @@
 									code="Delete" /></a></td>
 					</tr>
 				</c:forEach>
+				</thead>
 			</table>
 		</c:if>
 	</form:form>

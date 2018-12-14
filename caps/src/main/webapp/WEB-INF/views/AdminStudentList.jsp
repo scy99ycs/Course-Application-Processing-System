@@ -15,19 +15,19 @@
 <p class ="errormessage">${message}</p>
 <br/>
 <p align="left">
-<a href="${pageContext.request.contextPath}/admin/student/add.html"><input class="btn btn warning" type="submit" value="Add New Student" style="height:30px; width:150px"/></a>
+<a href="${pageContext.request.contextPath}/admin/student/add.html"><input class="btn btn-warning" type="submit" value="Add New Student" style=" width:150px"/></a>
 </p><br/>
+
+<p>${message}</p>
 <form:form
 		action="${pageContext.request.contextPath}/admin/student/list"
 		method="post">
 		<input name="sname" type="text" />
 		<input class="btn btn-warning" type="submit" value="Search">
-	</form:form>
-
-<p>${message}</p>
-<form:form>
+		<p> &nbsp; </p>
 <c:if test="${fn:length(studentList) gt 0}">
 <table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
+<thead>
 	<tr>
 		<th><spring:message code="Student Id"/></th>
 		<th><spring:message code="First & Middle Name"/></th>
@@ -51,6 +51,7 @@
 						code="Delete" /></a></td>
 	</tr>
 	</c:forEach>
+</thead>
 </table>
 </c:if>	
 </form:form>

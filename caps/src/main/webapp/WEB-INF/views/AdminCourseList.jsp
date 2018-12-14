@@ -15,14 +15,17 @@
 <p class ="errormessage">${message}</p>
 <br/>
 <p align="left">
-<a href="${pageContext.request.contextPath}/admin/course/add.html"><input class="btn btn-warning" type="submit" value="Add New Course" style="height:30px; width:150px"/></a>
+<a href="${pageContext.request.contextPath}/admin/course/add.html"><input class="btn btn-warning" type="submit" value="Add New Course" style=" width:150px"/></a>
 </p><br/>
 
 <form:form method="POST" modelAttribute="enrollment"
-	action="${pageContext.request.contextPath}/admin/course/add.html">
-	<tr><td> &nbsp; <td></tr>
+	action="${pageContext.request.contextPath}/admin/course/list.html">
+	<input name="sname" type="text" />
+		<input class="btn btn-warning" type="submit" value="Search">
+	<p> &nbsp; </p>
 <c:if test="${fn:length(courseList) gt 0}">
 <table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
+<thead>
 	<tr>
 		<th><spring:message code="Course Id"/></th>
 		<th><spring:message code="Course Name"/></th>
@@ -48,6 +51,7 @@
 						code="Delete" /></a></td>
 	</tr>
 	</c:forEach>	
+	</thead>
 </table>
 </c:if>	
 </form:form>

@@ -1,7 +1,9 @@
 package sg.iss.team10.caps.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team10.caps.model.Enrollment;
+import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.CourseService;
 import sg.iss.team10.caps.services.EnrollmentService;
 import sg.iss.team10.caps.services.StudentService;
@@ -96,7 +99,7 @@ public class AdminEnrollmentController {
 		mav.addObject("enrollmentList", enrollmentList);
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editEnrollmentPage(@PathVariable int id, HttpSession session) {
 		if (((UserSession) session.getAttribute("USERSESSION")) == null
