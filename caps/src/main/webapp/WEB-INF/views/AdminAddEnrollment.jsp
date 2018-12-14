@@ -15,21 +15,21 @@
 		<tbody>
 			
 			<tr>
-				<td><spring:message code="Student Id" /></td>
-				<td><form:input path="studentId"/></td>
-				<td><form:errors path="studentId" cssStyle="color: red;" /></td>
+			<td>Student Id &nbsp; &nbsp; </td>
+				<td><form:select path="studentId" style="width: 100px;">
+					  <form:options items="${sidList}" />	
+					  </form:select></td>
 			</tr>
-			
+			<tr><td> &nbsp; <td></tr>
 			<tr>
-				<td><spring:message code="Course Id" /></td>
-				<td><form:input path="courseId"/></td>
-				<td><form:errors path="courseId" cssStyle="color: red;" /></td>
+				<td>Course Id &nbsp;  </td>
+				<td><form:select path="courseId" style="width: 100px;">
+					  <form:options items="${cidList}" />	
+					  </form:select></td>
 			</tr>
-						
+			<tr><td> &nbsp; <td></tr>	
 			<tr>
-				<td><input type="submit" value="Add"/></td>
-				<td></td>
-				<td></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="submit" value="Add"/></td>
 			</tr>
 		</tbody>
 	</table>
