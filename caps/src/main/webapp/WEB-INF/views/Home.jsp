@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div>
-		<img src="../image/welcomebanner.jpg">
+		<img src="${pageContext.request.contextPath}/image/welcomebanner.jpg" alt="" align="middle">
 	</div>
 	<div style="width: 1000px" align="justify">
 		<h2>Welcome to Bond University</h2>
@@ -45,9 +45,9 @@
 		<h2>Courses offered by University</h2>
 		<form:form action="${pageContext.request.contextPath}/home"
 			method="POST" modelAttribute="course">
-			
-			<input type="submit" value="Submit" />
-			<table class="table table-hover">
+			<input type="text" name="cName" placeholder="type course name" />
+			<input type="submit" value="Search" class="btn btn-warning" />
+			<table class="table table-hover" style="width:1000px">
 				<tr>
 					<th>No</th>
 					<th>Course Name</th>

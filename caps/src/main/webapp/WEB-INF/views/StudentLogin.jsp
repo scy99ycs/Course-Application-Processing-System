@@ -22,12 +22,14 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><p class="errormessage">${message}</p></td>
+				<td colspan="3"><p class="errormessage">${message}</p></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" value="Submit" class="btn btn-warning" /></td>
-				<td><input type="reset" value="Clear" class="btn btn-warning" /></td>
+				<td align="right"><input type="submit" value="Submit"
+					class="btn btn-warning" style="width: 75px" /></td>
+				<td align="right"><input type="reset" value="Clear"
+					class="btn btn-warning" style="width: 75px" /></td>
 			</tr>
 		</table>
 	</form:form>

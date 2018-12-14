@@ -2,6 +2,7 @@ package sg.iss.team10.caps.controllers;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,20 @@ public class CommonController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/home", method = RequestMethod.POST)
+	public ModelAndView home(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("Home");
+		String cName = request.getParameter("cName");
+		ArrayList<Course> cList = cService.findCoursesByName(cName);
+		ArrayList<Lecturer> lecList = new ArrayList<Lecturer>();
+		for (Course current : cList) {
+			lecList.add(lService.findLecturerById(current.getStaffId()));
+		}
+		mav.addObject("courseList", cList);
+		mav.addObject("lecList", lecList);
+		return mav;
+	}
+
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.GET)
 	public String adminLogin(Model model) {
 		model.addAttribute("admin", new Admin());
@@ -95,7 +110,7 @@ public class CommonController {
 		if (result.hasErrors())
 			return mav;
 
-		if (admin.getUsername() !="" && admin.getPassword() != "") {
+		if (admin.getUsername() != "" && admin.getPassword() != "") {
 			Admin ad = aService.authenticate(admin.getUsername(), admin.getPassword());
 			if (ad == null) {
 				return mav;
@@ -104,6 +119,7 @@ public class CommonController {
 				us.setSessionId(session.getId());
 				us.setAdmin(ad);
 				session.setAttribute("USERSESSION", us);
+				session.setAttribute("USERNAME", ad.getAdminName());
 				return new ModelAndView("redirect:/admin/student/list");
 			}
 		} else
@@ -135,6 +151,7 @@ public class CommonController {
 				us.setSessionId(session.getId());
 				us.setLecturer(lc);
 				session.setAttribute("USERSESSION", us);
+				session.setAttribute("USERNAME", lc.getStaffName());
 				return new ModelAndView("redirect:/lecturer/courselist");
 			}
 		} else
@@ -150,13 +167,13 @@ public class CommonController {
 	@RequestMapping(value = "/studentlogin", method = RequestMethod.POST)
 	public ModelAndView studentAuthenticate(@ModelAttribute Student student, HttpSession session,
 			BindingResult result) {
-		
+
 		String message = "Incorrect username or password!";
 		ModelAndView mav = new ModelAndView("StudentLogin", "message", message);
 
 		if (result.hasErrors())
 			return mav;
-		
+
 		if (student.getUsername() != "" && student.getPassword() != "") {
 			Student st = sService.authenticate(student.getUsername(), student.getPassword());
 			if (st == null) {
@@ -166,9 +183,10 @@ public class CommonController {
 				us.setSessionId(session.getId());
 				us.setStudent(st);
 				session.setAttribute("USERSESSION", us);
+				session.setAttribute("USERNAME", st.getLastName());
 				return new ModelAndView("redirect:/student/landing");
 			}
-		} else 
+		} else
 			return new ModelAndView("StudentLogin", "message", "Please complete the form");
 	}
 
