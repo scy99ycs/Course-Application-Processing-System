@@ -24,7 +24,7 @@ import sg.iss.team10.caps.model.Lecturer;
 import sg.iss.team10.caps.model.Student;
 import sg.iss.team10.caps.services.AdminService;
 import sg.iss.team10.caps.services.LecturerService;
-//import edu.iss.cats.validator.EmployeeValidator;
+import sg.iss.team10.caps.validator.AdminLecturerValidator;
 
 @RequestMapping("/admin/lecturer")
 @Controller
@@ -33,6 +33,16 @@ public class AdminLecturerController {
 	private AdminService aService;
 	@Autowired
 	private LecturerService lService;
+	@Autowired
+	private AdminLecturerValidator lValidator;
+	
+	@InitBinder("lecturer")
+	private void initLecturerBinder(WebDataBinder binder) {
+		binder.addValidators(lValidator);
+	}
+	
+	private String value(int id) {
+		return String.format("%03d", id);}
 
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public ModelAndView newLecturerPage(HttpSession session) {
@@ -41,7 +51,7 @@ public class AdminLecturerController {
 			return new ModelAndView("redirect:/adminlogin");
 		}
 
-		ModelAndView mav = new ModelAndView("AdminLecturerAdd", "Lecturer", new Lecturer());
+		ModelAndView mav = new ModelAndView("AdminLecturerAdd", "lecturer", new Lecturer());
 		return mav;
 	}
 
@@ -49,11 +59,20 @@ public class AdminLecturerController {
 	public ModelAndView newLecturerPage(@ModelAttribute @Valid Lecturer lecturer, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 
+		String message = "";
+		
 		if (result.hasErrors())
 			return new ModelAndView("AdminLecturerAdd");
 
 		ModelAndView mav = new ModelAndView();
-		String message = "New lecturer " + lecturer.getStaffId() + " was successfully added.";
+		message = "New lecturer " + lecturer.getStaffId() + " was successfully added.";
+		
+		message = "New lecturer " + (lService.findMaxStaffId() + 1) + " was successfully created.";
+		String username = "L" + value(lService.findMaxStaffId() + 1) + lecturer.getStaffName();
+		lecturer.setUsername(username);
+
+		String password = "L" + value(lService.findMaxStaffId() + 1) + lecturer.getStaffName();
+		lecturer.setPassword(password);
 
 		lService.createLecturer(lecturer);
 		mav.setViewName("redirect:/admin/lecturer/list");

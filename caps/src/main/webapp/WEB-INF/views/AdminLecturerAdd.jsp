@@ -15,13 +15,12 @@
 </head>
 <body>
 <h2>Add Lecturer</h2>
-<form:errors path="courseName" cssStyle="color:red;" />
-<form:form  action="${pageContext.request.contextPath}/admin/lecturer/new.html" method="POST" modelAttribute="Lecturer">
+<form:form  action="${pageContext.request.contextPath}/admin/lecturer/new.html" method="POST" modelAttribute="lecturer">
 <%-- Staff ID : <form:input  path="staffId"  size="10" /> <br/> --%>
-Staff Name : <form:input  path="staffName" size ="100" /> <br/>
-Designation : <form:input path="designation" size="50" /> <br/>
-User Name :  <form:input path="username" size="50" /> <br/>
-Password :  <form:input path="password" size="50" /> <br/>
+Staff Name : <form:input  path="staffName" size ="100" /><form:errors path="staffName" cssStyle="color:white;" /> <br/>
+Designation : <form:input path="designation" size="50" /><form:errors path="designation" cssStyle="color:white;" /> <br/>
+<%-- User Name :  <form:input path="username" size="50" /><form:errors path="username" cssStyle="color:white;" /> <br/> --%>
+<%-- Password :  <form:input path="password" size="50" /><form:errors path="password" cssStyle="color:white;" /> <br/> --%>
 <input type="submit" value="Submit" /> <br/>
 <input type="reset" value="Cancel" /> <br/>
 </form:form>
