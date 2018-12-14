@@ -9,32 +9,42 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Student List</title>
+<title>Manage Students</title>
 </head>
 <body>
 
-	<h2>Students</h2>
+	<h2>Manage Students</h2>
 	<br />
+
 	<p align="left">
 		<a href="${pageContext.request.contextPath}/admin/student/add.html"><input
 			class="btn btn-warning" type="submit" value="Add New Student"
 			style="width: 150px" /></a>
 	</p>
-	<br />
-	<br />
-
-	<c:if test="${not empty message}">
-		<div class="alert alert-warning" style="width: 100%;">
-			<p>${message}</p>
-		</div>
-	</c:if>
-	<br />
+	
 	<form:form
 		action="${pageContext.request.contextPath}/admin/student/list"
 		method="post">
-		<input name="sname" type="text" />
-		<input class="btn btn-warning" type="submit" value="Search">
-		<p>&nbsp;</p>
+
+		<!-- Search bar -->
+		<div class="row col-md-5 col-centered">
+			<div>
+				<input type="text" name="sname" placeholder="Type Student's Name"
+					class="form-control" style="width: 500px" />
+			</div>
+			<div>
+				<input type="submit" name="search" value="Search"
+					class="btn btn-warning " />
+			</div>
+		</div>
+		<br />
+
+		<!-- Message display -->
+		<c:if test="${not empty message}">
+			<div class="alert alert-warning" style="width: 100%;">${message}</div>
+		</c:if>
+		<br />
+
 		<c:if test="${fn:length(studentList) gt 0}">
 			<table align="center" class="table table-hover"
 				style="cellspacing: 2; cellpadding: 2; border: 1;">
@@ -54,7 +64,7 @@
 						<td>${student.firstMidName}</td>
 						<td>${student.lastName}</td>
 						<td>${student.username}</td>
-						<td align="center"><a
+						<td><a
 							href="${pageContext.request.contextPath}/admin/student/edit/${student.studentId}.html"><spring:message
 									code="Edit" /></a></td>
 						<td><a

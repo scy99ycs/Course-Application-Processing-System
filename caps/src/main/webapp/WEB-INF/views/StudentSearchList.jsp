@@ -17,14 +17,32 @@
 
 	<h3 style="color:#000">${message}</h3>
 	<c:remove var = "message" scope = "session"/>
-	<br></br>
+	<br/>
 		<h3 style="color:#000">${errormessage}</h3>
 	<c:remove var = "errormessage" scope = "session"/>
 	
-<form:form action="${pageContext.request.contextPath}/student/search" method="post">
-    <input name="Name" placeholder="Input Course Name" type="text"/>
-    <input class="btn btn-warning" type="submit" value="Search">
-</form:form>
+	
+	
+
+
+
+
+	<!-- Search bar -->
+	<form:form action="${pageContext.request.contextPath}/student/search" method="POST">
+			<div class="row col-md-5 col-centered">
+				<div>
+					<input name="Name" placeholder="Input Course Name" type="text" 
+						class="form-control" style="width: 500px" />
+				</div>
+				<div>
+					<input class="btn btn-warning" type="submit" value="Search"/>
+				</div>
+			</div>
+		</form:form>
+		<br />
+
+
+
 
 <c:if test="${fn:length(courseList) gt 0}">
 
@@ -51,9 +69,9 @@
 			<td align="left">${course.duration}</td>
 			<td align="left">${course.startDate}</td>
 			<td align="left">${course.staffId}</td>
-			<td align="center"><a 
+			<td align="left"><a 
 			href="${pageContext.request.contextPath}/student/create/${course.courseId}"><spring:message
-						code="view" /></a></td>	
+						code="View" /></a></td>	
 		</tr>
 	</c:forEach>
 

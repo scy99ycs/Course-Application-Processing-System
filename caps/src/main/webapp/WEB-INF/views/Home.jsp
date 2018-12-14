@@ -16,9 +16,10 @@
 		<img src="${pageContext.request.contextPath}/image/welcomebanner.jpg"
 			alt="" align="middle">
 	</div>
-	<br>
+	<br />
 	<div style="width: 1000px" align="justify">
-		<h2>Welcome to Bond University</h2>
+		<h2 style="padding-top: 20px;">Welcome to Bond University</h2>
+		<br/>
 		<p>Bond University, an institution increasingly recognized as one
 			of the world's finest research-intensive universities.</p>
 		<p>The UVic community is deeply committed to contributing to a
@@ -43,20 +44,36 @@
 			and work-integrated learning opportunities, making it among the best
 			in the world.</p>
 	</div>
-	<div><br><hr>
-		<h2>Courses offered by University</h2>
-<br>
+	<div>
+		<br />
+		<hr />
+		<h2 style="padding-top: 20px;">Courses offered by University</h2>
+		<br />
+
+		<!-- Search Bar -->
 		<form:form action="${pageContext.request.contextPath}/home"
 			method="POST" modelAttribute="course">
 			<div class="row col-md-5 col-centered">
-				<div><input type="text" name="cName"
-					placeholder="type course name" class="form-control"
-					style="width: 400px" /></div> <div><input type="submit"
-					name="search" value="Search" class="btn btn-warning " /></div> <div><input
-					type="submit" name="clear" value="Clear" class="btn btn-warning" /></div>
+				<div>
+					<input type="text" name="cName" placeholder="Type Course Name"
+						class="form-control" style="width: 400px" />
+				</div>
+				<div>
+					<input type="submit" name="search" value="Search"
+						class="btn btn-warning " />
+				</div>
+				<div>
+					<input type="submit" name="clear" value="Clear"
+						class="btn btn-warning" />
+				</div>
 			</div>
-			<p>${message}</p>
-		</form:form><br>
+		</form:form>
+		<br />
+
+		<!-- Message display -->
+		<p style="font-size: 20px;">${message}</p>
+
+		<!-- Search Results -->
 		<table class="table table-hover" style="width: 1000px">
 			<thead>
 				<tr>
@@ -68,6 +85,7 @@
 					<th>Instructor</th>
 				</tr>
 			</thead>
+
 			<c:forEach items="${courseList}" var="course" varStatus="index">
 				<tr>
 					<td>${index.index+1}</td>
@@ -81,7 +99,5 @@
 			</c:forEach>
 		</table>
 	</div>
-
 </body>
-
 </html>

@@ -6,7 +6,7 @@
 <s:url value="/css/style2.css" var="style" />
 <link rel="STYLESHEET" type="text/css" href="${style}" />
 
-<h2>Administrator Login</h2>
+<h2 style="padding-top: 120px;">Administrator Login</h2>
 
 <div>
 	<form:form modelAttribute="admin" method="POST"
@@ -22,11 +22,9 @@
 					style="width: 534px" /></td>
 			</tr>
 			<tr>
-				<td></td>
 				<td colspan="3"><c:if test="${not empty message}">
 						<div class="alert alert-warning" style="width: 100%;">
-							<p>${message}</p>
-						</div>
+							${message}</div>
 					</c:if></td>
 			</tr>
 			<tr>

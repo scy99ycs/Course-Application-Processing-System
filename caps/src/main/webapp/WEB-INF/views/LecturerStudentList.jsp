@@ -13,15 +13,25 @@
 <body>
 	<h2>All Students</h2>
 	<br />
+
 	<!-- Search bar -->
 	<form:form
 		action="${pageContext.request.contextPath}/lecturer/performance"
-		method="post">
-		<input name="sname" type="text" />
-		<input class="btn btn-warning" type="submit" value="Search">
+		method="POST">
+		<div class="row col-md-5 col-centered">
+			<div>
+				<input type="text" name="sname" placeholder="Type Student's Name"
+					class="form-control" style="width: 500px" />
+			</div>
+			<div>
+				<input type="submit" name="search" value="Search"
+					class="btn btn-warning " />
+			</div>
+		</div>
 	</form:form>
-
 	<br />
+
+	<!-- Message display -->
 	<c:if test="${not empty message}">
 		<p class="alert alert-warning" style="color: orange">${message}</p>
 	</c:if>
@@ -31,13 +41,13 @@
 	<table class="table table-hover">
 		<!-- Table - Header -->
 		<thead>
-		<tr>
-			<td>Student ID</td>
-			<td>First and Middle Name</td>
-			<td>Last Name</td>
-			<td>Enrollment Date</td>
-			<td>View Performance</td>
-		</tr>
+			<tr>
+				<td>Student ID</td>
+				<td>First and Middle Name</td>
+				<td>Last Name</td>
+				<td>Enrollment Date</td>
+				<td>View Performance</td>
+			</tr>
 		</thead>
 		<!-- Table - Records -->
 		<c:forEach items="${StudentList}" var="Student">

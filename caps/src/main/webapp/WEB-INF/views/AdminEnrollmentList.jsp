@@ -9,27 +9,38 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Manage Enrollment</title>
 </head>
 <body>
-	<p class="errormessage">${message}</p>
-	<br/>
-<p align="left">
-<a href="${pageContext.request.contextPath}/admin/enrollment/add.html"><input class="btn btn-warning" type="submit" value="Add New Enrollment" style=" width:180px"/></a>
-</p><br/>
-	
+
+	<h2>Manage Enrollment</h2>
+	<br />
+
+	<p align="left">
+		<a href="${pageContext.request.contextPath}/admin/enrollment/add.html"><input
+			class="btn btn-warning" type="submit" value="Add New Enrollment"
+			style="width: 180px" /></a>
+	</p>
+
+	<!-- Message display -->
+	<c:if test="${not empty message}">
+		<div class="alert alert-warning" style="width: 100%;">${message}</div>
+	</c:if>
+	<br />
+
 	<form:form>
 		<c:if test="${fn:length(enrollmentList) gt 0}">
-			<table align="center" class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
-			<thead>
-				<tr>
-					<th><spring:message code="Enrollment Id" /></th>
-					<th><spring:message code="Course Id" /></th>
-					<th><spring:message code="Student Id" /></th>
-					<th><spring:message code="Score" /></th>
-					<th><spring:message code="Edit" /></th>
-					<th><spring:message code="Delete" /></th>
-				</tr>
+			<table align="center" class="table table-hover"
+				style="cellspacing: 2; cellpadding: 2; border: 1;">
+				<thead>
+					<tr>
+						<th><spring:message code="Enrollment Id" /></th>
+						<th><spring:message code="Course Id" /></th>
+						<th><spring:message code="Student Id" /></th>
+						<th><spring:message code="Score" /></th>
+						<th><spring:message code="Edit" /></th>
+						<th><spring:message code="Delete" /></th>
+					</tr>
 				</thead>
 
 				<c:forEach var="enrollment" items="${enrollmentList}">
@@ -38,7 +49,7 @@
 						<td>${enrollment.courseId}</td>
 						<td>${enrollment.studentId}</td>
 						<td>${enrollment.score}</td>
-						<td align="center"><a
+						<td><a
 							href="${pageContext.request.contextPath}/admin/enrollment/edit/${enrollment.enrollmentId}.html"><spring:message
 									code="Edit" /></a></td>
 						<td><a

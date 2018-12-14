@@ -19,11 +19,14 @@
 	<br />
 
 	<c:if test="${not empty message}">
-		<div class="alert alert-warning" style="width: 100%;">
-			<p>${message}</p>
+		<div class="alert alert-warning" style="width: 100%;">${message}
 		</div>
 	</c:if>
-	<br />
+	
+	<div align="left">
+		<input type="reset" value="Back" onclick="history.go(-1)"
+			class="btn btn-danger" style="align: left" />
+	</div>
 
 	<h3>Course: ${course.courseName}</h3>
 	<br />

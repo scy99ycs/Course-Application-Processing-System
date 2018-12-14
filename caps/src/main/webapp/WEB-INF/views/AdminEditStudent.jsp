@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<h2>Edit Student Page</h2>
+<h2>Edit Student Details</h2>
 <form:form method="POST" modelAttribute="student"
 	action="${pageContext.request.contextPath}/admin/student/edit/${student.studentId}.html">
 	<p class ="errormessage">${message}</p>
@@ -32,8 +32,9 @@
 				<td><form:input path="enrollmentDate" type="date" format="yyyy-MM-dd"/></td>
 			</tr><tr><td> &nbsp; </td></tr>
 			<tr>
-				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input class="btn btn-warning" type="submit" value="Update" style="height:30px; width:70px"/></td>
-				</tr>
+				<td></td>
+				<td><input class="btn btn-warning" type="submit" value="Update" style="float:right"/></td>
+			</tr>
 		</tbody>
 	</table>
 </form:form>

@@ -13,14 +13,17 @@
 <body>
 	<h2>Student Performance</h2>
 	<br />
-
+	<div align="left">
+		<input type="reset" value="Back" onclick="history.go(-1)"
+			class="btn btn-danger" style="align: left" />
+	</div>
 	<h3>Student Details</h3>
 	<table class="table table-hover">
 		<thead>
-		<tr>
-			<td>First Name</td>
-			<td>${student.firstMidName}</td>
-		</tr>
+			<tr>
+				<td>First Name</td>
+				<td>${student.firstMidName}</td>
+			</tr>
 		</thead>
 		<tr>
 			<td>Last Name</td>
@@ -52,14 +55,14 @@
 	<h3>Courses Attending</h3>
 	<table class="table table-hover">
 		<thead>
-		<tr>
-			<th>#</th>
-			<th>Course ID</th>
-			<th>Course Name</th>
-			<th>Credits</th>
-			<th>Score</th>
-			<th>Grade</th>
-		</tr>
+			<tr>
+				<th>#</th>
+				<th>Course ID</th>
+				<th>Course Name</th>
+				<th>Credits</th>
+				<th>Score</th>
+				<th>Grade</th>
+			</tr>
 		</thead>
 
 		<c:forEach items="${performanceList}" var="performance"

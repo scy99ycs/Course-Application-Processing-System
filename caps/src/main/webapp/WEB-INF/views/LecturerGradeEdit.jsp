@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Grade A student</title>
+<title>Grade A Student</title>
 </head>
 <body>
 
@@ -70,7 +70,7 @@
 				<td><form:hidden readonly="true" path="studentId" /></td>
 			</tr>
 		</table>
-		<input type="reset" value="< Back" class="btn btn-danger" onclick="history.go(-1)"/>
+		<input type="reset" value="Back" class="btn btn-danger" onclick="history.go(-1)"/>
 		<input type="submit" value="Submit" class="btn btn-warning"/>
 		<input type="reset" value="Clear" class="btn btn-warning"/>
 	</form:form>
