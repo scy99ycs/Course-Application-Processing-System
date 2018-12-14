@@ -114,7 +114,7 @@ public class LecturerController {
 
 		String message;
 
-		if (result.hasErrors())
+		if (result.hasErrors() || enrollment.getScore() == null)
 			message = "Oops! Unsuccessful grade update...Try again?";
 		else {
 			if (enrollment.getScore() > 100 || enrollment.getScore() < 0)
