@@ -143,7 +143,7 @@ public class LecturerController {
 
 		Float totalScore = (float) 0;
 		int totalWeight = 0;
-		Float GPA = null;
+		String GPA = null;
 
 		for (Enrollment current : performanceList) {
 
@@ -160,7 +160,7 @@ public class LecturerController {
 
 		// Calculate GPA
 		if (totalScore != 0)
-			GPA = CapsLogic.calculateGPA(totalScore / totalWeight);
+			GPA = String.format("%.2f", CapsLogic.calculateGPA(totalScore / totalWeight));
 
 		ModelAndView mav = new ModelAndView("LecturerStudentPerformance");
 		mav.addObject("student", student);

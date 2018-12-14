@@ -14,13 +14,19 @@
 <body>
 
 	<h2>Edit Grades</h2>
+	<br/>
+	
 	<!-- Course details -->
 	<h3>Course</h3>
+	<br/>
+	
 	<table class="table table-hover">
+		<thead>
 		<tr>
 			<td>Course Name</td>
 			<td>${course.courseName}</td>
 		</tr>
+		</thead>
 		<tr>
 			<td>Course ID</td>
 			<td>${course.courseId}</td>
@@ -30,24 +36,31 @@
 			<td>${course.credit} credits</td>
 		</tr>
 	</table>
+	<br/>
 
 
 	<!-- Student details -->
 	<h3>Student</h3>
+	<br/>
 	<form:form action="${pageContext.request.contextPath}/lecturer/grade"
 		method="POST" modelAttribute="enrollment">
 		<table class="table table-hover">
+			<thead>
 			<tr>
 				<td>First and Middle name</td>
 				<td>${student.firstMidName}</td>
+				<td></td><td></td><td></td>
 			</tr>
+			</thead>
 			<tr>
 				<td>Last name</td>
 				<td>${student.lastName}</td>
+				<td></td><td></td><td></td>
 			</tr>
 			<tr>
 				<td>Student ID</td>
 				<td>${student.studentId}</td>
+				<td></td><td></td><td></td>
 			</tr>
 			<tr>
 				<td>Score</td>
@@ -57,6 +70,7 @@
 				<td><form:hidden readonly="true" path="studentId" /></td>
 			</tr>
 		</table>
+		<input type="reset" value="< Back" class="btn btn-danger" onclick="history.go(-1)"/>
 		<input type="submit" value="Submit" class="btn btn-warning"/>
 		<input type="reset" value="Clear" class="btn btn-warning"/>
 	</form:form>

@@ -16,10 +16,12 @@
 
 	<h3>Student Details</h3>
 	<table class="table table-hover">
+		<thead>
 		<tr>
 			<td>First Name</td>
 			<td>${student.firstMidName}</td>
 		</tr>
+		</thead>
 		<tr>
 			<td>Last Name</td>
 			<td>${student.lastName}</td>
@@ -49,6 +51,7 @@
 
 	<h3>Courses Attending</h3>
 	<table class="table table-hover">
+		<thead>
 		<tr>
 			<th>#</th>
 			<th>Course ID</th>
@@ -57,6 +60,7 @@
 			<th>Score</th>
 			<th>Grade</th>
 		</tr>
+		</thead>
 
 		<c:forEach items="${performanceList}" var="performance"
 			varStatus="index">
