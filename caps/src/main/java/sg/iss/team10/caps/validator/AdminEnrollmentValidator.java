@@ -22,7 +22,6 @@ public class AdminEnrollmentValidator implements Validator
 		Enrollment enrollment= (Enrollment) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "courseId", "error.courseId", "Valid Course Id is required.");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "studentId", "error.studentId", "Valid Student Id is required.");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "score", "error.score", "Valid score is required.");				
 	}
 	
 

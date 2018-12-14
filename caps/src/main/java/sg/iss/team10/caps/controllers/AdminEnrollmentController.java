@@ -70,12 +70,12 @@ public class AdminEnrollmentController {
 			}
 			else {
 				message = "Please enter Valid Data .";
-				return new ModelAndView("AdminEditEnrollment", "message", message);
+				return new ModelAndView("AdminAddEnrollment", "message", message);
 			}
 		}
 		else {
 			message = "Please enter Valid Data .";
-			return new ModelAndView("AdminEditEnrollment", "message", message);
+			return new ModelAndView("AdminAddEnrollment", "message", message);
 		}
 	}
 	
