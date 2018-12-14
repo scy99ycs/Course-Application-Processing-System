@@ -33,6 +33,13 @@
 	crossorigin="anonymous">
 <link rel="STYLESHEET" type="text/css" href="/css/style.css" />
 <style>
+thead {
+    background-color: black;
+    opacity: 0.5;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
 .caps{
     font-family: fontawesome;
     text-decoration: none;
@@ -49,6 +56,7 @@
   overflow: hidden;
 
   padding: 0px 10px;
+
 }
 html {
 	font-family: 'average', serif;
@@ -165,7 +173,7 @@ h1 {
 <body translate="no">
 
 	<header>
-	<br />
+	
 		<%@ include file="Header.jsp" %>
 		
 	</header>
@@ -175,7 +183,8 @@ h1 {
 
 	<div class="hero">
 		<center style="	margin: 55px">
-		
+		<h2></h2>
+		<br>	
 			<dec:body />
 			
 		</center>
