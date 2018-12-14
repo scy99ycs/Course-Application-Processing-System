@@ -22,14 +22,14 @@
 	<c:remove var = "errormessage" scope = "session"/>
 	
 <form:form action="${pageContext.request.contextPath}/student/search" method="post">
-    <input name="Name" type="text"/>
-    <input class="btn btn-warning" placeholder="Input Course Name" type="submit" value="Search">
+    <input name="Name" placeholder="Input Course Name" type="text"/>
+    <input class="btn btn-warning" type="submit" value="Search">
 </form:form>
 
 <c:if test="${fn:length(courseList) gt 0}">
 
 <table class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
-
+<thead>
 <tr class="listHeading">
 		<th><spring:message code="CourseId" /></th>
 		<th><spring:message code="CourseName" /></th>
@@ -40,7 +40,7 @@
 		<th><spring:message code="StaffID" /></th>
 		<th><spring:message code="View" /></th>	
 	</tr>
-
+</thead>
 	<c:forEach var= "course" items="${courseList}">
 	
 		<tr class="ListRecord">

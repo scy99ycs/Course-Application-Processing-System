@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav class="navbar navbar-expand-md  fixed-top bg-dark"
-	style="background-color: #383838">
+	style="background-color: #383838;box-shadow: 0px 1px 10px #000;">
 	<div class="header" style="width: 1500px">
 		<div class="row">
 			<div style="float: left; margin-left: 70px">
@@ -40,7 +40,7 @@
 		<a href="#"><i class="fa fa-bars"></i></a>
 	</div>
 	<div role='navigation' id="mainnav" style="margin-top: 400px">
-		<ul style="width: 300px">
+		<ul>
 
 			<%@include file="Menu.jsp"%>
 			<!-- 			<li><a href="#?">About Us</a></li> -->

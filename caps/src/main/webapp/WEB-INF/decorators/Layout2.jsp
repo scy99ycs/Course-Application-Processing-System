@@ -33,6 +33,10 @@
 	crossorigin="anonymous">
 <link rel="STYLESHEET" type="text/css" href="/css/style.css" />
 <style>
+h2{
+	font-size: 40px;
+	font-weight: bolder;
+}
 thead {
     background-color: black;
     opacity: 0.5;
@@ -106,7 +110,7 @@ html, body, .hero {
 
 .hero {
 	width: 100%;
-	min-height: 2000px;
+	min-height: 1900px;
 	background-image: linear-gradient(to bottom, #d59254, #cf7693);
 	margin-top: 55px;
 }
@@ -128,11 +132,11 @@ h1 {
 #bubble {
 	width: 100%;
 	height: 100%;
-	opacity: 0.999;
+	opacity: 0.999 0.9;
 	position: fixed;
 	display: none;
 	z-index: 1;
-	background: rgba(0, 0, 0, 0.5);
+	background: linear-gradient(to left, rgba(0,0,0,0.39), rgba(0,0,0,0.75));
 }
 
 /* Page content */

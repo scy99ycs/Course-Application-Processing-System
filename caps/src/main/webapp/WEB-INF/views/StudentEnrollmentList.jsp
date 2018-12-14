@@ -20,26 +20,15 @@
 <table class = "table table-hover" style="cellspacing: 2; cellpadding: 2; border: 1;">
 
 
-<tr>
-			<td>GPA (0 to 4)</td>
-			<c:choose>
-				<c:when test="${empty GPA}">
-					<td>To be graded</td>
-				</c:when>
-				<c:otherwise>
-					<td>${GPA}</td>
-				</c:otherwise>
-			</c:choose>
-		</tr>
 
-
+<thead>
 <tr class="listHeading">
 		<th><spring:message code="CourseId" /></th>
 		<th><spring:message code="CourseName"/></th>
 		<th><spring:message code="Score" /></th>
 		<th><spring:message code="Grade" /></th>		
 	</tr>
-	
+	</thead>
 	<c:forEach var= "enrollment" items="${GradeList}" varStatus="index">
 		<tr class="ListRecord">
 			<td align="left">${enrollment.courseId}</td>
@@ -52,6 +41,19 @@
 			<td align ="left">${grades.get(index.index)}</td>			
 		</tr>
 	</c:forEach>
+<tr style= "font-weight: bold;">
+			<td>GPA (0 to 4)</td>
+			<td></td>
+			<c:choose>
+				<c:when test="${empty GPA}">
+					<td>To be graded</td>
+				</c:when>
+				<c:otherwise>
+					<td>${GPA}</td>
+				</c:otherwise>
+			</c:choose>
+			<td></td>
+		</tr>
 
 </table>
 
