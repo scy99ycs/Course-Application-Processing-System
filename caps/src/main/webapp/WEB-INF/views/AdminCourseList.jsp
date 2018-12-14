@@ -34,7 +34,8 @@
 		<th><spring:message code="Staff Id"/></th>
 		<th><spring:message code="Edit"/></th>
 		<th><spring:message code="Delete"/></th>
-	</tr>
+	</tr>		
+	</thead>
 	
 	<c:forEach var="course" items="${courseList}">
 	<tr>
@@ -50,8 +51,7 @@
 				href="${pageContext.request.contextPath}/admin/course/delete/${course.courseId}.html"><spring:message
 						code="Delete" /></a></td>
 	</tr>
-	</c:forEach>	
-	</thead>
+	</c:forEach>
 </table>
 </c:if>	
 </form:form>

@@ -30,6 +30,7 @@
 					<th><spring:message code="Edit" /></th>
 					<th><spring:message code="Delete" /></th>
 				</tr>
+				</thead>
 
 				<c:forEach var="enrollment" items="${enrollmentList}">
 					<tr>
@@ -45,7 +46,6 @@
 									code="Delete" /></a></td>
 					</tr>
 				</c:forEach>
-				</thead>
 			</table>
 		</c:if>
 	</form:form>
