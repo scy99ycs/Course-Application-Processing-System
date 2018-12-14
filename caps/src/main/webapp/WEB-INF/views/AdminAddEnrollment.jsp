@@ -19,16 +19,14 @@
 					  <form:options items="${sidList}" />	
 					  </form:select></td>
 			</tr>
-			<tr><td> &nbsp; <td></tr>
 			<tr>
 				<td>Course Id &nbsp;  </td>
 				<td><form:select path="courseId" style="width: 100px;">
 					  <form:options items="${cidList}" />	
 					  </form:select></td>
 			</tr>
-			<tr><td> &nbsp; <td></tr>	
 			<tr>
-				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input class="table table-hover" type="submit" value="Add" style="height:30px; width:70px"/></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input class="btn btn-warning" type="submit" value="Add" style="height:30px; width:70px"/></td>
 			</tr>
 		</tbody>
 	</table>

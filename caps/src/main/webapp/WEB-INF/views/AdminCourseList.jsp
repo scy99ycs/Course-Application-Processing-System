@@ -15,7 +15,7 @@
 <p class ="errormessage">${message}</p>
 <br/>
 <p align="left">
-<a href="${pageContext.request.contextPath}/admin/course/add.html"><input class="table table-hover" type="submit" value="Add New Course" style="height:30px; width:150px"/></a>
+<a href="${pageContext.request.contextPath}/admin/course/add.html"><input class="btn btn-warning" type="submit" value="Add New Course" style="height:30px; width:150px"/></a>
 </p><br/>
 
 <form:form method="POST" modelAttribute="enrollment"
@@ -47,9 +47,7 @@
 				href="${pageContext.request.contextPath}/admin/course/delete/${course.courseId}.html"><spring:message
 						code="Delete" /></a></td>
 	</tr>
-	</c:forEach>
-	<tr><td> &nbsp; <td></tr>
-	
+	</c:forEach>	
 </table>
 </c:if>	
 </form:form>
