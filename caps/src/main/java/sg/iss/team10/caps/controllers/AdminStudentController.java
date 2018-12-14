@@ -2,9 +2,11 @@ package sg.iss.team10.caps.controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -99,8 +101,21 @@ public class AdminStudentController {
 		List<Student> studentList = sService.findAllStudents();
 		mav.addObject("studentList", studentList);
 		return mav;
+		
 	}
-
+	@RequestMapping(value = "/student/list", method = RequestMethod.POST)
+	public ModelAndView studentListPage(HttpServletRequest request) 
+	{
+		
+		String searchDetail = request.getParameter("sname");
+		ArrayList<Student> StudentList = sService.findStudentByFullName(searchDetail);
+		String message = StudentList.size() + " search result(s) for \""+ searchDetail + "\"";
+		
+		ModelAndView mav = new ModelAndView("AdminStudentList");
+		mav.addObject("StudentList", StudentList);
+		mav.addObject("message", message);
+		return mav;
+	}
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editStudentPage(@PathVariable int id, HttpSession session) {
 		if (((UserSession) session.getAttribute("USERSESSION")) == null
