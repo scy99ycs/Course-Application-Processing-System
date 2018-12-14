@@ -31,7 +31,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-<link rel="STYLESHEET" type="text/css" href="/css/style.css" />
+<!-- <link rel="STYLESHEET" type="text/css" href="/css/style.css" /> -->
 <style>
 h2{
 	font-size: 40px;
@@ -110,9 +110,10 @@ html, body, .hero {
 
 .hero {
 	width: 100%;
-	min-height: 1900px;
+	min-height: 550px;
 	background-image: linear-gradient(to bottom, #d59254, #cf7693);
-	margin-top: 55px;
+ 	margin-top: 55px;
+	height: auto;
 }
 
 h1 {
@@ -190,13 +191,14 @@ h1 {
 		<h2></h2>
 		<br>	
 			<dec:body />
-			
+				
 		</center>
+			
 	</div>
-
+<%@ include file="Footer.jsp" %>
 	<canvas id="bubble"></canvas>
 	
-		<%@ include file="Footer.jsp" %>
+
 	
 	<script
 		src="//static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>

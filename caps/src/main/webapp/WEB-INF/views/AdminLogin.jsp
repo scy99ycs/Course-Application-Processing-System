@@ -13,12 +13,13 @@
 		action="${pageContext.request.contextPath}/adminlogin">
 		<table class="table table-borderless" style="width: 250px">
 			<tr>
-				<td><s:message code="Username" /></td>
-				<td colspan="3"><form:input path="username" size="40" /></td>
+				<td colspan="3"><form:input path="username" size="40" class="form-control" placeholder="Input Username"
+					style="width: 534px" /></td>
 			</tr>
 			<tr>
-				<td><s:message code="Password" /></td>
-				<td colspan="3"><form:password path="password" size="40" /></td>
+				
+				<td colspan="3"><form:password path="password" size="40" class="form-control" placeholder="Input Password"
+					style="width: 534px" /></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -31,9 +32,8 @@
 			<tr>
 				<td></td>
 				<td align="right"><input type="submit" value="Submit"
-					class="btn btn-warning" style="width: 75px" /></td>
-				<td align="right"><input type="reset" value="Clear"
-					class="btn btn-warning" style="width: 75px" /></td>
+					class="btn btn-warning" style="width: 75px" /><input type="reset" value="Clear"
+					class="btn btn-warning" style=" width: 75px; margin-left: 10px;" /></td>
 			</tr>
 		</table>
 	</form:form>

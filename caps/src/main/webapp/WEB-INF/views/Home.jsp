@@ -16,6 +16,7 @@
 		<img src="${pageContext.request.contextPath}/image/welcomebanner.jpg"
 			alt="" align="middle">
 	</div>
+	<br>
 	<div style="width: 1000px" align="justify">
 		<h2>Welcome to Bond University</h2>
 		<p>Bond University, an institution increasingly recognized as one
@@ -42,18 +43,20 @@
 			and work-integrated learning opportunities, making it among the best
 			in the world.</p>
 	</div>
-	<div>
+	<div><br><hr>
 		<h2>Courses offered by University</h2>
-
+<br>
 		<form:form action="${pageContext.request.contextPath}/home"
 			method="POST" modelAttribute="course">
-			<input type="text" name="cName" placeholder="type course name" />
-			<input type="submit" name="search" value="Search"
-				class="btn btn-warning" />
-			<input type="submit" name="clear" value="Clear"
-				class="btn btn-warning" />
+			<div class="row col-md-5 col-centered">
+				<div><input type="text" name="cName"
+					placeholder="type course name" class="form-control"
+					style="width: 400px" /></div> <div><input type="submit"
+					name="search" value="Search" class="btn btn-warning " /></div> <div><input
+					type="submit" name="clear" value="Clear" class="btn btn-warning" /></div>
+			</div>
 			<p>${message}</p>
-		</form:form>
+		</form:form><br>
 		<table class="table table-hover" style="width: 1000px">
 			<thead>
 				<tr>
